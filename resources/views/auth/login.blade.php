@@ -1,69 +1,84 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
+    @component('components.head')
+    @endcomponent
+    <body id="login">
+        
+        <div class="uk-container-expand uk-height-1-1">
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+            <div class="uk-height-1-1" uk-grid>
 
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
+                <!-- Start Login Form -->
+                <div class="uk-width-1-2@m uk-height-1-1">
+                    <div class="uk-flex uk-flex-center uk-flex-middle uk-height-1-1">
+                        <div class="uk-width-2-3@m" uk-scrollspy="cls: uk-animation-slide-left;">
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                            <h1>Staff Login</h1>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                            <form class="" method="POST" action="{{ route('login') }}">
+                                {{ csrf_field() }}
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} uk-margin">
+                                    <label for="email" class="uk-form-label">Email</label>
+                                    <input id="email" type="email" class="uk-input" name="email" value="{{ old('email') }}" required autofocus>
+                                    
+                                    @if ($errors->has('email'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
+                                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }} uk-margin">
+                                    <label for="password" class="uk-form-label">Password</label>
+                                    <input id="password" type="password" class="uk-input" name="password" required>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
-                            </div>
+                                    @if ($errors->has('password'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
+
+                                </div>
+
+
+                                <div class="uk-margin" uk-grid>
+                                    <div class="uk-width-expand">
+                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                                    </div>
+                                    <div class="uk-width-auto">
+                                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                                            Forgot Your Password?
+                                        </a>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <div class="col-md-8 col-md-offset-4">
+                                        <button type="submit" class="uk-button uk-button-primary">
+                                            Login
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
+                <!-- End Login Form -->
+
+                <!-- Start Image -->
+                <div class="uk-width-1-2@m uk-padding-remove login-image">
+                    <div class="color-overlay"></div>
+                </div>
+                <!-- End Image -->
+
             </div>
         </div>
-    </div>
-</div>
-@endsection
+
+        @component('components.scripts')
+        @endcomponent
+    </body>
+</html>

@@ -2,8 +2,12 @@
 // Imports
 // 
 //------------------------------------------------------------------------------
+// Custom Variables
+@import "variables.sass"
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600")
+
+
 
 
 
@@ -15,6 +19,8 @@
 //------------------------------------------------------------------------------
 // 1. UIKit variable overwrites
 $global-link-color: #DA7D02
+$global-primary-background: $primary-color
+$global-link-color: $primary-color
 
 // 2. Import default variables and mixins
 @import "../../../node_modules/uikit/src/scss/variables-theme.scss"
@@ -31,24 +37,24 @@ $global-link-color: #DA7D02
 
 
 
-//------------------------------------------------------------------------------
-// Custom Variables
-// 
-//------------------------------------------------------------------------------
-$primary-color: #E85353
-$font-color: #969696
-
-
-
-
-
-
-
 
 
 //------------------------------------------------------------------------------
 // Dashboard Styles
 // 
 //------------------------------------------------------------------------------
+// Setup and Defaults
+html,
+body
+	height: 100%
 
 
+// Login Form
+#login .login-image
+	background-image: url("../../../public/storage/login-image.jpg")
+	background-position: center center
+
+#login .login-image .color-overlay
+	background: rgba(232, 83, 83, 0.85)
+	min-height: 100%
+	min-width: 100%

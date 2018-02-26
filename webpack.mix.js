@@ -11,5 +11,9 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.sass', 'public/css');
+mix.sass('resources/assets/sass/app.sass', 'public/css')
+   .scripts([
+   		'node_modules/uikit/dist/js/uikit.min.js',
+   		'node_modules/uikit/dist/js/uikit-icons.min.js',
+   		'resources/assets/js/app.js'
+   	], 'public/js/app.js');
