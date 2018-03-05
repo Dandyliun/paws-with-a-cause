@@ -11,10 +11,13 @@ class CreateDogHealthsTable extends Migration
      *
      * @return void
      */
+    protected $table = 'dog_health';
+
     public function up()
     {
         Schema::create('dog_healths', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('attribute_name',25);
             $table->timestamps();
         });
     }

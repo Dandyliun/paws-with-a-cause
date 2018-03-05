@@ -15,6 +15,7 @@ class CreateDogExercisesTable extends Migration
     {
         Schema::create('dog_exercises', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('exercise_name',30);
             $table->timestamps();
         });
     }

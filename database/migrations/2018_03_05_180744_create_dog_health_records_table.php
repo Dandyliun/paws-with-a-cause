@@ -15,6 +15,12 @@ class CreateDogHealthRecordsTable extends Migration
     {
         Schema::create('dog_health_records', function (Blueprint $table) {
             $table->increments('id');
+            $table->foreign('dog_id')->references('id')->on('dogs');
+            $table->foreign('attribute_id')->references('id')->on('dog_health');
+            $table->foreign('performed_by')->references('id')->on('users');
+            $table->boolean('normality');
+            $table->string('value');
+            $table->mediumText('comments');
             $table->timestamps();
         });
     }

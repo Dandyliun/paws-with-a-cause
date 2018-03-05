@@ -15,6 +15,8 @@ class CreateEmailLogsTable extends Migration
     {
         Schema::create('email_logs', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('to_address');
+            $table->mediumText('message_content');
             $table->timestamps();
         });
     }

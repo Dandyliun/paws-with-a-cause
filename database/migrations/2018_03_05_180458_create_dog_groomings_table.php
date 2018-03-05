@@ -11,10 +11,13 @@ class CreateDogGroomingsTable extends Migration
      *
      * @return void
      */
+    protected $table = 'dog_grooming';
+    
     public function up()
     {
         Schema::create('dog_groomings', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('grooming_service');
             $table->timestamps();
         });
     }
