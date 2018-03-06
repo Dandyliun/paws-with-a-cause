@@ -15,7 +15,9 @@ class CreateDogExerciseRecordsTable extends Migration
     {
         Schema::create('dog_exercise_records', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('dog_id')->unsigned();
             $table->foreign('dog_id')->references('id')->on('dogs');
+            $table->integer('exercise_id')->unsigned();
             $table->foreign('exercise_id')->references('id')->on('dog_exercises');
             $table->mediumText('comments');
             $table->boolean('normality');

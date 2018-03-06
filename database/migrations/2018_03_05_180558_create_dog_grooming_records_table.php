@@ -15,8 +15,10 @@ class CreateDogGroomingRecordsTable extends Migration
     {
         Schema::create('dog_grooming_records', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('dog_id')->unsigned();
             $table->foreign('dog_id')->references('id')->on('dogs');
-            $table->forgeign('grooming_service_id')->references('id')->on('dog_grooming');
+            $table->integer('grooming_service_id')->unsigned();
+            $table->foreign('grooming_service_id')->references('id')->on('dog_groomings');
             $table->boolean('normality');
             $table->string('value');
             $table->mediumText('comments');

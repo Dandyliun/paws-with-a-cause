@@ -11,7 +11,6 @@ class CreateDogGroomingsTable extends Migration
      *
      * @return void
      */
-    protected $table = 'dog_grooming';
     
     public function up()
     {

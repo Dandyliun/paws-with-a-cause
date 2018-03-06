@@ -11,11 +11,11 @@ class CreateDogHealthsTable extends Migration
      *
      * @return void
      */
-    protected $table = 'dog_health';
+    
 
     public function up()
     {
-        Schema::create('dog_healths', function (Blueprint $table) {
+        Schema::create('dog_health', function (Blueprint $table) {
             $table->increments('id');
             $table->string('attribute_name',25);
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreateDogHealthsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dog_healths');
+        Schema::dropIfExists('dog_health');
     }
 }
