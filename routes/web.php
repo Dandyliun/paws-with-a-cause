@@ -11,10 +11,49 @@
 |
 */
 
+
+/*
+|--------------------------------------------------------------------------
+| Authentication Routing
+|--------------------------------------------------------------------------
+*/
+Auth::routes();
 Route::get('/', function () {
     return view('auth.login');
 });
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Dashboard – Home
+|--------------------------------------------------------------------------
+*/
+Route::get('/home', function () {
+    return view('home');
+});
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Dashboard – Dogs
+|--------------------------------------------------------------------------
+*/
+// Get All Dogs
+Route::get('/dogs', 'DogsController@getAllDogs');
+
+// Edit Dog
+Route::get('/dogs/edit/{id}', [
+    'as' => 'dogs.edit', 
+    'uses' => 'DogsController@editDog'
+]);
+
+// New Dog
+Route::get('/dogs/new', 'DogsController@getNewDog');
+Route::post('/post-new-dog', 'DogsController@postNewDog');
