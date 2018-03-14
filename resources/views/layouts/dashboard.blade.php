@@ -18,7 +18,7 @@
                     </form>
                 </div>
                 <div class="uk-width-auto">
-                    <p>Welcome, Name</p>
+                    <p>Welcome, {{auth()->user()->name}}</p>
                 </div>
             </div>
         </div>
