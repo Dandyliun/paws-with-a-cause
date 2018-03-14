@@ -21,7 +21,7 @@
 					<td>{{ $dog->name }}</td>
 					<td>{{ $dog->dob }}</td>
 					<td>breed here...</td>
-					<td><a href="{{route('dogs.edit', ['id' => $dog->id])}}">Edit</a></td>
+					<td><a href="{{route('dogs.edit', ['id' => $dog->id])}}">Change</a></td>
 				</tr>
 			@endforeach
 		</tbody>
