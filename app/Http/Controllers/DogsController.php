@@ -55,8 +55,9 @@ class DogsController extends Controller
      | Edit Dogs
      |
      |------------------------------------------------------------------------*/
-    public function editDog() {
-        return view('dogs.edit');
+    public function dogOverview($id) {
+        $dog = Dog::find($id);
+        return view('dogs.overview', compact('dog'));
     }
 
 

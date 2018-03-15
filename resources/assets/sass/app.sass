@@ -48,6 +48,10 @@ $width-medium-width: 350px !default
 html,
 body
 	height: 100%
+	font-family: 'Lato', sans-serif
+
+h1, h2, h3, h4, h5, h6, p, a
+	font-family: 'Lato', sans-serif
 
 
 // Login Form
@@ -83,8 +87,6 @@ body
 	border-radius: 100px
 	max-width: 350px
 	padding: 0 20px
-
-
 
 
 
@@ -127,8 +129,6 @@ body
 
 
 
-
-
 // Forms
 form .uk-input
 	border: none
@@ -146,24 +146,15 @@ form .uk-select
 
 
 
-
-
 // Buttons
 .uk-button
 	border-radius: 100px
 
 
 
-
-
-
-
 // Modals
 .uk-modal .uk-modal-dialog
 	border-radius: 3px
-
-
-
 
 
 
@@ -177,8 +168,6 @@ form .uk-select
 
 #success-modal .modal-content
 	margin-bottom: 30px
-
-
 
 
 
@@ -226,6 +215,51 @@ form .uk-select
 @keyframes fill
   	100% 
     	box-shadow: inset 0px 0px 0px 80px $primary-color 
+
+
+
+
+
+
+
+//------------------------------------------------------------------------------
+// Edit Dog Styles
+// 
+//------------------------------------------------------------------------------
+// Header
+.individual-dog header
+	margin-top: -40px
+	margin-right: -40px
+
+.individual-dog header .color-section
+	background: $primary-color
+	padding: 40px
+	color: #ffffff
+
+.individual-dog header .color-section h1,
+.individual-dog header .color-section h2,
+.individual-dog header .color-section p,
+.individual-dog header .color-section a
+	color: #ffffff
+
+.individual-dog header img.profile-image
+	max-width: 250px
+	border-radius: 50%
+	border: 12px solid rgba(255, 255, 255, .5)
+
+.individual-dog header .uk-tab > * > a
+	padding: 16px 30px 12px
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -49,9 +49,9 @@ Route::get('/home', function () {
 Route::get('/dogs', 'DogsController@getAllDogs');
 
 // Edit Dog
-Route::get('/dogs/edit/{id}', [
-    'as' => 'dogs.edit', 
-    'uses' => 'DogsController@editDog'
+Route::get('/dogs/overview/{id}', [
+    'as' => 'dogs.overview', 
+    'uses' => 'DogsController@dogOverview'
 ]);
 
 // New Dog

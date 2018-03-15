@@ -15130,6 +15130,18 @@ iframe.uk-cover {
 html,
 body {
   height: 100%;
+  font-family: 'Lato', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a {
+  font-family: 'Lato', sans-serif;
 }
 
 #login .login-image {
@@ -15326,5 +15338,33 @@ form .uk-select {
     -webkit-box-shadow: inset 0px 0px 0px 80px #E85353;
             box-shadow: inset 0px 0px 0px 80px #E85353;
   }
+}
+
+.individual-dog header {
+  margin-top: -40px;
+  margin-right: -40px;
+}
+
+.individual-dog header .color-section {
+  background: #E85353;
+  padding: 40px;
+  color: #ffffff;
+}
+
+.individual-dog header .color-section h1,
+.individual-dog header .color-section h2,
+.individual-dog header .color-section p,
+.individual-dog header .color-section a {
+  color: #ffffff;
+}
+
+.individual-dog header img.profile-image {
+  max-width: 250px;
+  border-radius: 50%;
+  border: 12px solid rgba(255, 255, 255, 0.5);
+}
+
+.individual-dog header .uk-tab > * > a {
+  padding: 16px 30px 12px;
 }
 
