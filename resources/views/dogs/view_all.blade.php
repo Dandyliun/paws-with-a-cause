@@ -7,9 +7,9 @@
 	<table class="uk-table uk-table-divider">
 		<thead>
 	        <tr>
-	            <th>Id</th>
-	            <th>Name</th>
-	            <th>D.O.B.</th>
+	            <th>ID</th>
+	            <th>Dog Name</th>
+	            <th>Date of Birth</th>
 	            <th>Breed</th>
 	            <th></th>
 	        </tr>
@@ -20,8 +20,8 @@
 					<td>{{ $dog->internal_id }}</td>
 					<td>{{ $dog->name }}</td>
 					<td>{{ $dog->dob }}</td>
-					<td>breed here...</td>
-					<td><a href="{{route('dogs.overview', ['id' => $dog->id])}}">Change</a></td>
+					<td>{{ $dog->breed }}</td>
+					<td><a href="{{route('dogs.overview', ['id' => $dog->id])}}">Manage Dog</a></td>
 				</tr>
 			@endforeach
 		</tbody>

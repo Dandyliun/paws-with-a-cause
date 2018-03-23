@@ -19,14 +19,26 @@
 
 	<div class="uk-margin-remove-top" uk-grid>
 		<div class="uk-width-1-1 uk-padding-remove-left">
-			<ul uk-tab>
-			    <li class="uk-active"><a href="#">Overview</a></li>
+			<nav uk-navbar>
+			    <div class="uk-navbar-left">
+			        <ul class="uk-navbar-nav">
+			            <li class="@if(Request::is('dogs/overview/*')) uk-active @endif"><a href="{{ URL::to('/dogs/overview/' . $dog->id) }}">Overview</a></li>
+			            <li class="@if(Request::is('dogs/profile/*')) uk-active @endif"><a href="{{ URL::to('/dogs/profile/' . $dog->id) }}">Profile</a></li>
+			            <li class="@if(Request::is('dogs/health/*')) uk-active @endif"><a href="{{ URL::to('/dogs/health/' . $dog->id) }}">Health</a></li>
+			            <li><a href="#">Grooming</a></li>
+			            <li><a href="#">Exercise</a></li>
+			            <li><a href="#">Abnormalities</a></li>
+			        </ul>
+			    </div>
+			</nav>
+			<!-- <ul uk-tab>
+			    <li><a href="{{ URL::to('/dogs/overview/' . $dog->id) }}">Overview</a></li>
 			    <li><a href="#">Profile</a></li>
 			    <li><a href="#">Health</a></li>
 			    <li><a href="#">Grooming</a></li>
 			    <li><a href="#">Exercise</a></li>
 			    <li><a href="#">Abnormalities</a></li>
-			</ul>
+			</ul> -->
 		</div>
 	</div>
 

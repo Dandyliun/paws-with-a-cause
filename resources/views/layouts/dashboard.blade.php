@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <div id="wrapper" class="uk-margin-remove" uk-grid>
+        <div id="page-wrapper" class="uk-margin-remove" uk-grid>
             <div id="sidebar" class="uk-width-medium">
                 <ul class="uk-nav-default uk-nav-parent-icon" uk-nav>
                     <li class="@if(Request::is('home')) uk-active @endif"><a href="{{ URL::to('/home') }}">Dashboard</a></li>
@@ -32,7 +32,6 @@
                         <ul class="uk-nav-sub">
                             <li><a href="{{ URL::to('/dogs') }}">View All Dogs</a></li>
                             <li><a href="{{ URL::to('/dogs/new') }}">Add New Dog</a></li>
-                            <li><a href="#">Breeds</a></li>
                         </ul>
                     </li>
                     <li><a href="#">Users</a></li>
