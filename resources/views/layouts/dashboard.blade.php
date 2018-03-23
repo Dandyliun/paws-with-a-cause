@@ -32,7 +32,6 @@
                         <ul class="uk-nav-sub">
                             <li><a href="{{ URL::to('/dogs') }}">View All Dogs</a></li>
                             <li><a href="{{ URL::to('/dogs/new') }}">Add New Dog</a></li>
-                            <li><a href="#">Breeds</a></li>
                         </ul>
                     </li>
                     <li><a href="#">Users</a></li>

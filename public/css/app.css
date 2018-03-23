@@ -15261,6 +15261,36 @@ form .textarea-label {
   letter-spacing: 0.5px;
 }
 
+.uk-button.white {
+  color: #E85353;
+  border: 1px solid #e5e5e5;
+}
+
+ul.uk-pagination li {
+  background: #e5e5e5;
+  border-radius: 50%;
+  margin-left: 6px;
+  font-size: 14px;
+}
+
+ul.uk-pagination li a {
+  margin: -1px 11px 5px -8px;
+  padding-top: 4px;
+}
+
+ul.uk-pagination li.previous,
+ul.uk-pagination li.next {
+  background: none;
+}
+
+ul.uk-pagination li.uk-active {
+  background: #E85353;
+}
+
+ul.uk-pagination li.uk-active a {
+  color: #fff;
+}
+
 .uk-modal .uk-modal-dialog {
   border-radius: 3px;
 }

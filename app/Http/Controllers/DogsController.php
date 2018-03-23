@@ -99,7 +99,7 @@ class DogsController extends Controller
     |-------------------------------------------------------------------------*/
     public function dogHealth($id) {
         $dog = Dog::find($id);
-        $healthRecords = HealthRecord::where('dog_id', $id)->get();
+        $healthRecords = HealthRecord::where('dog_id', $id)->paginate(5);
 
         return view('dogs.health_records', compact(['dog', 'healthRecords']));
     }

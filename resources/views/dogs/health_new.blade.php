@@ -13,6 +13,7 @@
 			</div>
 			<div class="uk-width-auto">
 				<a class="uk-button uk-button-primary" onclick="createHealthRecord()">Save</a>
+				<a class="uk-button white" href="../{{ $dog->id }}">View All Health Records</a>
 			</div>
 		</div>
 
@@ -62,6 +63,27 @@
 			</div>
 			
 		</form>
+
+		<a onclick="test()">test</a>
+
+
+		{{-- Start Success Modal --}}
+		<div id="success-modal" uk-modal>
+		    <div class="uk-modal-dialog uk-modal-body uk-text-center">
+		    	<button class="uk-modal-close-default" type="button" uk-close></button>
+		        <h2 class="uk-modal-title">Success!</h2>
+		        @component('components.success_check')
+	   	 		@endcomponent
+	   	 		<div class="modal-content uk-text-bold">
+	   	 			<p>What would you like to do next?</p>
+	   	 		</div>
+		        <p class="uk-text-center">
+		            <a class="uk-button uk-button-default" href="{{ URL::to('/dogs/health/' . $dog->id) }}">Return to All</a>
+		            <a class="uk-button uk-button-primary uk-modal-close">Add Another</a>
+		        </p>
+		    </div>
+		</div>
+		{{-- End Success Modal --}}
 
 
 	</div>
@@ -116,7 +138,7 @@
   	</script>
 
 	<script type="text/javascript">
-		
+
 		function createHealthRecord() {
 
 			var normality = $('select[name="normality"]').val();
@@ -139,10 +161,13 @@
 					'normality'  :  normality,
 				},
 				success:function(data){
-					console.log('success ' + data);
+					console.log('success ');
+					UIkit.modal('#success-modal').show();
+					animateCheckmark();
 				},
 				error:function(data){
 					console.log('error');
+
 				}
 			});
 		}

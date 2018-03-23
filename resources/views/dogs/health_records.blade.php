@@ -50,6 +50,7 @@
 			</table>
 		</div>
 
+		{{ $healthRecords->links() }}
 
 	</div>
 
