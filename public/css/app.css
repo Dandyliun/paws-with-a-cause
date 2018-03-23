@@ -15180,8 +15180,12 @@ a {
   padding: 0 20px;
 }
 
-#wrapper {
+#page-wrapper {
   min-height: 100%;
+}
+
+.content-wrapper {
+  padding: 20px 50px;
 }
 
 #sidebar {
@@ -15215,6 +15219,12 @@ a {
   min-height: 100%;
 }
 
+form .uk-input,
+form .uk-select {
+  font-size: 14px;
+  color: #969696;
+}
+
 form .uk-input {
   border: none;
   border-bottom: 1px solid #e5e5e5;
@@ -15232,12 +15242,67 @@ form .uk-select {
   padding: 0px;
 }
 
+form .uk-form-label {
+  font-size: 15px;
+  color: #4a4949;
+}
+
+form .checkbox-label-right {
+  padding-left: 4px;
+}
+
+form .textarea-label {
+  padding-bottom: 10px;
+}
+
 .uk-button {
   border-radius: 100px;
+  text-transform: none;
+  letter-spacing: 0.5px;
+}
+
+.uk-button.white {
+  color: #E85353;
+  border: 1px solid #e5e5e5;
+}
+
+ul.uk-pagination li {
+  background: #e5e5e5;
+  border-radius: 50%;
+  margin-left: 6px;
+  font-size: 14px;
+}
+
+ul.uk-pagination li a {
+  margin: -1px 11px 5px -8px;
+  padding-top: 4px;
+}
+
+ul.uk-pagination li.previous,
+ul.uk-pagination li.next {
+  background: none;
+}
+
+ul.uk-pagination li.uk-active {
+  background: #E85353;
+}
+
+ul.uk-pagination li.uk-active a {
+  color: #fff;
 }
 
 .uk-modal .uk-modal-dialog {
   border-radius: 3px;
+}
+
+.uk-table th {
+  text-transform: none;
+  color: #E85353;
+  font-size: 16px;
+}
+
+.uk-table td {
+  font-size: 14px;
 }
 
 #success-modal .uk-modal-dialog {
@@ -15364,7 +15429,33 @@ form .uk-select {
   border: 12px solid rgba(255, 255, 255, 0.5);
 }
 
-.individual-dog header .uk-tab > * > a {
-  padding: 16px 30px 12px;
+.individual-dog header nav.uk-navbar {
+  border-bottom: 1px solid #eee;
+}
+
+.individual-dog header nav.uk-navbar ul > li > a {
+  height: auto;
+  padding: 15px 40px;
+  text-transform: none;
+  -webkit-transition: 0.2s ease;
+  transition: 0.2s ease;
+}
+
+.individual-dog header nav.uk-navbar ul > li.uk-active > a,
+.individual-dog header nav.uk-navbar ul > li > a:hover {
+  border-bottom: 2px solid #E85353;
+}
+
+.individual-dog header nav.uk-navbar ul > li.uk-active > a {
+  color: #E85353;
+}
+
+.individual-dog .title {
+  color: #E85353;
+  font-weight: 500;
+}
+
+.individual-dog form.uk-grid {
+  padding: 0px 60px;
 }
 
