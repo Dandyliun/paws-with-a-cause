@@ -122,6 +122,33 @@ class DogsController extends Controller
     }
 
 
+    /*--------------------------------------------------------------------------
+  | Dog Grooming
+  |
+  |-------------------------------------------------------------------------*/
+    public function dogGrooming($id) {
+        $dog = Dog::find($id);
+        $groomingRecords = GroomingRecord::where('dog_id', $id)->paginate(5);
+
+        return view('dogs.grooming', compact(['dog', 'groomingRecords']));
+    }
+
+    public function newDogGrooming($id) {
+        $dog = Dog::find($id);
+        $groomingAttributes = groomingAttributes::all();
+        return view('dogs.grooming_new', compact(['dog', 'groomingAttributes']));
+    }
+
+    public function createGroomingRecord(Request $request) {
+        $groomingRecord = new GroomingRecord;
+        $groomingRecord->dog_id = $request->id;
+        $groomingRecord->attribute = $request->record_type;
+        $groomingRecord->performed_by = "test user";
+        $groomingRecord->normality = $request->normality;
+        $groomingRecord->value = $request->value;
+        $groomingRecord->save();
+
+    }
 
 
 
