@@ -92,8 +92,11 @@ h1, h2, h3, h4, h5, h6, p, a
 
 
 // Content Wrapper
-#wrapper
+#page-wrapper
 	min-height: 100%
+
+.content-wrapper
+	padding: 20px 50px
 
 
 
@@ -130,6 +133,11 @@ h1, h2, h3, h4, h5, h6, p, a
 
 
 // Forms
+form .uk-input,
+form .uk-select
+	font-size: 14px
+	color: $font-color
+
 form .uk-input
 	border: none
 	border-bottom: 1px solid #e5e5e5
@@ -144,17 +152,45 @@ form .uk-select
 	border-bottom: 1px solid #e5e5e5
 	padding: 0px
 
+form .uk-form-label
+	font-size: 15px
+	color: darken($font-color, 30%)
+
+form .checkbox-label-right
+	padding-left: 4px
+
+form .textarea-label
+	padding-bottom: 10px
+
+
+
 
 
 // Buttons
 .uk-button
 	border-radius: 100px
+	text-transform: none
+	letter-spacing: 0.5px
 
 
 
 // Modals
 .uk-modal .uk-modal-dialog
 	border-radius: 3px
+
+
+
+
+// Tables
+.uk-table th
+	text-transform: none
+	color: $primary-color
+	font-size: 16px
+
+.uk-table td
+	font-size: 14px
+
+
 
 
 
@@ -247,11 +283,32 @@ form .uk-select
 	border-radius: 50%
 	border: 12px solid rgba(255, 255, 255, .5)
 
-.individual-dog header .uk-tab > * > a
-	padding: 16px 30px 12px
+.individual-dog header nav.uk-navbar
+	border-bottom: 1px solid #eee
+
+.individual-dog header nav.uk-navbar ul > li > a 
+	height: auto
+	padding: 15px 40px
+	text-transform: none
+	transition: 0.2s ease
+
+.individual-dog header nav.uk-navbar ul > li.uk-active > a,
+.individual-dog header nav.uk-navbar ul > li > a:hover
+	border-bottom: 2px solid $primary-color
+
+.individual-dog header nav.uk-navbar ul > li.uk-active > a
+	color: $primary-color
 
 
+// Title
+.individual-dog .title
+	color: $primary-color
+	font-weight: 500
 
+
+// Form
+.individual-dog form.uk-grid
+	padding: 0px 60px
 
 
 

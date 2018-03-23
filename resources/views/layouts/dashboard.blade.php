@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <div id="wrapper" class="uk-margin-remove" uk-grid>
+        <div id="page-wrapper" class="uk-margin-remove" uk-grid>
             <div id="sidebar" class="uk-width-medium">
                 <ul class="uk-nav-default uk-nav-parent-icon" uk-nav>
                     <li class="@if(Request::is('home')) uk-active @endif"><a href="{{ URL::to('/home') }}">Dashboard</a></li>

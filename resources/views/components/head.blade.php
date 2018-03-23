@@ -9,6 +9,7 @@
     <title>{{ config('app.name', 'Paws with a Cause') }}</title>
 
     <!-- Styles -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     {{ $slot }}
 
