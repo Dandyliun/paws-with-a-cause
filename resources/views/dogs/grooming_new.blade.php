@@ -106,6 +106,7 @@
             }
         });
 
+
         $( "select#record_type" ).change(function() {
             var value = $( "select#record_type option:selected" ).val();
             $( "#value" ).removeAttr("disabled");
@@ -139,7 +140,7 @@
 
     <script type="text/javascript">
 
-        function createHealthRecord() {
+        function createGroomingRecord() {
 
             var normality = $('select[name="normality"]').val();
             if(normality.toLowerCase() == "abnormal") {
@@ -153,7 +154,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type:'POST',
-                url:'/new-health-record',
+                url:'/new-grooming-record',
                 data: {
                     'id'     :  $('input[name="dog_id"]').val(),
                     'record_type'   :  $('select[name="record_type"]').val(),

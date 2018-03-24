@@ -27,30 +27,30 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($healthRecords as $healthRecord)
+                @foreach($groomingRecords as $groomingRecord)
                     <tr>
                         <td>{{ $healthRecord->attribute }}</td>
                         <td>
                             @php
-                                $dt = new DateTime($healthRecord->created_at);
+                                $dt = new DateTime($groomingRecord->created_at);
                                 echo $dt->format('m-d-Y');
                             @endphp
                         </td>
                         <td>
-                            @if($healthRecord->normality == 0)
+                            @if($groomingRecord->normality == 0)
                                 Abnormal
                             @else
                                 Normal
                             @endif
                         </td>
-                        <td>{{ $healthRecord->performed_by }}</td>
+                        <td>{{ $groomingRecord->performed_by }}</td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
 
-        {{ $healthRecords->links() }}
+        {{ $groomingRecords->links() }}
 
     </div>
 
