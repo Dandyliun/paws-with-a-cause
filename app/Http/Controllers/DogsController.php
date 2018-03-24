@@ -144,7 +144,7 @@ class DogsController extends Controller
         $groomingRecord = new GroomingRecord;
         $groomingRecord->dog_id = $request->id;
         $groomingRecord->attribute = $request->record_type;
-        $groomingRecord->performed_by = "test user";
+       // $groomingRecord->performed_by = "test user";
         $groomingRecord->normality = $request->normality;
         $groomingRecord->value = $request->value;
         $groomingRecord->save();
