@@ -23,13 +23,13 @@
                     <th>Record Type</th>
                     <th>Date</th>
                     <th>Normality</th>
-                    <th>Performed By</th>
+
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($groomingRecords as $groomingRecord)
                     <tr>
-                        <td>{{ $healthRecord->attribute }}</td>
+                        <td>{{ $groomingRecord->attribute }}</td>
                         <td>
                             @php
                                 $dt = new DateTime($groomingRecord->created_at);
@@ -43,7 +43,7 @@
                                 Normal
                             @endif
                         </td>
-                        <td>{{ $groomingRecord->performed_by }}</td>
+
                     </tr>
                 @endforeach
                 </tbody>
