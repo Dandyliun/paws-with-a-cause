@@ -88,4 +88,10 @@ Route::get('/dogs/grooming/new/{id}', [
 ]);
 Route::post('/new-grooming-record', 'DogsController@createGroomingRecord');
 
+//Abnormalities
+Route::get('dogs/abnormalities/{id}', [
+    'as' => 'dogs.abnormalities',
+    'uses' => 'DogsController@dogAbnormalities'
+]);
+
 

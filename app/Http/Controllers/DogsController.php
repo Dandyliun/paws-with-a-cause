@@ -150,6 +150,16 @@ class DogsController extends Controller
         $groomingRecord->save();
     }
 
+    /*--------------------------------------------------------------------------
+    | Dog Abnormalities
+    |
+    |-------------------------------------------------------------------------*/
+    public function dogAbnormalities($id) {
+        $dog = Dog::find($id);
+        $breeds = Breed::pluck('breed')->all();
+        $colors = Color::pluck('color')->all();
+        return view('dogs.abnormalities', compact(['dog', 'breeds', 'colors']));
+    }
 
 
 }
