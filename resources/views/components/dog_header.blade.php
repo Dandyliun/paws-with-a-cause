@@ -28,6 +28,7 @@
 			            <li class="@if(Request::is('dogs/grooming/*')) uk-active @endif"><a href="{{ URL::to('/dogs/grooming/' . $dog->id) }}">Grooming</a></li>
 			            <li class="@if(Request::is('dogs/exercise/*')) uk-active @endif"><a href="{{ URL::to('/dogs/exercise/' . $dog->id) }}">Exercise</a></li>
 			            <li><a href="#">Abnormalities</a></li>
+			            <li class="@if(Request::is('dogs/abnormalities/*')) uk-active @endif"><a href="{{ URL::to('/dogs/abnormalities/' . $dog->id) }}">Abnormalities</a></li>
 			        </ul>
 			    </div>
 			</nav>

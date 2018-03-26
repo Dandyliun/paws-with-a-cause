@@ -9,48 +9,26 @@
 
         <div class="uk-padding uk-padding-remove-horizontal uk-padding-remove-bottom uk-flex uk-flex-middle" uk-grid>
             <div class="uk-width-expand">
-                <h1 class="title">Grooming</h1>
+                <h1 class="title">Abnormalities</h1>
             </div>
-            <div class="uk-width-auto">
-                <a class="uk-button uk-button-primary" href="{{ URL::to('/dogs/grooming/new/' . $dog->id) }}">New Grooming Record</a>
-            </div>
+
         </div>
 
-        <div class="content-wrapper">
-            <table class="uk-table uk-table-responsive uk-table-divider">
-                <thead>
-                <tr>
-                    <th>Record Type</th>
-                    <th>Date</th>
-                    <th>Normality</th>
+        {{-- $dog --}}
 
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($groomingRecords as $groomingRecord)
+            <div class="content-wrapper">
+                <table class="uk-table uk-table-responsive uk-table-divider">
+                    <thead>
                     <tr>
-                        <td>{{ $groomingRecord->attribute }}</td>
-                        <td>
-                            @php
-                                $dt = new DateTime($groomingRecord->created_at);
-                                echo $dt->format('m-d-Y');
-                            @endphp
-                        </td>
-                        <td>
-                            @if($groomingRecord->normality == 0)
-                                Abnormal
-                            @else
-                                Normal
-                            @endif
-                        </td>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Comments</th>
 
                     </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                </table>
+            </div>
 
-        {{ $groomingRecords->links() }}
 
     </div>
 

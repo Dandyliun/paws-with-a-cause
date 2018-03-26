@@ -161,6 +161,16 @@ class DogsController extends Controller
         $exerciseRecords = ExerciseRecord::where('dog_id', $id)->paginate(5);
         return view('dogs.exercise_records', compact(['dog', 'exerciseRecords']));
     }
+    /*--------------------------------------------------------------------------
+    | Dog Abnormalities
+    |
+    |-------------------------------------------------------------------------*/
+    public function dogAbnormalities($id) {
+        $dog = Dog::find($id);
+        $breeds = Breed::pluck('breed')->all();
+        $colors = Color::pluck('color')->all();
+        return view('dogs.abnormalities', compact(['dog', 'breeds', 'colors']));
+    }
 
     public function newDogExercise($id) {
         $dog = Dog::find($id);
