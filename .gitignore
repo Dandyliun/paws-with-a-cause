@@ -4,3 +4,4 @@ _ide_helper.php
 .phpstorm.meta.php
 .env
 /node_modules
+/public/storage

@@ -9,6 +9,8 @@ use App\Models\Breed as Breed;
 use App\Models\Color as Color;
 use App\Models\HealthAttributes;
 use App\Models\HealthRecord;
+use App\Models\GroomingAttributes;
+use App\Models\GroomingRecord;
 
 
 class DogsController extends Controller
@@ -122,6 +124,31 @@ class DogsController extends Controller
     }
 
 
+    /*--------------------------------------------------------------------------
+    | Dog Grooming
+    |
+    |-------------------------------------------------------------------------*/
+    public function dogGrooming($id) {
+        $dog = Dog::find($id);
+        $groomingRecords = GroomingRecord::where('dog_id', $id)->paginate(5);
+        return view('dogs.grooming', compact(['dog', 'groomingRecords']));
+    }
+
+    public function newDogGrooming($id) {
+        $dog = Dog::find($id);
+        $groomingAttributes = GroomingAttributes::all();
+        return view('dogs.grooming_new', compact(['dog', 'groomingAttributes']));
+    }
+
+    public function createGroomingRecord(Request $request) {
+        $groomingRecord = new GroomingRecord;
+        $groomingRecord->dog_id = $request->id;
+        $groomingRecord->attribute = $request->record_type;
+       // $groomingRecord->performed_by = "test user";
+        $groomingRecord->normality = $request->normality;
+        $groomingRecord->value = $request->value;
+        $groomingRecord->save();
+    }
 
 
 

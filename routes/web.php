@@ -75,3 +75,17 @@ Route::post('/new-health-record', 'DogsController@createHealthRecord');
 // New Dog
 Route::get('/dogs/new', 'DogsController@getNewDog');
 Route::post('/post-new-dog', 'DogsController@postNewDog');
+
+
+//Dog Grooming
+Route::get('/dogs/grooming/{id}', [
+    'as' => 'dogs.grooming',
+    'uses' => 'DogsController@dogGrooming'
+]);
+Route::get('/dogs/grooming/new/{id}', [
+    'as' => 'dogs.grooming_new',
+    'uses' => 'DogsController@newDogGrooming'
+]);
+Route::post('/new-grooming-record', 'DogsController@createGroomingRecord');
+
+
