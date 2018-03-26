@@ -11,6 +11,8 @@ use App\Models\HealthAttributes;
 use App\Models\HealthRecord;
 use App\Models\GroomingAttributes;
 use App\Models\GroomingRecord;
+use App\Models\ExerciseRecord;
+use App\Models\ExerciseAttributes;
 
 
 class DogsController extends Controller
@@ -150,6 +152,29 @@ class DogsController extends Controller
         $groomingRecord->save();
     }
 
+    /*--------------------------------------------------------------------------
+    | Dog Exercise
+    |
+    |-------------------------------------------------------------------------*/
+    public function dogExercise($id) {
+        $dog = Dog::find($id);
+        $exerciseRecords = ExerciseRecord::where('dog_id', $id)->paginate(5);
+        return view('dogs.exercise_records', compact(['dog', 'exerciseRecords']));
+    }
 
+    public function newDogExercise($id) {
+        $dog = Dog::find($id);
+        $exerciseAttributes = ExerciseAttributes::all();
+        return view('dogs.exercise_new', compact(['dog', 'exerciseAttributes']));
+    }
+
+    public function createExerciseRecord(Request $request){
+        $exerciseRecord = new ExerciseRecord;
+        $exerciseRecord->dog_id = $request->id;
+        $exerciseRecord->exercise_name = $request->exercise_type;
+        $exerciseRecord->comments = $request->comments;
+        $exerciseRecord->normality = $request->normality;
+        $exerciseRecord->save();
+    }
 
 }

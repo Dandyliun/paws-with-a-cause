@@ -88,4 +88,15 @@ Route::get('/dogs/grooming/new/{id}', [
 ]);
 Route::post('/new-grooming-record', 'DogsController@createGroomingRecord');
 
+//Dog Exercise
+Route::get('/dogs/exercise/{id}', [
+    'as' => 'dogs.exercise_records',
+    'uses' => 'DogsController@dogExercise'
+]);
+Route::get('/dogs/exercise/new/{id}', [
+    'as' => 'dogs.exercise_new',
+    'uses' => 'DogsController@newDogExercise'
+]);
+Route::post('/new-exercise-record', 'DogsController@createExerciseRecord');
+
 
