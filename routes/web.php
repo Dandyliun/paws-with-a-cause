@@ -45,8 +45,15 @@ Route::get('/home', function () {
 | Dashboard – Dogs
 |--------------------------------------------------------------------------
 */
+// New Dog
+Route::get('/dogs/new', 'DogsController@getNewDog');
+Route::post('/post-new-dog', 'DogsController@postNewDog');
+
 // Get All Dogs
 Route::get('/dogs', 'DogsController@getAllDogs');
+
+// Dog Image
+Route::post('/update-dog-image', 'DogsController@updateDogImage');
 
 // Dog Overview
 Route::get('/dogs/overview/{id}', [
@@ -71,10 +78,6 @@ Route::get('/dogs/health/new/{id}', [
     'uses' => 'DogsController@newDogHealth'
 ]);
 Route::post('/new-health-record', 'DogsController@createHealthRecord');
-
-// New Dog
-Route::get('/dogs/new', 'DogsController@getNewDog');
-Route::post('/post-new-dog', 'DogsController@postNewDog');
 
 
 //Dog Grooming

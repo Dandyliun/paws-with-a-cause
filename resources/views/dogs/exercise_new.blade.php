@@ -77,7 +77,7 @@
                     <p>What would you like to do next?</p>
                 </div>
                 <p class="uk-text-center">
-                    <a class="uk-button uk-button-default" href="{{ URL::to('/dogs/health/' . $dog->id) }}">Return to All</a>
+                    <a class="uk-button uk-button-default" href="{{ URL::to('/dogs/exercise/' . $dog->id) }}">Return to All</a>
                     <a class="uk-button uk-button-primary uk-modal-close">Add Another</a>
                 </p>
             </div>

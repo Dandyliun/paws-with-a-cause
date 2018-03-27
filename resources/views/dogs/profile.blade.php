@@ -86,7 +86,7 @@
 @section('scripts')
 	<script>
 		// Initialize the date picker
-  		dateSelect('#dob');
+  		dateSelect('#dob', true);
   	</script>
 
 	<script type="text/javascript">

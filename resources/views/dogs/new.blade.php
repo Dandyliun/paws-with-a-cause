@@ -1,17 +1,19 @@
 @extends('layouts.dashboard')
 
 @section('content')
-
-	<div uk-grid>
-		<div class="uk-width-expand">
-			<h1>Add New Dog</h1>
+	
+	<header>
+		<div class="color-section uk-flex uk-flex-middle" uk-grid>
+			<div class="uk-width-expand uk-padding-remove">
+				<h1>Add New Dog</h1>
+			</div>
+			<div class="uk-width-auto">
+				<a class="uk-button white" onclick="addNewDog()">Save</a>
+			</div>
 		</div>
-		<div class="uk-width-auto">
-			<a onclick="addNewDog()">Save</a>
-		</div>
-	</div>
+	</header>
 
-	<form class="uk-form-stacked" uk-grid>
+	<form class="uk-form-stacked padded" uk-grid>
 		<div class="uk-width-1-2">
 			<label class="uk-form-label">Dog Name:</label>
 			<input id="name" class="uk-input" name="name" type="text">
@@ -19,7 +21,7 @@
 		<div class="uk-width-1-2">
 			<label class="uk-form-label">Gender:</label>
 			<select id="sex" class="uk-select" name="sex">
-				<option selected disabled></option>
+				<option selected disabled>Please select an option...</option>
 				<option>Male</option>
 				<option>Female</option>
 			</select>
@@ -27,7 +29,7 @@
 		<div class="uk-width-1-2">
 			<label class="uk-form-label">Breed:</label>
 			<select id="breed" class="uk-select" name="breed">
-				<option selected disabled></option>
+				<option selected disabled>Please select an option...</option>
 				@foreach($breeds as $breed)
 					<option>{{ $breed }}</option>
 				@endforeach
@@ -35,7 +37,12 @@
 		</div>
 		<div class="uk-width-1-2">
 			<label class="uk-form-label">Color:</label>
-			<input id="color" class="uk-input" name="color">
+			<select id="color" class="uk-select" name="color">
+				<option selected disabled>Please select an option...</option>
+				@foreach($colors as $color)
+					<option>{{ $color }}</option>
+				@endforeach
+			</select>
 		</div>
 		<div class="uk-width-1-2">
 			<label class="uk-form-label">Date of Birth:</label>
@@ -54,8 +61,6 @@
 			<input id="microchip_id" class="uk-input" name="microchip_id">
 		</div>
 	</form>
-
-	<!-- 	<a href="#success-modal" onclick="animateCheckmark()" uk-toggle>Open</a> -->
 
 	{{-- Start Success Modal --}}
 	<div id="success-modal" uk-modal>
@@ -79,17 +84,20 @@
 
 @section('scripts')
 <script type="text/javascript">
+
+	// Initialize the date picker
+  	dateSelect('#dob');
 	
 	function addNewDog() {
 
-		var name = $('input[name="name"]').val();
-		var sex = $('select[name="sex"]').val();
-		var breed = $('input[name="breed"]').val();
-		var color = $('input[name="color"]').val();
-		var dob = $('input[name="dob"]').val();
-		var food = $('input[name="food"]').val();
-		var internal_id = $('input[name="internal_id"]').val();
-		var microchip_id = $('input[name="microchip_id"]').val();
+		var name = $('input[name="name"]');
+		var sex = $('select[name="sex"]');
+		var breed = $('select[name="breed"]');
+		var color = $('select[name="color"]');
+		var dob = $('input[name="dob"]');
+		var food = $('input[name="food"]');
+		var internal_id = $('input[name="internal_id"]');
+		var microchip_id = $('input[name="microchip_id"]');
 
 		$.ajax({
 			headers: {
@@ -98,20 +106,31 @@
 			type: 'POST',
 			url: '/post-new-dog',
 			data: {
-				'name' 	       : name,
-				'sex' 	       : sex,
-				'breed'	       : breed,
-				'color'	       : color,
-				'dob'	       : dob,
-				'food'	       : food,
-				'internal_id'  : internal_id,
-				'microchip_id' : microchip_id,
+				'name' 	       : name.val(),
+				'sex' 	       : sex.val(),
+				'breed'	       : breed.val(),
+				'color'	       : color.val(),
+				'dob'	       : dob.val(),
+				'food'	       : food.val(),
+				'internal_id'  : internal_id.val(),
+				'microchip_id' : microchip_id.val(),
 			},
 			success:function(){
 				console.log('success');
 				//UIkit.notification("...", {pos: 'bottom-right', status: 'primary', timeout: 600000});
 				UIkit.modal('#success-modal').show();
 				animateCheckmark();
+
+				// Clear the form to prevent duplication submissions
+				name.val('');
+				sex.val('');
+				breed.val(''); 
+				color.val('');
+				dob.val('');
+				food.val('');
+				internal_id.val('');
+				microchip_id.val('');
+
 			},
 			error:function(){
 				console.log('error');

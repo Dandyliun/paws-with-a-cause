@@ -41,10 +41,9 @@ $width-medium-width: 350px !default
 
 
 //------------------------------------------------------------------------------
-// Dashboard Styles
+// Setup and Defaults
 // 
 //------------------------------------------------------------------------------
-// Setup and Defaults
 html,
 body
 	height: 100%
@@ -53,21 +52,31 @@ body
 h1, h2, h3, h4, h5, h6, p, a
 	font-family: 'Lato', sans-serif
 
+a:hover
+	text-decoration: none
 
-// Login Form
-#login .login-image
-	background-image: url("../../../public/storage/login-image.jpg")
-	background-position: center center
+.white
+	color: #fff !important
 
-#login .login-image .color-overlay
-	background: rgba(232, 83, 83, 0.85)
-	min-height: 100%
-	min-width: 100%
+.toggle:hover
+	cursor: pointer
+
+.uk-inline-clip:focus
+	outline: none
+
+.title
+	color: $primary-color
+	font-weight: 500
 
 
 
 
+
+
+//------------------------------------------------------------------------------
 // Topbar
+// 
+//------------------------------------------------------------------------------
 #topbar
 	border-bottom: 1px solid $border-color
 
@@ -91,17 +100,30 @@ h1, h2, h3, h4, h5, h6, p, a
 
 
 
-// Content Wrapper
+//------------------------------------------------------------------------------
+// Layout
+// 
+//------------------------------------------------------------------------------
 #page-wrapper
 	min-height: 100%
 
 .content-wrapper
 	padding: 20px 50px
 
+#overview .content-wrapper
+	margin-top: 15px
+
+#content
+	min-height: 100%
 
 
 
+
+
+//------------------------------------------------------------------------------
 // Sidebar/Nav
+// 
+//------------------------------------------------------------------------------
 #sidebar
 	background: $light-color
 	border-right: 1px solid $border-color
@@ -126,13 +148,66 @@ h1, h2, h3, h4, h5, h6, p, a
 
 
 
-// Content Section
-#content
-	min-height: 100%
+
+
+//------------------------------------------------------------------------------
+// Header Styles
+// 
+//------------------------------------------------------------------------------
+header
+	margin-top: -40px
+	margin-right: -40px
+
+header .color-section
+	background: $primary-color
+	padding: 40px
+	color: #ffffff
+
+header .color-section h1,
+header .color-section h2,
+header .color-section p,
+header .color-section a
+	color: #ffffff
+
+.individual-dog header.individual img.profile-image
+	max-width: 250px
+	border-radius: 50%
+	border: 12px solid rgba(255, 255, 255, .5)
+	&:hover
+		cursor: pointer
+
+.individual-dog header.individual .uk-transition-fade
+	border-radius: 50%
+	margin: 12px
+
+.individual-dog header.individual .uk-transition-fade .uk-icon
+	color: rgba(232, 83, 83, 0.8)
+
+.individual-dog header.individual nav.uk-navbar
+	border-bottom: 1px solid #eee
+
+.individual-dog header.individual nav.uk-navbar ul > li > a 
+	height: auto
+	padding: 15px 40px
+	text-transform: none
+	transition: 0.2s ease
+
+.individual-dog header.individual nav.uk-navbar ul > li.uk-active > a,
+.individual-dog header.individual nav.uk-navbar ul > li > a:hover
+	border-bottom: 2px solid $primary-color
+
+.individual-dog header.individual nav.uk-navbar ul > li.uk-active > a
+	color: $primary-color
 
 
 
+
+
+
+//------------------------------------------------------------------------------
 // Forms
+// 
+//------------------------------------------------------------------------------
 form .uk-input,
 form .uk-select
 	font-size: 14px
@@ -162,25 +237,45 @@ form .checkbox-label-right
 form .textarea-label
 	padding-bottom: 10px
 
+form.padded
+	padding: 40px 60px
+
+.individual-dog form.uk-grid
+	padding: 0px 60px
 
 
 
 
+
+
+//------------------------------------------------------------------------------
 // Buttons
+// 
+//------------------------------------------------------------------------------
 .uk-button
 	border-radius: 100px
 	text-transform: none
 	letter-spacing: 0.5px
 
 .uk-button.white
-	color: $primary-color
-	border: $default-border;
+	color: $primary-color !important
+	border: $default-border
+	background: #fff
+	&:hover
+		background: #f4f4f4
+
+.uk-button-text.white:before
+		border-color: #fff
 
 
 
 
 
+
+//------------------------------------------------------------------------------
 // Pagination
+// 
+//------------------------------------------------------------------------------
 ul.uk-pagination li
 	background: #e5e5e5
 	border-radius: 50%
@@ -205,15 +300,60 @@ ul.uk-pagination li.uk-active a
 
 
 
+//------------------------------------------------------------------------------
 // Modals
+// 
+//------------------------------------------------------------------------------
 .uk-modal .uk-modal-dialog
 	border-radius: 3px
 
+// Success Modal
+#success-modal .uk-modal-dialog
+	width: 420px
+
+#success-modal #checkmark
+	margin: 40px 0px
+
+#success-modal .modal-content
+	margin-bottom: 30px
+
+// Profile Image Modal
+#profile-image-modal img.profile-image
+	border-radius: 50%
+	border: 12px solid rgba(1, 1, 1, 0.11)
+	margin: 10px
+
+#profile-image-modal .spinner-wrapper
+	display: none
+	border-radius: 50%
+	margin: 12px
+
+#profile-image-modal .js-upload .uk-text-small
+	display: block
+	font-weight: 400
+
+#profile-image-modal .upload-error
+	display: none
+	background: #fef4f6
+	border-radius: 3px
+	margin-top: 20px
+	padding: 18px 12px
+	& p
+		color: #f0506e
+
+#profile-image-modal .upload-error .uk-icon
+	color: $primary-color
+	opacity: 0.5
 
 
 
 
+
+
+//------------------------------------------------------------------------------
 // Tables
+// 
+//------------------------------------------------------------------------------
 .uk-table th
 	text-transform: none
 	color: $primary-color
@@ -222,25 +362,63 @@ ul.uk-pagination li.uk-active a
 .uk-table td
 	font-size: 14px
 
+.uk-table img.uk-border-circle
+	border: 1px solid #ddd
+
+.uk-table-hover > tr:hover,
+.uk-table-hover tbody tr:hover
+	background: $light-color
 
 
 
 
-// Success Modal
-#success-modal .uk-modal-dialog
-	width: 420px
 
 
-#success-modal #checkmark
-	margin: 40px 0px
+//------------------------------------------------------------------------------
+// Cards
+// 
+//------------------------------------------------------------------------------
+.uk-card 
+	box-shadow: none
+	border: $default-border
+	border-radius: 5px
 
-#success-modal .modal-content
-	margin-bottom: 30px
+.uk-card-header,
+.uk-card-footer
+	padding: 14px 25px
+
+.uk-card .uk-card-title
+	font-size: 18px
+	color: $primary-color
+
+.uk-card .uk-card-header .uk-button
+	letter-spacing: 0px
+	font-size: 13px
+	padding: 0 18px
+	line-height: 29px
+
+.uk-card .uk-button-text
+	letter-spacing: 0px
+	color: #666
+	&:before
+		border-color: $primary-color
+
+.uk-card .uk-card-body .uk-list li
+	padding: 14px 25px
+	&:first-child
+		border-top: none
+	&:last-child
+		border-bottom: none
 
 
 
 
+
+
+//------------------------------------------------------------------------------
 // Animated Checkmark
+// 
+//------------------------------------------------------------------------------
 .checkmark
 	width: 140px
 	height: 140px
@@ -291,57 +469,17 @@ ul.uk-pagination li.uk-active a
 
 
 //------------------------------------------------------------------------------
-// Edit Dog Styles
+// Login Styles
 // 
 //------------------------------------------------------------------------------
-// Header
-.individual-dog header
-	margin-top: -40px
-	margin-right: -40px
+#login .login-image
+	background-image: url("../../../public/storage/login-image.jpg")
+	background-position: center center
 
-.individual-dog header .color-section
-	background: $primary-color
-	padding: 40px
-	color: #ffffff
-
-.individual-dog header .color-section h1,
-.individual-dog header .color-section h2,
-.individual-dog header .color-section p,
-.individual-dog header .color-section a
-	color: #ffffff
-
-.individual-dog header img.profile-image
-	max-width: 250px
-	border-radius: 50%
-	border: 12px solid rgba(255, 255, 255, .5)
-
-.individual-dog header nav.uk-navbar
-	border-bottom: 1px solid #eee
-
-.individual-dog header nav.uk-navbar ul > li > a 
-	height: auto
-	padding: 15px 40px
-	text-transform: none
-	transition: 0.2s ease
-
-.individual-dog header nav.uk-navbar ul > li.uk-active > a,
-.individual-dog header nav.uk-navbar ul > li > a:hover
-	border-bottom: 2px solid $primary-color
-
-.individual-dog header nav.uk-navbar ul > li.uk-active > a
-	color: $primary-color
-
-
-// Title
-.individual-dog .title
-	color: $primary-color
-	font-weight: 500
-
-
-// Form
-.individual-dog form.uk-grid
-	padding: 0px 60px
-
+#login .login-image .color-overlay
+	background: rgba(232, 83, 83, 0.85)
+	min-height: 100%
+	min-width: 100%
 
 
 

@@ -47,8 +47,99 @@
             </div>
         </div>
 
+
+
         <!-- Scripts -->
         @component('components.scripts')
+        <script>
+
+            var bar = document.getElementById('js-progressbar');
+            UIkit.upload('.js-upload', {
+
+                url: '{{ URL::to("/update-dog-image") }}',
+                allow: '*.(jpg|jpeg|png)',
+                name: 'image',
+                params: { dog_id : $('input[name="dog_id"]').val() },
+
+                beforeSend: function (environment) {
+                    // console.log('beforeSend', arguments);
+
+                    // The environment object can still be modified here. 
+                    // var {data, method, headers, xhr, responseType} = environment;;
+
+                    $('.spinner-wrapper').show();
+
+                },
+                beforeAll: function () {
+                    // console.log('beforeAll', arguments);
+                },
+                load: function () {
+                    // console.log('load', arguments);
+                },
+                error: function () {
+                    console.log('error', arguments);
+                },
+                complete: function () {
+                    // console.log('complete', arguments);
+                },
+
+                loadStart: function (e) {
+                    // Show the progress bar
+                    bar.removeAttribute('hidden');
+                    // Get the upload start progress
+                    bar.max = e.total;
+                    bar.value = e.loaded;
+                },
+
+                progress: function (e) {
+                    // Get the upload progress
+                    bar.max = e.total;
+                    bar.value = e.loaded;
+                },
+
+                loadEnd: function (e) {
+                    // Get the upload finished progress
+                    bar.max = e.total;
+                    bar.value = e.loaded;
+                },
+
+                completeAll: function () {
+                    // console.log(arguments[0].responseText);
+
+                    // Hide the progress bar
+                    bar.setAttribute('hidden', 'hidden');
+                    
+                    // Get the uploaded file name and generate the path
+                    var file_name = arguments[0].responseText;
+                    var file_path = '{{ URL::to("storage/profile_images") }}' + '/' + file_name;
+
+                    // Hide the loading spinner
+                    $('.spinner-wrapper').hide();
+
+                    // Display the uploaded image
+                    $('#profile-image-modal .profile-image').attr('src', file_path);
+                    $('header .profile-image').attr('src', file_path);
+
+                    // Hide the error message if it is showing
+                    $('.upload-error').hide();
+
+                },
+
+                fail: function () {
+                    console.log('error');
+                    // var alert = UIkit.alert('#invalid-file-type');
+                    $('.upload-error').show();
+                }
+
+            });
+
+            // Close error message event listener
+            $('.upload-error .close').click(function() {
+                $('.upload-error').hide();
+            });
+
+
+        </script>
             @yield('scripts')
         @endcomponent
     </body>

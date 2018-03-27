@@ -23,14 +23,18 @@ function animateCheckmark() {
  |
  | @param id - the id of the target input element
  |----------------------------------------------------------------------------*/
-function dateSelect(id) {
-	$( id ).datepicker({
-		dateFormat: 'mm-dd-yy',
-		showButtonPanel: true,
-		changeMonth: true,
-		changeYear: true,
-		defaultDate: +0
-	});
+function dateSelect(id, boolean) {
+	if(boolean) {
+		$( id ).datepicker({
+			dateFormat: 'M dd, yy',
+			showButtonPanel: true,
+			changeMonth: true,
+			changeYear: true,
+			defaultDate: +0
+		});
+	} else {
+		$( id ).datepicker( "destroy" );
+	}
 };
 
 

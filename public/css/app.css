@@ -15144,15 +15144,25 @@ a {
   font-family: 'Lato', sans-serif;
 }
 
-#login .login-image {
-  background-image: url(/images/login-image.jpg?cb9e87e51dcef6139358fd3052793871);
-  background-position: center center;
+a:hover {
+  text-decoration: none;
 }
 
-#login .login-image .color-overlay {
-  background: rgba(232, 83, 83, 0.85);
-  min-height: 100%;
-  min-width: 100%;
+.white {
+  color: #fff !important;
+}
+
+.toggle:hover {
+  cursor: pointer;
+}
+
+.uk-inline-clip:focus {
+  outline: none;
+}
+
+.title {
+  color: #E85353;
+  font-weight: 500;
 }
 
 #topbar {
@@ -15188,6 +15198,14 @@ a {
   padding: 20px 50px;
 }
 
+#overview .content-wrapper {
+  margin-top: 15px;
+}
+
+#content {
+  min-height: 100%;
+}
+
 #sidebar {
   background: #FAFAFA;
   border-right: 1px solid #DDDDDD;
@@ -15215,8 +15233,62 @@ a {
   padding: 7px;
 }
 
-#content {
-  min-height: 100%;
+header {
+  margin-top: -40px;
+  margin-right: -40px;
+}
+
+header .color-section {
+  background: #E85353;
+  padding: 40px;
+  color: #ffffff;
+}
+
+header .color-section h1,
+header .color-section h2,
+header .color-section p,
+header .color-section a {
+  color: #ffffff;
+}
+
+.individual-dog header.individual img.profile-image {
+  max-width: 250px;
+  border-radius: 50%;
+  border: 12px solid rgba(255, 255, 255, 0.5);
+}
+
+.individual-dog header.individual img.profile-image:hover {
+  cursor: pointer;
+}
+
+.individual-dog header.individual .uk-transition-fade {
+  border-radius: 50%;
+  margin: 12px;
+}
+
+.individual-dog header.individual .uk-transition-fade .uk-icon {
+  color: rgba(232, 83, 83, 0.8);
+}
+
+.individual-dog header.individual nav.uk-navbar {
+  border-bottom: 1px solid #eee;
+}
+
+.individual-dog header.individual nav.uk-navbar ul > li > a {
+  height: auto;
+  padding: 15px 40px;
+  text-transform: none;
+  -webkit-transition: 0.2s ease;
+  transition: 0.2s ease;
+}
+
+.individual-dog header.individual nav.uk-navbar ul > li.uk-active > a,
+.individual-dog header.individual nav.uk-navbar ul > li > a:hover {
+  border-bottom: 2px solid #E85353;
+}
+
+.individual-dog header.individual nav.uk-navbar ul > li.uk-active > a {
+  color: #E85353;
 }
 
 form .uk-input,
@@ -15255,6 +15327,14 @@ form .textarea-label {
   padding-bottom: 10px;
 }
 
+form.padded {
+  padding: 40px 60px;
+}
+
+.individual-dog form.uk-grid {
+  padding: 0px 60px;
+}
+
 .uk-button {
   border-radius: 100px;
   text-transform: none;
@@ -15262,8 +15342,17 @@ form .textarea-label {
 }
 
 .uk-button.white {
-  color: #E85353;
+  color: #E85353 !important;
   border: 1px solid #e5e5e5;
+  background: #fff;
+}
+
+.uk-button.white:hover {
+  background: #f4f4f4;
+}
+
+.uk-button-text.white:before {
+  border-color: #fff;
 }
 
 ul.uk-pagination li {
@@ -15295,16 +15384,6 @@ ul.uk-pagination li.uk-active a {
   border-radius: 3px;
 }
 
-.uk-table th {
-  text-transform: none;
-  color: #E85353;
-  font-size: 16px;
-}
-
-.uk-table td {
-  font-size: 14px;
-}
-
 #success-modal .uk-modal-dialog {
   width: 420px;
 }
@@ -15315,6 +15394,104 @@ ul.uk-pagination li.uk-active a {
 
 #success-modal .modal-content {
   margin-bottom: 30px;
+}
+
+#profile-image-modal img.profile-image {
+  border-radius: 50%;
+  border: 12px solid rgba(1, 1, 1, 0.11);
+  margin: 10px;
+}
+
+#profile-image-modal .spinner-wrapper {
+  display: none;
+  border-radius: 50%;
+  margin: 12px;
+}
+
+#profile-image-modal .js-upload .uk-text-small {
+  display: block;
+  font-weight: 400;
+}
+
+#profile-image-modal .upload-error {
+  display: none;
+  background: #fef4f6;
+  border-radius: 3px;
+  margin-top: 20px;
+  padding: 18px 12px;
+}
+
+#profile-image-modal .upload-error p {
+  color: #f0506e;
+}
+
+#profile-image-modal .upload-error .uk-icon {
+  color: #E85353;
+  opacity: 0.5;
+}
+
+.uk-table th {
+  text-transform: none;
+  color: #E85353;
+  font-size: 16px;
+}
+
+.uk-table td {
+  font-size: 14px;
+}
+
+.uk-table img.uk-border-circle {
+  border: 1px solid #ddd;
+}
+
+.uk-table-hover > tr:hover,
+.uk-table-hover tbody tr:hover {
+  background: #FAFAFA;
+}
+
+.uk-card {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+}
+
+.uk-card-header,
+.uk-card-footer {
+  padding: 14px 25px;
+}
+
+.uk-card .uk-card-title {
+  font-size: 18px;
+  color: #E85353;
+}
+
+.uk-card .uk-card-header .uk-button {
+  letter-spacing: 0px;
+  font-size: 13px;
+  padding: 0 18px;
+  line-height: 29px;
+}
+
+.uk-card .uk-button-text {
+  letter-spacing: 0px;
+  color: #666;
+}
+
+.uk-card .uk-button-text:before {
+  border-color: #E85353;
+}
+
+.uk-card .uk-card-body .uk-list li {
+  padding: 14px 25px;
+}
+
+.uk-card .uk-card-body .uk-list li:first-child {
+  border-top: none;
+}
+
+.uk-card .uk-card-body .uk-list li:last-child {
+  border-bottom: none;
 }
 
 .checkmark {
@@ -15405,57 +15582,14 @@ ul.uk-pagination li.uk-active a {
   }
 }
 
-.individual-dog header {
-  margin-top: -40px;
-  margin-right: -40px;
+#login .login-image {
+  background-image: url(/images/login-image.jpg?cb9e87e51dcef6139358fd3052793871);
+  background-position: center center;
 }
 
-.individual-dog header .color-section {
-  background: #E85353;
-  padding: 40px;
-  color: #ffffff;
-}
-
-.individual-dog header .color-section h1,
-.individual-dog header .color-section h2,
-.individual-dog header .color-section p,
-.individual-dog header .color-section a {
-  color: #ffffff;
-}
-
-.individual-dog header img.profile-image {
-  max-width: 250px;
-  border-radius: 50%;
-  border: 12px solid rgba(255, 255, 255, 0.5);
-}
-
-.individual-dog header nav.uk-navbar {
-  border-bottom: 1px solid #eee;
-}
-
-.individual-dog header nav.uk-navbar ul > li > a {
-  height: auto;
-  padding: 15px 40px;
-  text-transform: none;
-  -webkit-transition: 0.2s ease;
-  transition: 0.2s ease;
-}
-
-.individual-dog header nav.uk-navbar ul > li.uk-active > a,
-.individual-dog header nav.uk-navbar ul > li > a:hover {
-  border-bottom: 2px solid #E85353;
-}
-
-.individual-dog header nav.uk-navbar ul > li.uk-active > a {
-  color: #E85353;
-}
-
-.individual-dog .title {
-  color: #E85353;
-  font-weight: 500;
-}
-
-.individual-dog form.uk-grid {
-  padding: 0px 60px;
+#login .login-image .color-overlay {
+  background: rgba(232, 83, 83, 0.85);
+  min-height: 100%;
+  min-width: 100%;
 }
 

@@ -118,19 +118,20 @@
   			else if(value.toLowerCase() == "weight") 
   			{
   				$( "#value_type" ).html("Dog Weight");
+  				dateSelect('#value', false);
   				$( "#value" ).attr("placeholder", "Enter weight in lbs");
   			}
   			else if(value.toLowerCase() == "heat start date") 
   			{
   				$( "#value_type" ).html("Heat Start Date");
   				$( "#value" ).attr("placeholder", "Please select a date");
-  				dateSelect('#value');
+  				dateSelect('#value', true);
   			}
   			else if(value.toLowerCase() == "heat end date")
   			{
   				$( "#value_type" ).html("Heat End Date");
   				$( "#value" ).attr("placeholder", "Please select a date");
-  				dateSelect('#value');
+  				dateSelect('#value', true);
   			}
   		});
 

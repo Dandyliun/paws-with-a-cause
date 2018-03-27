@@ -21,6 +21,7 @@
 			    <thead>
 			        <tr>
 			            <th>Record Type</th>
+			            <th>Value</th>
 			            <th>Date</th>
 			            <th>Normality</th>
 			            <th>Performed By</th>
@@ -30,11 +31,9 @@
 			    	@foreach($healthRecords as $healthRecord)
 			    	<tr>
 			    		<td>{{ $healthRecord->attribute }}</td>
+			    		<td>{{ $healthRecord->value }}</td>
 			            <td>
-				            @php
-				            	$dt = new DateTime($healthRecord->created_at);
-								echo $dt->format('m-d-Y');
-							@endphp
+							{{ date('M j, Y', strtotime($healthRecord->created_at)) }}
 						</td>
 			            <td>
 			            	@if($healthRecord->normality == 0)
