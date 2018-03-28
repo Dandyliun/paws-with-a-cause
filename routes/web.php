@@ -79,8 +79,7 @@ Route::get('/dogs/health/new/{id}', [
 ]);
 Route::post('/new-health-record', 'DogsController@createHealthRecord');
 
-
-//Dog Grooming
+// Dog Grooming
 Route::get('/dogs/grooming/{id}', [
     'as' => 'dogs.grooming',
     'uses' => 'DogsController@dogGrooming'
@@ -91,7 +90,7 @@ Route::get('/dogs/grooming/new/{id}', [
 ]);
 Route::post('/new-grooming-record', 'DogsController@createGroomingRecord');
 
-//Dog Exercise
+// Dog Exercise
 Route::get('/dogs/exercise/{id}', [
     'as' => 'dogs.exercise_records',
     'uses' => 'DogsController@dogExercise'
@@ -102,10 +101,37 @@ Route::get('/dogs/exercise/new/{id}', [
 ]);
 Route::post('/new-exercise-record', 'DogsController@createExerciseRecord');
 
-//Abnormalities
+// Abnormalities
 Route::get('dogs/abnormalities/{id}', [
     'as' => 'dogs.abnormalities',
     'uses' => 'DogsController@dogAbnormalities'
 ]);
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Dashboard – Users
+|--------------------------------------------------------------------------
+*/
+// Get All Users
+Route::get('/users', 'UsersController@showUsers');
+
+// Edit User
+Route::get('users/edit/{id}', [
+    'as' => 'users.edit',
+    'uses' => 'UsersController@showUser'
+]);
+Route::post('/update-user', 'UsersController@update');
+
+// New User
+Route::get('/users/new', function () {
+    return view('users.new');
+});
+Route::post('/create-new-user', 'UsersController@create');
+
+
+
+
 
 

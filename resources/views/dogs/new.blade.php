@@ -7,9 +7,6 @@
 			<div class="uk-width-expand uk-padding-remove">
 				<h1>Add New Dog</h1>
 			</div>
-			<div class="uk-width-auto">
-				<a class="uk-button white" onclick="addNewDog()">Save</a>
-			</div>
 		</div>
 	</header>
 
@@ -60,6 +57,9 @@
 			<label class="uk-form-label">Microchip ID:</label>
 			<input id="microchip_id" class="uk-input" name="microchip_id">
 		</div>
+		<div class="uk-width-1-1 uk-text-right">
+			<a class="uk-button uk-button-primary" onclick="addNewDog()">Save Dog</a>
+		</div>
 	</form>
 
 	{{-- Start Success Modal --}}
@@ -86,7 +86,7 @@
 <script type="text/javascript">
 
 	// Initialize the date picker
-  	dateSelect('#dob');
+  	dateSelect('#dob', true);
 	
 	function addNewDog() {
 

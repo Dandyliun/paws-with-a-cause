@@ -22,14 +22,14 @@ use Image;
 class DogsController extends Controller
 {
     
-
-    public function __construct()
-    {
-        // Apply the auth middleware to all methods
+    /*--------------------------------------------------------------------------
+     | Default Class Constructor
+     |
+     |------------------------------------------------------------------------*/
+    public function __construct() {
+        // Apply the auth middleware to all DogsController class methods
         $this->middleware('auth');
-
     }
-
 
 
 
@@ -57,9 +57,7 @@ class DogsController extends Controller
 
     // Post New Dog
     public function postNewDog(Request $request) {
-        
         $dog = new Dog;
-
         $dog->name = $request->name;
         $dog->sex = $request->sex;
         $dog->breed = $request->breed;
@@ -116,8 +114,12 @@ class DogsController extends Controller
         $thumbnail->crop(60, 60);
 
         // Save images
-        $image->save(public_path('storage/profile_images/' . $file_name));
-        $thumbnail->save(public_path('storage/profile_images/thumbnails/' . $file_name));
+        $image->save(
+            public_path('storage/profile_images/' . $file_name)
+        );
+        $thumbnail->save(
+            public_path('storage/profile_images/thumbnails/' . $file_name)
+        );
 
         // Save image file name to the database
         $dog->profile_image = $file_name;
@@ -138,11 +140,38 @@ class DogsController extends Controller
     // Get Dog Overview
     public function dogOverview($id) {
         $dog = Dog::find($id);
+
+        // Get 3 most recent health records and total record count
         $healthRecords = HealthRecord::where('dog_id', $id)
             ->orderBy('created_at', 'desc')
             ->take(3)
             ->get();
-        return view('dogs.overview', compact(['dog', 'healthRecords']));
+        $healthRecordsCount = HealthRecord::where('dog_id', $id)->count();
+
+        // Get 3 most recent grooming records and total record count
+        $groomingRecords = GroomingRecord::where('dog_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
+        $groomingRecordsCount = GroomingRecord::where('dog_id', $id)->count();
+
+        // Get 3 most recent exercise records and total record count
+        $exerciseRecords = ExerciseRecord::where('dog_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
+        $exerciseRecordsCount = ExerciseRecord::where('dog_id', $id)->count();
+
+        // Return the view and data
+        return view('dogs.overview', compact([
+            'dog',
+            'healthRecords',
+            'healthRecordsCount',
+            'groomingRecords',
+            'groomingRecordsCount',
+            'exerciseRecords',
+            'exerciseRecordsCount'
+        ]));
     }
 
 
@@ -156,8 +185,12 @@ class DogsController extends Controller
     // Get dog profile
     public function dogProfile($id) {
         $dog = Dog::find($id);
+
+        // Get all breeds and colors
         $breeds = Breed::pluck('breed')->all();
         $colors = Color::pluck('color')->all();
+
+        // Return the view and data
         return view('dogs.profile', compact(['dog', 'breeds', 'colors']));
     }
 
@@ -184,17 +217,24 @@ class DogsController extends Controller
     // Get all health records for a dog
     public function dogHealth($id) {
         $dog = Dog::find($id);
+        
+        // Get dog's health records and paginate the results
         $healthRecords = HealthRecord::where('dog_id', $id)
             ->orderBy('created_at', 'desc')
             ->paginate(5);
 
+        // Return the view and data
         return view('dogs.health_records', compact(['dog', 'healthRecords']));
     }
 
     // Get new health record for a dog
     public function newDogHealth($id) {
         $dog = Dog::find($id);
+
+        // Get all health attributes
         $healthAttributes = HealthAttributes::all();
+
+        // Return the view and data
         return view('dogs.health_new', compact(['dog', 'healthAttributes']));
     }
 
@@ -209,6 +249,7 @@ class DogsController extends Controller
         $healthRecord->save();
 
     }
+
 
 
     /*--------------------------------------------------------------------------
@@ -237,6 +278,8 @@ class DogsController extends Controller
         $groomingRecord->save();
     }
 
+
+
     /*--------------------------------------------------------------------------
     | Dog Exercise
     |
@@ -245,16 +288,6 @@ class DogsController extends Controller
         $dog = Dog::find($id);
         $exerciseRecords = ExerciseRecord::where('dog_id', $id)->paginate(5);
         return view('dogs.exercise_records', compact(['dog', 'exerciseRecords']));
-    }
-    /*--------------------------------------------------------------------------
-    | Dog Abnormalities
-    |
-    |-------------------------------------------------------------------------*/
-    public function dogAbnormalities($id) {
-        $dog = Dog::find($id);
-        $breeds = Breed::pluck('breed')->all();
-        $colors = Color::pluck('color')->all();
-        return view('dogs.abnormalities', compact(['dog', 'breeds', 'colors']));
     }
 
     public function newDogExercise($id) {
@@ -270,6 +303,19 @@ class DogsController extends Controller
         $exerciseRecord->comments = $request->comments;
         $exerciseRecord->normality = $request->normality;
         $exerciseRecord->save();
+    }
+
+
+
+    /*--------------------------------------------------------------------------
+    | Dog Abnormalities
+    |
+    |-------------------------------------------------------------------------*/
+    public function dogAbnormalities($id) {
+        $dog = Dog::find($id);
+        $breeds = Breed::pluck('breed')->all();
+        $colors = Color::pluck('color')->all();
+        return view('dogs.abnormalities', compact(['dog', 'breeds', 'colors']));
     }
 
 }

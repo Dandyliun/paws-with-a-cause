@@ -5,8 +5,13 @@
     <body>
 
         <div id="topbar" class="uk-margin-remove uk-flex uk-flex-middle" uk-grid uk-height-match>
-            <div class="uk-width-medium logo">
-                <img src="{{ URL::to('/storage/logo.png') }}" />
+            <div class="uk-width-medium logo uk-grid-collapse uk-flex uk-flex-middle" uk-grid>
+                <div class="uk-width-auto">
+                    <img src="{{ URL::to('/storage/logo.png') }}" />
+                </div>
+                <div class="uk-width-expand">
+                    <p class="logo-title">Paws K9 Care</p>
+                </div>
             </div>
             <div class="uk-width-expand text uk-grid-small uk-flex uk-flex-middle uk-padding uk-padding-remove-vertical" uk-grid>
                 <div class="uk-width-auto">
@@ -18,7 +23,7 @@
                     </form>
                 </div>
                 <div class="uk-width-auto">
-                    <p>Welcome, {{auth()->user()->name}}</p>
+                    <p>Welcome, {{ Auth::user()->first_name }}</p>
                 </div>
             </div>
         </div>
@@ -34,10 +39,18 @@
                             <li><a href="{{ URL::to('/dogs/new') }}">Add New Dog</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">Users</a></li>
+                    <li class="uk-parent @if(Request::is('users/*') || Request::is('users')) uk-active uk-open @endif">
+                        <a href="#">Users</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="{{ URL::to('/users') }}">View All Users</a></li>
+                            <li><a href="{{ URL::to('/users/new') }}">Add New User</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#">Profile</a></li>
                     <li><a href="#">Email Log</a></li>
-                    <li><a href="#">Settings</a></li>
+                    @if(Auth::user()->is_admin == 1)
+                        <li><a href="#">Settings</a></li>
+                    @endif
                     <li><a href="{{ url('/logout') }}">Logout</a></li>
                 </ul>
 

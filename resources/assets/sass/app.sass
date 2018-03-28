@@ -49,7 +49,7 @@ body
 	height: 100%
 	font-family: 'Lato', sans-serif
 
-h1, h2, h3, h4, h5, h6, p, a
+h1, h2, h3, h4, h5, h6, p, a, .ui-widget
 	font-family: 'Lato', sans-serif
 
 a:hover
@@ -83,9 +83,16 @@ a:hover
 #topbar .logo
 	border-right: 1px solid $border-color
 	padding: 10px 26px
+	margin-left: 0px
 
 #topbar .logo img
 	max-height: 60px
+	padding-right: 25px
+
+#topbar .logo-title
+	color: #E85353
+	text-transform: uppercase
+	font-weight: bold
 
 #topbar .add-new.uk-icon-button
 	border: 1px solid $border-color
@@ -240,8 +247,65 @@ form .textarea-label
 form.padded
 	padding: 40px 60px
 
+form .label-text
+	margin: 0px
+	font-size: 13px
+
 .individual-dog form.uk-grid
 	padding: 0px 60px
+
+
+
+
+
+
+//------------------------------------------------------------------------------
+// Password Stength Indicator
+// 
+//------------------------------------------------------------------------------
+.bg-transparent
+	background-color: rgba(0, 0, 0, 0.1) !important
+.bg-red
+	background-color: $primary-color !important
+.bg-orange
+	background-color: #e67e22 !important
+.bg-green
+	background-color: $success-color !important
+
+.strength-lines
+	position: relative
+	z-index: 3
+	max-width: 200px
+	margin-top: 7px
+	margin-left: -3px
+
+.strength-lines .line
+	position: absolute
+	background-color: rgba(0, 0, 0, 0.1)
+	height: 6px
+	border-radius: 2px
+	transition: background-color 0.25s ease-in
+	&:not(:first-of-type):not(:last-of-type)
+		left: 33%
+		right: 33%
+	&:first-of-type
+		left: 4px
+		right: 68%
+	&:last-of-type
+		left: 68%
+		right: 4px
+
+.password-meta
+	padding-top: 5px
+
+.password-meta .text
+	font-size: 13px
+	margin-bottom: -5px
+	display: inline-block
+
+.password-meta input[type="checkbox"]
+	margin-top: -1px
+	margin-left: 3px
 
 
 
@@ -265,7 +329,7 @@ form.padded
 		background: #f4f4f4
 
 .uk-button-text.white:before
-		border-color: #fff
+	border-color: #fff
 
 
 
@@ -382,20 +446,37 @@ ul.uk-pagination li.uk-active a
 	box-shadow: none
 	border: $default-border
 	border-radius: 5px
+	padding-bottom: 52px
 
 .uk-card-header,
 .uk-card-footer
 	padding: 14px 25px
-
-.uk-card .uk-card-title
-	font-size: 18px
-	color: $primary-color
 
 .uk-card .uk-card-header .uk-button
 	letter-spacing: 0px
 	font-size: 13px
 	padding: 0 18px
 	line-height: 29px
+
+.uk-card .uk-card-header .uk-text-meta
+	font-size: 12px
+
+.uk-card .uk-card-title
+	font-size: 18px
+	color: $primary-color
+
+.uk-card li.view-all
+	position: absolute
+	bottom: 1px
+	width: 100%
+	padding: 0px !important
+	border-top: $default-border
+	border-bottom: none
+	background: #fff
+	border-radius: 0px 0px 5px 5px
+
+.uk-card li.view-all a
+	margin: 15px 25px
 
 .uk-card .uk-button-text
 	letter-spacing: 0px
@@ -407,8 +488,11 @@ ul.uk-pagination li.uk-active a
 	padding: 14px 25px
 	&:first-child
 		border-top: none
-	&:last-child
-		border-bottom: none
+	// &:last-child
+	// 	border-bottom: none
+
+.uk-card li.no-results
+	border-bottom: $default-border !important
 
 
 
@@ -467,7 +551,6 @@ ul.uk-pagination li.uk-active a
 
 
 
-
 //------------------------------------------------------------------------------
 // Login Styles
 // 
@@ -484,6 +567,79 @@ ul.uk-pagination li.uk-active a
 
 
 
+
+
+//------------------------------------------------------------------------------
+// Datepicker
+// 
+//------------------------------------------------------------------------------
+#ui-datepicker-div
+	padding: 0px
+	border-radius: 0px
+	border: none
+	box-shadow: 0 9px 20px rgba(0, 0, 0, 0.16)
+
+#ui-datepicker-div .ui-datepicker-header
+	background: $primary-color
+	border-radius: 0px
+
+#ui-datepicker-div th
+	color: $font-color
+
+#ui-datepicker-div th.ui-datepicker-week-end
+	color: $primary-color
+
+.ui-datepicker-calendar thead th span
+	text-transform: uppercase
+
+.ui-datepicker-calendar tbody td.ui-datepicker-week-end
+	color: $font-color
+
+.ui-datepicker-calendar tbody td a.ui-state-default
+	background: none
+	border: none
+	text-align: center
+
+.ui-datepicker-calendar tbody td a.ui-state-default.ui-state-highlight
+	border: $default-border
+
+.ui-datepicker-calendar tbody td a.ui-state-active
+	background: $primary-color
+	color: #fff
+
+
+
+
+
+//------------------------------------------------------------------------------
+// Line Strike
+// 
+//------------------------------------------------------------------------------
+div.line-strike:after
+	content: ''
+	border-top: 1px solid $primary-color
+	height: 1px
+	display: block
+	position: absolute
+	top: 13px
+	width: 100%
+
+div.line-strike span
+	color: $primary-color
+	background: #fff
+	position: absolute
+	z-index: 1
+	padding-right: 10px
+	font-weight: 600
+
+div[class*="uk-width"].line-strike
+	margin-right: 40px
+	margin-top: 50px
+	margin-bottom: 10px
+
+div[class*="uk-width"].line-strike.first
+	margin-top: 0px
+	margin-bottom: 45px
 
 
 
