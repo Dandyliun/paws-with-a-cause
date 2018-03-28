@@ -104,7 +104,7 @@
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
 			type: 'POST',
-			url: '/post-new-dog',
+			url: '/create-new-dog',
 			data: {
 				'name' 	       : name.val(),
 				'sex' 	       : sex.val(),

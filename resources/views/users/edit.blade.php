@@ -8,7 +8,7 @@
 				<h1>Edit User</h1>
 			</div>
 			<div class="uk-width-auto">
-				<a class="uk-button white" onclick="">Delete User</a>
+				<a class="uk-button white" href="#confirm-delete-modal" uk-toggle>Delete User</a>
 			</div>
 		</div>
 	</header>
@@ -94,7 +94,18 @@
 			</form>
 
 		</div>
+	</div>
 
+	<div id="confirm-delete-modal" uk-modal>
+	    <div class="uk-modal-dialog uk-modal-body uk-text-center">
+	    	<button class="uk-modal-close-default" type="button" uk-close></button>
+	        <h2 class="uk-modal-title">Are you sure?</h2>
+	        <p>You are about to delete the user {{ $user->first_name }}&nbsp;{{ $user->last_name }}, <span class="uk-text-bold">would you like to continue?</span></p>
+	        <p class="uk-text-center">
+	            <a class="uk-button uk-button-default uk-modal-close">Cancel</a>
+	            <a class="uk-button uk-button-primary" onclick="deleteUser()">Delete</a>
+	        </p>
+	    </div>
 	</div>
 
 
@@ -191,6 +202,7 @@
                     'first_name' : $('input[name="first_name"]').val(),
                     'last_name'     : $('input[name="last_name"]').val(),
                     'email' : $('input[name="email"]').val(),
+                    'role' : $('select[name="role"]').val(),
                     'password' : password,
                     'confirmed_password' : confirmed_password
                 },
@@ -202,6 +214,33 @@
                 error:function(data){
                     console.log('error' + data);
 
+                }
+            });
+
+        }
+
+
+        // Delete the user
+		function deleteUser() {
+
+        	var password = $('input[name="password"]').val();
+        	var confirmed_password = $('input[name="confirmed_password"]').val();
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                url: '/delete-user',
+                data: {
+                	'user_id' : $('input[name="user_id"]').val(),
+                },
+                success:function(data){
+                    console.log('success ');
+                    location.href = '{{ URL::to("/users?status=delete_success") }}'
+                },
+                error:function(data){
+                    console.log('error' + data);
                 }
             });
 

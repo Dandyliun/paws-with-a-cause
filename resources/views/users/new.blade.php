@@ -147,47 +147,47 @@
 		        }
 		    });
 
-
-			// Check for errors and post new user
-			function createNewUser() {
-
-	        	var password = $('input[name="password"]').val();
-	        	var confirmed_password = $('input[name="confirmed_password"]').val();
-
-	        	if(password == confirmed_password && password.length >= 6) {
-
-		            $.ajax({
-		                headers: {
-		                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		                },
-		                type: 'POST',
-		                url: '/create-new-user',
-		                data: {
-		                    'first_name' : $('input[name="first_name"]').val(),
-		                    'last_name'     : $('input[name="last_name"]').val(),
-		                    'email' : $('input[name="email"]').val(),
-		                    'password' : $('input[name="password"]').val(),
-		                    'confirmed_password' : $('input[name="confirmed_password"]').val()
-		                },
-		                success:function(data){
-		                    console.log('success ');
-		                    // UIkit.modal('#success-modal').show();
-		                    // animateCheckmark();
-		                },
-		                error:function(data){
-		                    console.log('error' + data);
-
-		                }
-		            });
-
-			    } else {
-			    	console.log('error');
-			    }
-
-	        }
-
-
 		});
+
+
+		// Check for errors and post new user
+		function createNewUser() {
+
+        	var password = $('input[name="password"]').val();
+        	var confirmed_password = $('input[name="confirmed_password"]').val();
+
+        	if(password == confirmed_password && password.length >= 6) {
+
+	            $.ajax({
+	                headers: {
+	                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	                },
+	                type: 'POST',
+	                url: '/create-new-user',
+	                data: {
+	                    'first_name' : $('input[name="first_name"]').val(),
+	                    'last_name'     : $('input[name="last_name"]').val(),
+	                    'email' : $('input[name="email"]').val(),
+	                    'role' : $('select[name="role"]').val(),
+	                    'password' : $('input[name="password"]').val(),
+	                    'confirmed_password' : $('input[name="confirmed_password"]').val()
+	                },
+	                success:function(data){
+	                    console.log('success ');
+	                    // UIkit.modal('#success-modal').show();
+	                    // animateCheckmark();
+	                },
+	                error:function(data){
+	                    console.log('error' + data);
+
+	                }
+	            });
+
+		    } else {
+		    	console.log('error');
+		    }
+
+        }
 
     </script>
 

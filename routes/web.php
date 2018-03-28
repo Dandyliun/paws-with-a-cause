@@ -56,11 +56,11 @@ Route::get('/home', function () {
 |--------------------------------------------------------------------------
 */
 // New Dog
-Route::get('/dogs/new', 'DogsController@getNewDog');
-Route::post('/post-new-dog', 'DogsController@postNewDog');
+Route::get('/dogs/new', 'DogsController@showNewDog');
+Route::post('/create-new-dog', 'DogsController@createNewDog');
 
 // Get All Dogs
-Route::get('/dogs', 'DogsController@getAllDogs');
+Route::get('/dogs', 'DogsController@showAllDogs');
 
 // Dog Image
 Route::post('/update-dog-image', 'DogsController@updateDogImage');
@@ -68,24 +68,24 @@ Route::post('/update-dog-image', 'DogsController@updateDogImage');
 // Dog Overview
 Route::get('/dogs/overview/{id}', [
     'as' => 'dogs.overview', 
-    'uses' => 'DogsController@dogOverview'
+    'uses' => 'DogsController@showDogOverview'
 ]);
 
 // Dog Profile
 Route::get('/dogs/profile/{id}', [
     'as' => 'dogs.profile', 
-    'uses' => 'DogsController@dogProfile'
+    'uses' => 'DogsController@showDogProfile'
 ]);
-Route::post('/save-profile', 'DogsController@saveDogProfile');
+Route::post('/save-profile', 'DogsController@updateDogProfile');
 
 // Dog Health
 Route::get('/dogs/health/{id}', [
     'as' => 'dogs.health_records', 
-    'uses' => 'DogsController@dogHealth'
+    'uses' => 'DogsController@showDogHealth'
 ]);
 Route::get('/dogs/health/new/{id}', [
     'as' => 'dogs.health_new', 
-    'uses' => 'DogsController@newDogHealth'
+    'uses' => 'DogsController@showNewHealthRecord'
 ]);
 Route::post('/new-health-record', 'DogsController@createHealthRecord');
 
@@ -139,6 +139,9 @@ Route::get('/users/new', function () {
     return view('users.new');
 });
 Route::post('/create-new-user', 'UsersController@create');
+
+// Delete User
+Route::post('/delete-user', 'UsersController@delete');
 
 
 

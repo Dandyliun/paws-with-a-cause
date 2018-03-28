@@ -37,7 +37,7 @@ class DogsController extends Controller
      | Get All Dogs
      |
      |------------------------------------------------------------------------*/
-    public function getAllDogs() {
+    public function showAllDogs() {
         $dogs = Dog::orderBy('created_at', 'desc')->get();
         return view('dogs.view_all', compact('dogs'));
     }
@@ -48,15 +48,15 @@ class DogsController extends Controller
      | New Dogs
      |
      |------------------------------------------------------------------------*/
-     // Get New Dog
-    public function getNewDog() {
+     // Show new dog view
+    public function showNewDog() {
         $breeds = Breed::orderBy('breed', 'asc')->get()->pluck('breed');
         $colors = Color::orderBy('color', 'asc')->get()->pluck('color');
         return view('dogs.new', compact(['breeds', 'colors']));
     }
 
-    // Post New Dog
-    public function postNewDog(Request $request) {
+    // Create new dog
+    public function createNewDog(Request $request) {
         $dog = new Dog;
         $dog->name = $request->name;
         $dog->sex = $request->sex;
@@ -79,19 +79,16 @@ class DogsController extends Controller
     |-------------------------------------------------------------------------*/
     public function updateDogImage(Request $request) {
         $dog = Dog::find($request->dog_id);
-
         // Get image and set the file name var
         $image = $request->file('image');
         $file_name = $request->image->hashName();
         $file_extention = pathinfo($file_name, PATHINFO_EXTENSION);
-        
         // Instantiate the image class
         // ---------------------------------------------------------------------
         // Note: had to increase server php memory limit to 512MB to handle 
         // larger image file processing
         $thumbnail = Image::make($image->getRealPath());
         $image = Image::make($image->getRealPath());
-
         // Resize images
         if($image->height() > $image->width()) {
             $image->resize(350, null, function ($constraint) {
@@ -108,11 +105,9 @@ class DogsController extends Controller
                 $constraint->aspectRatio();
             });
         }
-
         // Crop images
         $image->crop(350, 350);
         $thumbnail->crop(60, 60);
-
         // Save images
         $image->save(
             public_path('storage/profile_images/' . $file_name)
@@ -120,11 +115,9 @@ class DogsController extends Controller
         $thumbnail->save(
             public_path('storage/profile_images/thumbnails/' . $file_name)
         );
-
         // Save image file name to the database
         $dog->profile_image = $file_name;
         $dog->save();
-
         // Return the generate file name
         return $file_name;
     }
@@ -137,31 +130,27 @@ class DogsController extends Controller
     | Dog Overview
     |
     |-------------------------------------------------------------------------*/
-    // Get Dog Overview
-    public function dogOverview($id) {
+    // Show dog overview view
+    public function showDogOverview($id) {
         $dog = Dog::find($id);
-
         // Get 3 most recent health records and total record count
         $healthRecords = HealthRecord::where('dog_id', $id)
             ->orderBy('created_at', 'desc')
             ->take(3)
             ->get();
         $healthRecordsCount = HealthRecord::where('dog_id', $id)->count();
-
         // Get 3 most recent grooming records and total record count
         $groomingRecords = GroomingRecord::where('dog_id', $id)
             ->orderBy('created_at', 'desc')
             ->take(3)
             ->get();
         $groomingRecordsCount = GroomingRecord::where('dog_id', $id)->count();
-
         // Get 3 most recent exercise records and total record count
         $exerciseRecords = ExerciseRecord::where('dog_id', $id)
             ->orderBy('created_at', 'desc')
             ->take(3)
             ->get();
         $exerciseRecordsCount = ExerciseRecord::where('dog_id', $id)->count();
-
         // Return the view and data
         return view('dogs.overview', compact([
             'dog',
@@ -182,20 +171,18 @@ class DogsController extends Controller
     | Dog Profile
     |
     |-------------------------------------------------------------------------*/
-    // Get dog profile
-    public function dogProfile($id) {
+    // Show dog profile view
+    public function showDogProfile($id) {
         $dog = Dog::find($id);
-
         // Get all breeds and colors
         $breeds = Breed::pluck('breed')->all();
         $colors = Color::pluck('color')->all();
-
         // Return the view and data
         return view('dogs.profile', compact(['dog', 'breeds', 'colors']));
     }
 
-    // Post dog profile
-    public function saveDogProfile(Request $request) {
+    // Update dog profile
+    public function updateDogProfile(Request $request) {
         $dog = Dog::find($request->id);
         $dog->name = $request->name;
         $dog->sex = $request->gender;
@@ -214,31 +201,25 @@ class DogsController extends Controller
     | Dog Health
     |
     |-------------------------------------------------------------------------*/
-    // Get all health records for a dog
-    public function dogHealth($id) {
+    // Show all health records for a dog
+    public function showDogHealth($id) {
         $dog = Dog::find($id);
-        
         // Get dog's health records and paginate the results
         $healthRecords = HealthRecord::where('dog_id', $id)
             ->orderBy('created_at', 'desc')
             ->paginate(5);
-
         // Return the view and data
         return view('dogs.health_records', compact(['dog', 'healthRecords']));
     }
-
-    // Get new health record for a dog
-    public function newDogHealth($id) {
+    // Show new health record for a dog
+    public function showNewHealthRecord($id) {
         $dog = Dog::find($id);
-
         // Get all health attributes
         $healthAttributes = HealthAttributes::all();
-
         // Return the view and data
         return view('dogs.health_new', compact(['dog', 'healthAttributes']));
     }
-
-    // Post new health record for a dog
+    // Create new health record
     public function createHealthRecord(Request $request) {
         $healthRecord = new HealthRecord;
         $healthRecord->dog_id = $request->id;

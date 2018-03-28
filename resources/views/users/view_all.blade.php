@@ -58,3 +58,28 @@
 
 @endsection
 
+@section('scripts')
+
+    <script type="text/javascript">
+
+    	$(document).ready(function() {
+
+    		// Display the user delete success notification if set
+			var status = getUrlParameter('status');
+			if(status == 'delete_success') {
+				UIkit.notification({
+					message : '<span uk-icon="check"></span> <span class="notification-text">User Successfully Deleted</span>',
+					timeout : 5000,
+					pos: 'bottom-right'
+				})
+			}
+
+        });
+
+
+    </script>
+
+@endsection
+
+
+

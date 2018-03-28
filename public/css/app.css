@@ -15507,6 +15507,38 @@ ul.uk-pagination li.uk-active a {
   opacity: 0.5;
 }
 
+#confirm-delete-modal .uk-modal-dialog {
+  width: 520px;
+}
+
+.uk-notification-message {
+  background: #FAFAFA;
+  border: 1px solid #e5e5e5;
+  -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.uk-notification-message span.uk-icon {
+  background: #2ecc71;
+  border-radius: 50%;
+  color: #fff;
+  padding: 5px;
+  margin-right: 3px;
+  position: absolute;
+}
+
+.uk-notification-message span.notification-text {
+  padding-top: 4px;
+  display: inline-block;
+  padding-left: 38px;
+}
+
+.uk-notification-message .uk-notification-close {
+  top: 22px;
+}
+
 .uk-table th {
   text-transform: none;
   color: #E85353;
