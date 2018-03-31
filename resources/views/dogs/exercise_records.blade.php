@@ -22,8 +22,7 @@
                 <tr>
                     <th>Activity</th>
                     <th>Date</th>
-                    <th>Normality</th>
-                    <th>Comments</th>
+                    <th>Notes</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -35,13 +34,6 @@
                                 $dt = new DateTime($exerciseRecord->created_at);
                                 echo $dt->format('m-d-Y');
                             @endphp
-                        </td>
-                        <td>
-                            @if($exerciseRecord->normality == 0)
-                                Abnormal
-                            @else
-                                Normal
-                            @endif
                         </td>
                         <td>{{ $exerciseRecord->comments }}</td>
                     </tr>

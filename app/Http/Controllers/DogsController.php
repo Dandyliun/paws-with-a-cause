@@ -282,7 +282,6 @@ class DogsController extends Controller
         $exerciseRecord->dog_id = $request->id;
         $exerciseRecord->exercise_name = $request->exercise_type;
         $exerciseRecord->comments = $request->comments;
-        $exerciseRecord->normality = $request->normality;
         $exerciseRecord->save();
     }
 
