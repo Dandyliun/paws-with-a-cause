@@ -64,7 +64,7 @@
 
         </form>
 
-        <a onclick="test()">test</a>
+      
 
 
         {{-- Start Success Modal --}}
@@ -111,26 +111,38 @@
             var value = $( "select#record_type option:selected" ).val();
             $( "#value" ).removeAttr("disabled");
             $( "#value" ).val("");
-            if(value.toLowerCase() == "height")
+            if(value.toLowerCase() == "bath")
             {
-                $( "#value_type" ).html("Dog Height");
-                $( "#value" ).attr("placeholder", "Enter height in inches");
+                $( "#value_type" ).html("Bath Notes");
+                $( "#value" ).attr("placeholder", "Enter Notes");
             }
-            else if(value.toLowerCase() == "weight")
+            else if(value.toLowerCase() == "nail trim")
             {
-                $( "#value_type" ).html("Dog Weight");
-                $( "#value" ).attr("placeholder", "Enter weight in lbs");
+                $( "#value_type" ).html("Nail Trimming");
+                $( "#value" ).attr("placeholder", "Enter Notes");
             }
-            else if(value.toLowerCase() == "heat start date")
+            else if(value.toLowerCase() == "teeth brushing")
             {
-                $( "#value_type" ).html("Heat Start Date");
-                $( "#value" ).attr("placeholder", "Please select a date");
+                $( "#value_type" ).html("Teeth");
+                $( "#value" ).attr("placeholder", "Enter Notes");
                 dateSelect('#value');
             }
-            else if(value.toLowerCase() == "heat end date")
+            else if(value.toLowerCase() == "brush")
             {
-                $( "#value_type" ).html("Heat End Date");
-                $( "#value" ).attr("placeholder", "Please select a date");
+                $( "#value_type" ).html("Brushing");
+                $( "#value" ).attr("placeholder", "Enter Notes");
+                dateSelect('#value');
+            }
+            else if(value.toLowerCase() == "full groom")
+            {
+                $( "#value_type" ).html("Full Groom");
+                $( "#value" ).attr("placeholder", "Enter Notes");
+                dateSelect('#value');
+            }
+            else if(value.toLowerCase() == "ear cleaning")
+            {
+                $( "#value_type" ).html("Ear Cleaning");
+                $( "#value" ).attr("placeholder", "Enter Notes");
                 dateSelect('#value');
             }
         });
