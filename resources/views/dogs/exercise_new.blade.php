@@ -39,28 +39,28 @@
             </div>
 
             {{-- Normality --}}
-            {{--<div class="uk-width-1-2@m">--}}
-                {{--<label class="uk-form-label">Normality:</label>--}}
-                {{--<select id="normality" class="uk-select" name="normality">--}}
-                    {{--<option selected disabled>Please select an option...</option>--}}
-                    {{--<option>Normal</option>--}}
-                    {{--<option>Abnormal</option>--}}
-                {{--</select>--}}
-            {{--</div>--}}
+            <div class="uk-width-1-2@m">
+                <label class="uk-form-label">Normality:</label>
+                <select id="normality" class="uk-select" name="normality">
+                    <option selected disabled>Please select an option...</option>
+                    <option>Normal</option>
+                    <option>Abnormal</option>
+                </select>
+            </div>
 
              {{--Abnormality Notes--}}
-            {{--<div id="abnormality-section" class="uk-width-1-1@m uk-hidden" >--}}
-                {{--<div class="textarea-label" uk-grid>--}}
-                    {{--<div class="uk-width-expand">--}}
-                        {{--<label class="uk-form-label">Describe the abnormality:</label>--}}
-                    {{--</div>--}}
-                    {{--<div class="uk-width-auto">--}}
-                        {{--<input class="uk-checkbox" type="checkbox" checked>--}}
-                        {{--<label class="uk-form-label checkbox-label-right">Notify the vet staff via email</label>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<textarea id="description" class="uk-textarea" rows="5"></textarea>--}}
-            {{--</div>--}}
+            <div id="abnormality-section" class="uk-width-1-1@m uk-hidden" >
+                <div class="textarea-label" uk-grid>
+                    <div class="uk-width-expand">
+                        <label class="uk-form-label">Describe the abnormality:</label>
+                    </div>
+                    <div class="uk-width-auto">
+                        <input class="uk-checkbox" type="checkbox" checked>
+                        <label class="uk-form-label checkbox-label-right">Notify the vet staff via email</label>
+                    </div>
+                </div>
+                <textarea id="description" class="uk-textarea" rows="5"></textarea>
+            </div>
 
             {{-- Comments --}}
             {{--<div class="uk-width-1-1@m">--}}
@@ -98,16 +98,16 @@
 @section('scripts')
     <script>
         //Set the normality.
-        // $( "select#normality" ).change(function() {
-        //     var value = $( "select#normality option:selected" ).val();
-        //     if(value.toLowerCase() == "abnormal") {
-        //         $( "#abnormality-section" ).removeClass("uk-hidden");
-        //         //$( "#abnormality-section" ).removeAttr("hidden");
-        //     } else {
-        //         $( "#abnormality-section" ).addClass("uk-hidden");
-        //         //$( "#abnormality-section" ).addAttr("hidden");
-        //     }
-        // });
+        $( "select#normality" ).change(function() {
+            var value = $( "select#normality option:selected" ).val();
+            if(value.toLowerCase() == "abnormal") {
+                $( "#abnormality-section" ).removeClass("uk-hidden");
+                //$( "#abnormality-section" ).removeAttr("hidden");
+            } else {
+                $( "#abnormality-section" ).addClass("uk-hidden");
+                //$( "#abnormality-section" ).addAttr("hidden");
+            }
+        });
 
 
     </script>
@@ -116,12 +116,12 @@
 
         function createExerciseRecord() {
 
-            // var normality = $('select[name="normality"]').val();
-            // if(normality.toLowerCase() === "abnormal") {
-            //     normality = 0;
-            // } else {
-            //     normality = 1;
-            // }
+            var normality = $('select[name="normality"]').val();
+            if(normality.toLowerCase() === "abnormal") {
+                normality = 0;
+            } else {
+                normality = 1;
+            }
 
             $.ajax({
                 headers: {
@@ -132,7 +132,8 @@
                 data: {
                     'id'     :  $('input[name="dog_id"]').val(),
                     'exercise_type'   :  $('select[name="record_type"]').val(),
-                    'comments' :  $('input[name="comments"]').val()
+                    'comments' :  $('input[name="comments"]').val(),
+                    'normality' : normality
                 },
                 success:function(data){
                     console.log('success ' + data);
