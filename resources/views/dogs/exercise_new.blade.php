@@ -9,7 +9,7 @@
 
         <div class="uk-padding uk-padding-remove-horizontal uk-padding-remove-bottom uk-flex uk-flex-middle" uk-grid>
             <div class="uk-width-expand">
-                <h1 class="title">Add New Exercise</h1>
+                <h1 class="title">Add New Exercise Record</h1>
             </div>
             <div class="uk-width-auto">
                 <a class="uk-button uk-button-primary" onclick="createExerciseRecord()">Save</a>
@@ -32,10 +32,10 @@
                 </select>
             </div>
 
-            {{-- Comments/Notes --}}
+            {{-- Comments/Notes/Value --}}
             <div class="uk-width-1-2@m">
-                <label id="value_type" class="uk-form-label">Add notes:</label>
-                <input class="uk-input" id="comments" name="comments" />
+                <label id="value_type" class="uk-form-label"> </label>
+                <input class="uk-input" id="value" name="value" disabled />
             </div>
 
             {{-- Normality --}}
@@ -61,14 +61,6 @@
                 </div>
                 <textarea id="description" class="uk-textarea" rows="5"></textarea>
             </div>
-
-            {{-- Comments --}}
-            {{--<div class="uk-width-1-1@m">--}}
-                {{--<div class="uk-width-auto">--}}
-                    {{--<label class="uk-form-label">Comments:</label>--}}
-                {{--</div>--}}
-                {{--<textarea class="uk-textarea" id="comments" name="comments" rows="5"></textarea>--}}
-            {{--</div>--}}
 
         </form>
 
@@ -109,6 +101,57 @@
             }
         });
 
+        $( "select#record_type" ).change(function() {
+            let value = $( "select#record_type option:selected" ).val();
+            $( "#value" ).removeAttr("disabled");
+            $( "#value" ).val("");
+            if(value.toLowerCase() == "run")
+            {
+                $( "#value_type" ).html("Run");
+                $( "#value" ).attr("placeholder", "Enter Notes");
+            }
+            else if(value.toLowerCase() == "walk")
+            {
+                $( "#value_type" ).html("Walk");
+                $( "#value" ).attr("placeholder", "Enter Notes");
+            }
+            else if(value.toLowerCase() == "fetch")
+            {
+                $( "#value_type" ).html("Fetch");
+                $( "#value" ).attr("placeholder", "Enter Notes");
+                dateSelect('#value');
+            }
+            else if(value.toLowerCase() == "outside alone")
+            {
+                $( "#value_type" ).html("Outside Alone");
+                $( "#value" ).attr("placeholder", "Enter Notes");
+                dateSelect('#value');
+            }
+            else if(value.toLowerCase() == "outside pack")
+            {
+                $( "#value_type" ).html("Outside Pack");
+                $( "#value" ).attr("placeholder", "Enter Notes");
+                dateSelect('#value');
+            }
+            else if(value.toLowerCase() == "mental exercise")
+            {
+                $( "#value_type" ).html("Mental Exercise");
+                $( "#value" ).attr("placeholder", "Enter Notes");
+                dateSelect('#value');
+            }
+            else if(value.toLowerCase() == "obedience")
+            {
+                $( "#value_type" ).html("Obedience");
+                $( "#value" ).attr("placeholder", "Enter Notes");
+                dateSelect('#value');
+            }
+            else if(value.toLowerCase() == "other")
+            {
+                $( "#value_type" ).html("Other");
+                $( "#value" ).attr("placeholder", "Enter Notes");
+                dateSelect('#value');
+            }
+        });
 
     </script>
 
