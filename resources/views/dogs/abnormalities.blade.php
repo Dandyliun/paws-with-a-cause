@@ -29,6 +29,7 @@
                     <tbody>
                     @foreach($abnormalitiesRecords as $abnormalitiesRecord)
                         <tr>
+
                             <td> {{ date('M j, Y', strtotime($abnormalitiesRecord->created_at)) }}</td>
                             <td>{{ $abnormalitiesRecord->discovered_at }}</td>
                             <td>

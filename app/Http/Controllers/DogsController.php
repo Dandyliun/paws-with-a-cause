@@ -13,6 +13,7 @@ use App\Models\GroomingAttributes;
 use App\Models\GroomingRecord;
 use App\Models\ExerciseRecord;
 use App\Models\ExerciseAttributes;
+use DB;
 use Response;
 use Storage;
 use Image;
@@ -327,9 +328,23 @@ class DogsController extends Controller
         $abnormalityRecord->comments = $request->value;
         $abnormalityRecord->save();
     }
-    public function dogAbnormalities($id) {
+   /* public function dogAbnormalities($id) {
         $dog = Dog::find($id);
         $abnormalitiesRecords = AbnormalitiesRecords::where('dog_id', $id)->paginate(5);
         return view('dogs.abnormalities', compact(['dog', 'abnormalitiesRecords']));
+    }
+*/
+    public function dogAbnormalities($id) {
+
+        $dog = DB::table('dogs')
+            ->join('dog_exercise_records', 'dogs.id', '=', 'dog_exercise_records.dog_id')
+            ->join('dog_health_records', 'dogs.id', '=', 'dog_health_records.dog_id')
+            ->join('dog_grooming_records', 'dogs.id','=', 'dog_grooming_records.dog_id')
+
+
+            //->select('users.*', 'contacts.phone', 'orders.price')
+
+            ->get();
+        return view('dogs.abnormalities', compact(['dog']));
     }
 }
