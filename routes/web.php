@@ -36,6 +36,12 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
 
+/*
+|--------------------------------------------------------------------------
+| Email
+|--------------------------------------------------------------------------
+*/
+Route::get('sendbasicemail', 'Auth\MailController@basic_mail');
 
 /*
 |--------------------------------------------------------------------------
@@ -116,6 +122,9 @@ Route::get('dogs/abnormalities/{id}', [
     'as' => 'dogs.abnormalities',
     'uses' => 'DogsController@dogAbnormalities'
 ]);
+Route::post('/new-exerciseAbnormality-record', 'DogsController@createExerciseAbnormalityRecord');
+Route::post('/new-healthAbnormality-record', 'DogsController@createHealthAbnormalityRecord');
+Route::post('/new-groomingAbnormality-record', 'DogsController@createGroomingAbnormalityRecord');
 
 
 

@@ -26,10 +26,21 @@
 
                     </tr>
                     </thead>
+                    <tbody>
+                    @foreach($abnormalitiesRecords as $abnormalitiesRecord)
+                        <tr>
+                            <td> {{ date('M j, Y', strtotime($abnormalitiesRecord->created_at)) }}</td>
+                            <td>{{ $abnormalitiesRecord->discovered_at }}</td>
+                            <td>
+                                {{ $abnormalitiesRecord->comments }}
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
                 </table>
             </div>
 
-
+            {{ $abnormalitiesRecords->links() }}
     </div>
 
 @endsection
@@ -38,6 +49,7 @@
     <script>
         // Initialize the date picker
         dateSelect('#dob');
+
     </script>
 
     <script type="text/javascript">

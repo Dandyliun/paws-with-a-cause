@@ -267,7 +267,8 @@ class DogsController extends Controller
     |-------------------------------------------------------------------------*/
     public function dogExercise($id) {
         $dog = Dog::find($id);
-        $exerciseRecords = ExerciseRecord::where('dog_id', $id)->paginate(5);
+        $exerciseRecords = ExerciseRecord::
+        where('dog_id', $id)->paginate(5);
         return view('dogs.exercise_records', compact(['dog', 'exerciseRecords']));
     }
 
@@ -291,11 +292,44 @@ class DogsController extends Controller
     | Dog Abnormalities
     |
     |-------------------------------------------------------------------------*/
-    public function dogAbnormalities($id) {
+
+   /* public function showDogHealth($id) {
         $dog = Dog::find($id);
-        $breeds = Breed::pluck('breed')->all();
-        $colors = Color::pluck('color')->all();
-        return view('dogs.abnormalities', compact(['dog', 'breeds', 'colors']));
+        // Get dog's health records and paginate the results
+        $healthRecords = HealthRecord::where('dog_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+        // Return the view and data
+        return view('dogs.health_records', compact(['dog', 'healthRecords']));
+    }
+   */
+
+    public function createExerciseAbnormalityRecord(Request $request){
+        $abnormalityRecord = new AbnormalityRecord;
+        $abnormalityRecord->dog_id = $request->id;
+        $abnormalityRecord->discovered_at = $request->exercise_type;
+        $abnormalityRecord->comments = $request->comments;
+        $abnormalityRecord->save();
     }
 
+    public function createHealthAbnormalityRecord(Request $request){
+        $abnormalityRecord = new AbnormalityRecord;
+        $abnormalityRecord->dog_id = $request->id;
+        $abnormalityRecord->discovered_at = $request->attribute;
+        $abnormalityRecord->comments = $request->value;
+        $abnormalityRecord->save();
+    }
+
+    public function createGroomingAbnormalityRecord(Request $request){
+        $abnormalityRecord = new AbnormalityRecord;
+        $abnormalityRecord->dog_id = $request->id;
+        $abnormalityRecord->discovered_at = $request->attribute;
+        $abnormalityRecord->comments = $request->value;
+        $abnormalityRecord->save();
+    }
+    public function dogAbnormalities($id) {
+        $dog = Dog::find($id);
+        $abnormalitiesRecords = AbnormalitiesRecords::where('dog_id', $id)->paginate(5);
+        return view('dogs.abnormalities', compact(['dog', 'abnormalitiesRecords']));
+    }
 }

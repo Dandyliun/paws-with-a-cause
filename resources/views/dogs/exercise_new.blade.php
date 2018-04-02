@@ -119,9 +119,22 @@
             var normality = $('select[name="normality"]').val();
             if(normality.toLowerCase() === "abnormal") {
                 normality = 0;
-            } else {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type:'POST',
+                    url:'/new-exerciseAbnormality-record',
+                    data: {
+                        'id'     :  $('input[name="dog_id"]').val(),
+                        'discovered_at'   :  $('select[name="record_type"]').val(),
+                        'comments' :  $('input[name="comments"]').val(),
+
+                    }
+
+                }; else {
                 normality = 1;
-            }
+            }}
 
             $.ajax({
                 headers: {
