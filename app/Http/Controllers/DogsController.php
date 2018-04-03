@@ -283,7 +283,9 @@ class DogsController extends Controller
         $exerciseRecord = new ExerciseRecord;
         $exerciseRecord->dog_id = $request->id;
         $exerciseRecord->exercise_name = $request->exercise_type;
+        $exerciseRecord->value = $request->value;
         $exerciseRecord->comments = $request->comments;
+        $exerciseRecord->normality = $request->normality;
         $exerciseRecord->save();
     }
 
@@ -335,16 +337,33 @@ class DogsController extends Controller
     }
 */
     public function dogAbnormalities($id) {
+        $dog = Dog::find($id);
+//        $exerciseAbnormalities = DB::table('dogs')
+//            ->join('dog_exercise_records', 'dogs.id', '=', 'dog_exercise_records.dog_id')
+//            ->join('dog_health_records', 'dogs.id', '=', 'dog_health_records.dog_id')
+//            ->join('dog_grooming_records', 'dogs.id','=', 'dog_grooming_records.dog_id')
+//            ->where('dogs.id', $id)
+//            ->where('dog_exercise_records.normality', '=', 0)
+//            ->get();
 
-        $dog = DB::table('dogs')
-            ->join('dog_exercise_records', 'dogs.id', '=', 'dog_exercise_records.dog_id')
-            ->join('dog_health_records', 'dogs.id', '=', 'dog_health_records.dog_id')
-            ->join('dog_grooming_records', 'dogs.id','=', 'dog_grooming_records.dog_id')
-
-
-            //->select('users.*', 'contacts.phone', 'orders.price')
-
+        $healthAbnormalities = DB::table('dog_health_records')
+            ->where('dog_health_records.dog_id', $id)
+            ->where('dog_health_records.normality', 0)
+            ->select('created_at', 'attribute', 'value')
             ->get();
-        return view('dogs.abnormalities', compact(['dog']));
+
+        $groomingAbnormalities = DB::table('dog_grooming_records')
+            ->where('dog_grooming_records.dog_id', $id)
+            ->where('dog_grooming_records.normality', 0)
+            ->select('created_at', 'attribute', 'value')
+            ->get();
+
+        $exerciseAbnormalities = DB::table('dog_exercise_records')
+            ->where('dog_exercise_records.dog_id', $id)
+            ->where('dog_exercise_records.normality', 0)
+            ->select('created_at', 'exercise_name', 'value')
+            ->get();
+
+        return view('dogs.abnormalities', compact(['dog', 'exerciseAbnormalities', 'healthAbnormalities', 'groomingAbnormalities']));
     }
 }

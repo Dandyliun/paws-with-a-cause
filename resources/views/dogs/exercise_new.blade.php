@@ -32,7 +32,7 @@
                 </select>
             </div>
 
-            {{-- Comments/Notes/Value --}}
+            {{-- Value --}}
             <div class="uk-width-1-2@m">
                 <label id="value_type" class="uk-form-label"> </label>
                 <input class="uk-input" id="value" name="value" disabled />
@@ -162,22 +162,9 @@
             var normality = $('select[name="normality"]').val();
             if(normality.toLowerCase() === "abnormal") {
                 normality = 0;
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type:'POST',
-                    url:'/new-exerciseAbnormality-record',
-                    data: {
-                        'id'     :  $('input[name="dog_id"]').val(),
-                        'discovered_at'   :  $('select[name="record_type"]').val(),
-                        'comments' :  $('input[name="comments"]').val(),
-
-                    }
-
-                }; else {
+            } else {
                 normality = 1;
-            }}
+            }
 
             $.ajax({
                 headers: {
@@ -188,6 +175,7 @@
                 data: {
                     'id'     :  $('input[name="dog_id"]').val(),
                     'exercise_type'   :  $('select[name="record_type"]').val(),
+                    'value' : $('input[name="value"]').val(),
                     'comments' :  $('input[name="comments"]').val(),
                     'normality' : normality
                 },

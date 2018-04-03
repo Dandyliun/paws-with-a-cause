@@ -27,13 +27,43 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($abnormalitiesRecords as $abnormalitiesRecord)
+                    @foreach($healthAbnormalities as $abnormality)
                         <tr>
 
-                            <td> {{ date('M j, Y', strtotime($abnormalitiesRecord->created_at)) }}</td>
-                            <td>{{ $abnormalitiesRecord->discovered_at }}</td>
                             <td>
-                                {{ $abnormalitiesRecord->comments }}
+                                {{ date('M j, Y', strtotime($abnormality->created_at)) }}
+                            </td>
+                            <td>
+                                {{ $abnormality->attribute }}
+                            </td>
+                            <td>
+                               {{ $abnormality->value }}
+                            </td>
+                        </tr>
+                    @endforeach
+                    @foreach($groomingAbnormalities as $abnormality)
+                        <tr>
+                            <td>
+                                {{ date('M j, Y', strtotime($abnormality->created_at)) }}
+                            </td>
+                            <td>
+                                {{ $abnormality->attribute }}
+                            </td>
+                            <td>
+                                {{ $abnormality->value }}
+                            </td>
+                        </tr>
+                    @endforeach
+                    @foreach($exerciseAbnormalities as $abnormality)
+                        <tr>
+                            <td>
+                                {{ date('M j, Y', strtotime($abnormality->created_at)) }}
+                            </td>
+                            <td>
+                                {{ $abnormality->exercise_name }}
+                            </td>
+                            <td>
+                                {{ $abnormality->value }}
                             </td>
                         </tr>
                     @endforeach
@@ -41,7 +71,9 @@
                 </table>
             </div>
 
-            {{ $abnormalitiesRecords->links() }}
+            {{--{{ $healthAbnormalities->links() }}--}}
+            {{--{{ $groomingsAbnormalities->links() }}--}}
+            {{--{{ $exerciseAbnormalities->links() }}--}}
     </div>
 
 @endsection
