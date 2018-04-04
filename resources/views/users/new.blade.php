@@ -18,22 +18,22 @@
 			<span>User Information</span>
 		</div>
 
-		<div class="uk-width-1-2@m">
+		<div class="uk-width-1-2@m" data-validate required>
 			<label class="uk-form-label">First Name:</label>
-			<input class="uk-input" id="first_name" name="first_name" type="text">
+			<input class="uk-input" id="first_name" name="first_name" type="text" data-error="First name is required">
 		</div>
-		<div class="uk-width-1-2@m">
+		<div class="uk-width-1-2@m" data-validate required>
 			<label class="uk-form-label">Last Name:</label>
-			<input class="uk-input" id="last_name" name="last_name" type="text">
+			<input class="uk-input" id="last_name" name="last_name" type="text" data-error="Last name is required">
 		</div>
 
-		<div class="uk-width-1-2@m">
+		<div class="uk-width-1-2@m" data-validate required>
 			<label class="uk-form-label">Email:</label>
-			<input class="uk-input" id="email" name="email" type="text">
+			<input class="uk-input" id="email" name="email" type="text" data-error="Email is required">
 		</div>
-		<div class="uk-width-1-2@m">
+		<div class="uk-width-1-2@m" data-validate required>
 			<label class="uk-form-label">Role:</label>
-			<select class="uk-select" id="role" name="role">
+			<select class="uk-select" id="role" name="role" data-error="Role is required">
 				<option selected disabled>Please select an option...</option>
 				<option>User</option>
 				<option>Admin</option>
@@ -44,7 +44,7 @@
 			<span>Set Password</span>
 		</div>
 
-		<div class="uk-width-1-2@m">
+		<div class="uk-width-1-2@m" data-validate required>
 			<label class="uk-form-label">New Password:</label>
 			<p class="uk-text-small uk-text-meta label-text">Password must be at least 6 characters</p>
 			<input class="uk-input" id="password" name="password" type="password" autocomplete="off">
@@ -63,14 +63,14 @@
 				</div>
 			</div>
 		</div>
-		<div class="uk-width-1-2@m">
+		<div class="uk-width-1-2@m" data-validate required>
 			<label class="uk-form-label">Confirm New Password:</label>
 			<p class="uk-text-small uk-text-meta label-text">&nbsp;</p>
 			<input class="uk-input" id="confirmed_password" name="confirmed_password" type="password" autocomplete="off">
 		</div>
 
 		<div class="uk-width-1-1 uk-text-right">
-			<a class="uk-button uk-button-primary" onclick="createNewUser()">Create New User</a>
+			<a id="create-user" class="uk-button uk-button-primary" >Create New User</a>
 		</div>
 	</form>
 
@@ -80,97 +80,35 @@
 
 @section('scripts')
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
-    	$(document).ready(function() {
+	$(document).ready(function() {
 
-			// strength validation on keyup-event
-			$("#password").on("keyup", function() {
-				var val = $(this).val(),
-					color = testPasswordStrength(val);
+		// Initalize the password strength indicator
+		passwordStrength('#password');
 
-				styleStrengthLine(color, val);
-			});
+		// Save the dog to the database
+		$('#create-user').click(function() {
 
-			// check password strength
-			function testPasswordStrength(value) {
-				var strongRegex = new RegExp(
-					"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
-				),
-					mediumRegex = new RegExp(
-						"^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})"
-					);
-
-
-				if (strongRegex.test(value)) {
-					$('.strength-text').html(': Strong');
-					return "green";
-				} else if (mediumRegex.test(value)) {
-					$('.strength-text').html(': Medium');
-					return "orange";
-				} else {
-					$('.strength-text').html(': Weak');
-					return "red";
-				}
-			}
-
-			function styleStrengthLine(color, value) {
-				$(".line")
-					.removeClass("bg-red bg-orange bg-green")
-					.addClass("bg-transparent");
-				
-				if (value) {
-					
-					if (color === "red") {
-						$(".line:nth-child(1)")
-							.removeClass("bg-transparent")
-							.addClass("bg-red");
-					} else if (color === "orange") {
-						$(".line:not(:last-of-type)")
-							.removeClass("bg-transparent")
-							.addClass("bg-orange");
-					} else if (color === "green") {
-						$(".line")
-							.removeClass("bg-transparent")
-							.addClass("bg-green");
-					}
-				}
-			}
-
-
-			// Show password checkbox event listener
-			$('input#show_password:checkbox').change(function() {
-		        if ($(this).is(':checked')) {
-		            $('input#password').attr('type', 'text')
-		        } else {
-		        	$('input#password').attr('type', 'password')
-		        }
-		    });
-
-		});
-
-
-		// Check for errors and post new user
-		function createNewUser() {
-
-        	var password = $('input[name="password"]').val();
-        	var confirmed_password = $('input[name="confirmed_password"]').val();
-
-        	if(password == confirmed_password && password.length >= 6) {
+	        var errors = formValidation('div[data-validate] input, div[data-validate] select');
+	        
+	        // Check if errors object is empty
+	        if(Object.keys(errors).length === 0 && errors.constructor === Object) { 
 
 	            $.ajax({
 	                headers: {
 	                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	                },
 	                type: 'POST',
-	                url: '/create-new-user',
+	                url: '/create-user',
 	                data: {
+	                	'user_id' : $('input[name="user_id"]').val(),
 	                    'first_name' : $('input[name="first_name"]').val(),
 	                    'last_name'     : $('input[name="last_name"]').val(),
 	                    'email' : $('input[name="email"]').val(),
 	                    'role' : $('select[name="role"]').val(),
 	                    'password' : $('input[name="password"]').val(),
-	                    'confirmed_password' : $('input[name="confirmed_password"]').val()
+	                    'confirmed_password' : $('input[name="confirm-password"]').val()
 	                },
 	                success:function(data){
 	                    console.log('success ');
@@ -183,13 +121,17 @@
 	                }
 	            });
 
-		    } else {
-		    	console.log('error');
-		    }
+	        } else {
+	            showFormErrors(errors); 
+	        }    
 
-        }
+	    });
 
-    </script>
+
+	});
+
+
+</script>
 
 @endsection
 

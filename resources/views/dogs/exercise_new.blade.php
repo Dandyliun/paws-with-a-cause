@@ -49,7 +49,7 @@
             </div>
 
              {{--Abnormality Notes--}}
-            <div id="abnormality-section" class="uk-width-1-1@m uk-hidden" >
+            <div id="abnormality-section" class="uk-width-1-1@m uk-invisible" >
                 <div class="textarea-label" uk-grid>
                     <div class="uk-width-expand">
                         <label class="uk-form-label">Describe the abnormality:</label>
@@ -59,7 +59,7 @@
                         <label class="uk-form-label checkbox-label-right">Notify the vet staff via email</label>
                     </div>
                 </div>
-                <textarea id="description" class="uk-textarea" rows="5"></textarea>
+                <textarea id="comments" class="uk-textarea" rows="5"></textarea>
             </div>
 
         </form>
@@ -93,11 +93,9 @@
         $( "select#normality" ).change(function() {
             var value = $( "select#normality option:selected" ).val();
             if(value.toLowerCase() == "abnormal") {
-                $( "#abnormality-section" ).removeClass("uk-hidden");
-                //$( "#abnormality-section" ).removeAttr("hidden");
+                $( "#abnormality-section" ).removeClass("uk-invisible");
             } else {
-                $( "#abnormality-section" ).addClass("uk-hidden");
-                //$( "#abnormality-section" ).addAttr("hidden");
+                $( "#abnormality-section" ).addClass("uk-invisible");
             }
         });
 
@@ -163,8 +161,8 @@
                     'id'     :  $('input[name="dog_id"]').val(),
                     'exercise_type'   :  $('select[name="record_type"]').val(),
                     'value' : $('input[name="value"]').val(),
-                    'comments' :  $('input[name="comments"]').val(),
-                    'normality' : normality
+                    'normality' : normality,
+                    'comments' :  $('textarea#comments').val()
                 },
                 success:function(data){
                     console.log('success ' + data);

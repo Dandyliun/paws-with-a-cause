@@ -38,20 +38,20 @@
 					<span>Update Information</span>
 				</div>
 				<input id="user_id" name="user_id" value="{{ $user->id }}" hidden>
-				<div class="uk-width-1-2@m">
-					<label class="uk-form-label">First Name:</label>
-					<input class="uk-input" id="first_name" name="first_name" type="text" value="{{ $user->first_name }}">
+				<div class="uk-width-1-2@m" data-validate required>
+					<label id="first_name" class="uk-form-label">First Name:</label>
+					<input class="uk-input" id="first_name" name="first_name" type="text" value="{{ $user->first_name }}" data-error="First name is required">
 				</div>
-				<div class="uk-width-1-2@m">
-					<label class="uk-form-label">Last Name:</label>
-					<input class="uk-input" id="last_name" name="last_name" type="text" value="{{ $user->last_name }}">
+				<div class="uk-width-1-2@m" data-validate required>
+					<label for="last_name" class="uk-form-label">Last Name:</label>
+					<input class="uk-input" id="last_name" name="last_name" type="text" value="{{ $user->last_name }}" data-error="Last name is required">
 				</div>
 
-				<div class="uk-width-1-1@m">
+				<div class="uk-width-1-1@m" data-validate required>
 					<label class="uk-form-label">Email:</label>
-					<input class="uk-input" id="email" name="email" type="text" value="{{ $user->email }}">
+					<input class="uk-input" id="email" name="email" type="text" value="{{ $user->email }}" data-type="email" data-error="Email is required">
 				</div>
-				<div class="uk-width-1-1@m">
+				<div class="uk-width-1-1@m" data-validate required>
 					<label class="uk-form-label">Role:</label>
 					<select class="uk-select" id="role" name="role">
 						<option selected disabled>Please select an option...</option>
@@ -64,10 +64,10 @@
 					<span>Change Password</span>
 				</div>
 
-				<div class="uk-width-1-1@m">
+				<div class="uk-width-1-1@m" data-validate>
 					<label class="uk-form-label">New Password:</label>
 					<p class="uk-text-small uk-text-meta label-text">Password must be at least 6 characters</p>
-					<input class="uk-input" id="password" name="password" type="password">
+					<input class="uk-input" id="password" name="password" type="password" data-type="password-optional">
 					<div class="password-meta" uk-grid>
 						<div class="uk-width-expand">
 							<p class="uk-text-meta text">Password Strength<span class="strength-text"></span></p>
@@ -83,13 +83,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="uk-width-1-1@m">
+				<div class="uk-width-1-1@m" data-validate>
 					<label class="uk-form-label">Confirm New Password:</label>
-					<input class="uk-input" id="confirm_new_password" name="confirm_new_password" type="password">
+					<input class="uk-input" id="confirm-password" name="confirm-password" type="password" data-type="confirm-password-optional">
 				</div>
 
 				<div class="uk-width-1-1 uk-text-right">
-					<a class="uk-button uk-button-primary" onclick="updateUser()">Update User</a>
+					<a class="uk-button uk-button-primary" id="update-user">Update User</a>
 				</div>
 			</form>
 
@@ -118,106 +118,54 @@
 
     	$(document).ready(function() {
 
-			// strength validation on keyup-event
-			$("#password").on("keyup", function() {
-				var val = $(this).val(),
-					color = testPasswordStrength(val);
+    		// Initalize the password strength indicator
+			passwordStrength('#password');
 
-				styleStrengthLine(color, val);
-			});
+			// Save the dog to the database
+			$('#update-user').click(function() {
 
-			// check password strength
-			function testPasswordStrength(value) {
-				var strongRegex = new RegExp(
-					"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
-				),
-					mediumRegex = new RegExp(
-						"^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})"
-					);
+				console.log('test');
 
+		        var errors = formValidation('div[data-validate] input, div[data-validate] select');
+		        
+		        // Check if errors object is empty
+		        if(Object.keys(errors).length === 0 && errors.constructor === Object) { 
 
-				if (strongRegex.test(value)) {
-					$('.strength-text').html(': Strong');
-					return "green";
-				} else if (mediumRegex.test(value)) {
-					$('.strength-text').html(': Medium');
-					return "orange";
-				} else {
-					$('.strength-text').html(': Weak');
-					return "red";
-				}
-			}
+		            $.ajax({
+		                headers: {
+		                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		                },
+		                type: 'POST',
+		                url: '/update-user',
+		                data: {
+		                	'user_id' : $('input[name="user_id"]').val(),
+		                    'first_name' : $('input[name="first_name"]').val(),
+		                    'last_name'     : $('input[name="last_name"]').val(),
+		                    'email' : $('input[name="email"]').val(),
+		                    'role' : $('select[name="role"]').val(),
+		                    'password' : $('input[name="password"]').val(),
+		                    'confirmed_password' : $('input[name="confirm-password"]').val()
+		                },
+		                success:function(data){
+		                    console.log('success ');
+		                    // UIkit.modal('#success-modal').show();
+		                    // animateCheckmark();
+		                },
+		                error:function(data){
+		                    console.log('error' + data);
 
-			function styleStrengthLine(color, value) {
-				$(".line")
-					.removeClass("bg-red bg-orange bg-green")
-					.addClass("bg-transparent");
-				
-				if (value) {
-					
-					if (color === "red") {
-						$(".line:nth-child(1)")
-							.removeClass("bg-transparent")
-							.addClass("bg-red");
-					} else if (color === "orange") {
-						$(".line:not(:last-of-type)")
-							.removeClass("bg-transparent")
-							.addClass("bg-orange");
-					} else if (color === "green") {
-						$(".line")
-							.removeClass("bg-transparent")
-							.addClass("bg-green");
-					}
-				}
-			}
+		                }
+		            });
 
-
-			// Show password checkbox event listener
-			$('input#show_password:checkbox').change(function() {
-		        if ($(this).is(':checked')) {
-		            $('input#password').attr('type', 'text')
 		        } else {
-		        	$('input#password').attr('type', 'password')
-		        }
+		            showFormErrors(errors); 
+		        }    
+
 		    });
 
 
 		});
 
-
-		// Check for errors and post update user
-		function updateUser() {
-
-        	var password = $('input[name="password"]').val();
-        	var confirmed_password = $('input[name="confirmed_password"]').val();
-
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'POST',
-                url: '/update-user',
-                data: {
-                	'user_id' : $('input[name="user_id"]').val(),
-                    'first_name' : $('input[name="first_name"]').val(),
-                    'last_name'     : $('input[name="last_name"]').val(),
-                    'email' : $('input[name="email"]').val(),
-                    'role' : $('select[name="role"]').val(),
-                    'password' : password,
-                    'confirmed_password' : confirmed_password
-                },
-                success:function(data){
-                    console.log('success ');
-                    // UIkit.modal('#success-modal').show();
-                    // animateCheckmark();
-                },
-                error:function(data){
-                    console.log('error' + data);
-
-                }
-            });
-
-        }
 
 
         // Delete the user

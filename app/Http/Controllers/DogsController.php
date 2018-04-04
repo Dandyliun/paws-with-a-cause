@@ -228,7 +228,22 @@ class DogsController extends Controller
         $healthRecord->performed_by = "test user";
         $healthRecord->normality = $request->normality;
         $healthRecord->value = $request->value;
+        $healthRecord->comments = $request->comments;
         $healthRecord->save();
+
+        if( str_contains( strtolower($request->record_type), 'heat')) {
+
+            $date = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( date("Y-m-d") ) ) . "+1 month" ) );
+
+            $healthRecord = new HealthRecord;
+            $healthRecord->dog_id = $request->id;
+            $healthRecord->attribute = 'Heat End Date';
+            $healthRecord->performed_by = "test user";
+            $healthRecord->normality = 1;
+            $healthRecord->value = 'Automatically generated heat end date';
+            $healthRecord->created_at = $date;
+            $healthRecord->save();
+        }
 
     }
 
@@ -257,6 +272,7 @@ class DogsController extends Controller
        // $groomingRecord->performed_by = "test user";
         $groomingRecord->normality = $request->normality;
         $groomingRecord->value = $request->value;
+        $groomingRecord->comments = $request->comments;
         $groomingRecord->save();
     }
 
@@ -349,21 +365,21 @@ class DogsController extends Controller
         $healthAbnormalities = DB::table('dog_health_records')
             ->where('dog_health_records.dog_id', $id)
             ->where('dog_health_records.normality', 0)
-            ->select('created_at', 'attribute', 'value')
+            ->select('created_at', 'attribute', 'value', 'comments')
             ->orderBy('created_at', 'desc')
             ->get();
 
         $groomingAbnormalities = DB::table('dog_grooming_records')
             ->where('dog_grooming_records.dog_id', $id)
             ->where('dog_grooming_records.normality', 0)
-            ->select('created_at', 'attribute', 'value')
+            ->select('created_at', 'attribute', 'value', 'comments')
             ->orderBy('created_at', 'desc')
             ->get();
 
         $exerciseAbnormalities = DB::table('dog_exercise_records')
             ->where('dog_exercise_records.dog_id', $id)
             ->where('dog_exercise_records.normality', 0)
-            ->select('created_at', 'exercise_name', 'value')
+            ->select('created_at', 'exercise_name', 'value', 'comments')
             ->orderBy('created_at', 'desc')
             ->get();
 

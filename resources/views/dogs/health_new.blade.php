@@ -12,7 +12,7 @@
 				<h1 class="title">Add New Health Record</h1>
 			</div>
 			<div class="uk-width-auto">
-				<a class="uk-button uk-button-primary" onclick="createHealthRecord()">Save</a>
+				<a class="uk-button uk-button-primary" id="create-health-record">Save</a>
 				<a class="uk-button white" href="../{{ $dog->id }}">View All Health Records</a>
 			</div>
 		</div>
@@ -22,7 +22,7 @@
 			<input value="{{ $dog->id }}" id="dog_id" name="dog_id" hidden>
 
 			{{-- Record Type --}}
-			<div class="uk-width-1-2@m">
+			<div class="uk-width-1-2@m" data-validate>
 				<label class="uk-form-label">Select a record type:</label>
 				<select id="record_type" class="uk-select" name="record_type">
 					<option selected disabled>Please select an option...</option>
@@ -45,13 +45,13 @@
 			</div>
 
 			{{-- Value --}}
-			<div id="value_type_input" class="uk-width-1-2@m">
+			<div id="value_type_input" class="uk-width-1-2@m" data-validate>
 				<label id="value_type" class="uk-form-label">&nbsp;</label>
 				<input class="uk-input" id="value" name="value" disabled />
 			</div>
 
 			{{-- Normality --}}
-			<div class="uk-width-1-2@m">
+			<div class="uk-width-1-2@m" data-validate>
 				<label class="uk-form-label">Normality:</label>
 				<select id="normality" class="uk-select" name="normality">
 					<option selected disabled>Please select an option...</option>
@@ -71,12 +71,10 @@
 						<label class="uk-form-label checkbox-label-right">Notify the vet staff via email</label>
 					</div>
 				</div>
-				<textarea id="description" class="uk-textarea" rows="5"></textarea>
+				<textarea id="comments" class="uk-textarea" rows="5"></textarea>
 			</div>
 			
 		</form>
-
-		<a onclick="test()">test</a>
 
 
 		{{-- Start Success Modal --}}
@@ -169,45 +167,92 @@
 
 	<script type="text/javascript">
 
-		function createHealthRecord() {
+		$(document).ready(function() {
 
-			var normality = $('select[name="normality"]').val();
-			if(normality.toLowerCase() == "abnormal") {
-				normality = 0;
-			} else {
-				normality = 1;
-			}
+			// Initalize the password strength indicator
+			passwordStrength('#password');
 
-			var value = $('input[name="value"]').val();
-			var tissueValue = $('select[name="tissue_value"]').val();
-			//This check prevents a null value from being added to the db.
-			if (typeof tissueValue === 'string') {
-			    value = tissueValue;
-			}
+			// Save the dog to the database
+			$('#create-health-record').click(function() {
 
-			$.ajax({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				},
-				type:'POST',
-				url:'/new-health-record',
-				data: {
-					'id'     :  $('input[name="dog_id"]').val(),
-					'record_type'   :  $('select[name="record_type"]').val(),
-					'value' :  value,
-					'normality'  :  normality,
-				},
-				success:function(data){
-					console.log('success ');
-					UIkit.modal('#success-modal').show();
-					animateCheckmark();
-				},
-				error:function(data){
-					console.log('error');
+		        var errors = formValidation('div[data-validate] input, div[data-validate] select');
+		        
+		        // Check if errors object is empty
+		        if(Object.keys(errors).length === 0 && errors.constructor === Object) { 
 
-				}
-			});
-		}
+		            $.ajax({
+						headers: {
+							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						},
+						type:'POST',
+						url:'/new-health-record',
+						data: {
+							'id'     :  $('input[name="dog_id"]').val(),
+							'record_type'   :  $('select[name="record_type"]').val(),
+							'value' :  value,
+							'normality'  :  normality,
+							'comments'  :  $('textarea#comments').val(),
+						},
+						success:function(data){
+							console.log('success ');
+							UIkit.modal('#success-modal').show();
+							animateCheckmark();
+						},
+						error:function(data){
+							console.log('error');
+
+						}
+					});
+
+		        } else {
+		            showFormErrors(errors); 
+		        }    
+
+		    });
+
+
+		});
+
+		// function createHealthRecord() {
+
+		// 	var normality = $('select[name="normality"]').val();
+		// 	if(normality.toLowerCase() == "abnormal") {
+		// 		normality = 0;
+		// 	} else {
+		// 		normality = 1;
+		// 	}
+
+		// 	var value = $('input[name="value"]').val();
+		// 	var tissueValue = $('select[name="tissue_value"]').val();
+		// 	//This check prevents a null value from being added to the db.
+		// 	if (typeof tissueValue === 'string') {
+		// 	    value = tissueValue;
+		// 	}
+
+		// 	$.ajax({
+		// 		headers: {
+		// 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		// 		},
+		// 		type:'POST',
+		// 		url:'/new-health-record',
+		// 		data: {
+		// 			'id'     :  $('input[name="dog_id"]').val(),
+		// 			'record_type'   :  $('select[name="record_type"]').val(),
+		// 			'value' :  value,
+		// 			'normality'  :  normality,
+		// 			'comments'  :  $('textarea#comments').val(),
+		// 		},
+		// 		success:function(data){
+		// 			console.log('success ');
+		// 			UIkit.modal('#success-modal').show();
+		// 			animateCheckmark();
+		// 		},
+		// 		error:function(data){
+		// 			console.log('error');
+
+		// 		}
+		// 	});
+		// }
 
 
 	</script>

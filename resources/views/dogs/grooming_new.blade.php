@@ -59,7 +59,7 @@
                         <label class="uk-form-label checkbox-label-right">Notify the vet staff via email</label>
                     </div>
                 </div>
-                <textarea id="description" class="uk-textarea" rows="5"></textarea>
+                <textarea id="comments" class="uk-textarea" rows="5"></textarea>
             </div>
 
         </form>
@@ -172,6 +172,7 @@
                     'record_type'   :  $('select[name="record_type"]').val(),
                     'value' :  $('input[name="value"]').val(),
                     'normality'  :  normality,
+                    'comments'  :  $('textarea#comments').val(),
                 },
                 success:function(data){
                     console.log('success ');

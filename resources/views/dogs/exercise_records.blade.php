@@ -16,30 +16,51 @@
             </div>
         </div>
 
+        <div class="spacer-small"></div>
+
         <div class="content-wrapper">
-            <table class="uk-table uk-table-responsive uk-table-divider">
-                <thead>
-                <tr>
-                    <th>Activity</th>
-                    <th>Date</th>
-                    <th>Notes</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($exerciseRecords as $exerciseRecord)
-                    <tr>
-                        <td>{{ $exerciseRecord->exercise_name }}</td>
-                        <td>
-                            @php
-                                $dt = new DateTime($exerciseRecord->created_at);
-                                echo $dt->format('m-d-Y');
-                            @endphp
-                        </td>
-                        <td>{{ $exerciseRecord->comments }}</td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+            <div class="uk-card uk-card-default">
+                <div class="uk-card-body uk-padding-remove uk-text-small">
+                    <table class="uk-table uk-table-responsive uk-table-divider padded">
+                        <thead>
+                            <tr>
+                                @if($exerciseRecords->count() != 0)
+                                    <th>Record Type</th>
+                                    <th>Value</th>
+                                    <th>Date</th>
+                                    <th>Normality</th>
+                                    <th>Performed By</th>
+                                @endif
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($exerciseRecords as $exerciseRecord)
+                            <tr>
+                                <td>{{ $exerciseRecord->exercise_name }}</td>
+                                <td>{{ $exerciseRecord->value }}</td>
+                                <td>
+                                    {{ date('M j, Y', strtotime($exerciseRecord->created_at)) }}
+                                </td>
+                                <td>
+                                    @if($exerciseRecord->normality == 0)
+                                        Abnormal
+                                    @else
+                                        Normal
+                                    @endif
+                                </td>
+                                <td>{{ $exerciseRecord->performed_by }}</td>
+                            </tr>
+                            @empty
+                            <tr class="uk-width-1-1 no-border">
+                                <td class="uk-padding-small uk-text-center">
+                                    No Records Found
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         {{ $exerciseRecords->links() }}

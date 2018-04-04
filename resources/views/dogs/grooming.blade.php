@@ -16,38 +16,51 @@
             </div>
         </div>
 
+        <div class="spacer-small"></div>
+
         <div class="content-wrapper">
-            <table class="uk-table uk-table-responsive uk-table-divider">
-                <thead>
-                <tr>
-                    <th>Record Type</th>
-                    <th>Date</th>
-                    <th>Normality</th>
-
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($groomingRecords as $groomingRecord)
-                    <tr>
-                        <td>{{ $groomingRecord->attribute }}</td>
-                        <td>
-                            @php
-                                $dt = new DateTime($groomingRecord->created_at);
-                                echo $dt->format('m-d-Y');
-                            @endphp
-                        </td>
-                        <td>
-                            @if($groomingRecord->normality == 0)
-                                Abnormal
-                            @else
-                                Normal
-                            @endif
-                        </td>
-
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+            <div class="uk-card uk-card-default">
+                <div class="uk-card-body uk-padding-remove uk-text-small">
+                    <table class="uk-table uk-table-responsive uk-table-divider padded">
+                        <thead>
+                            <tr>
+                                @if($groomingRecords->count() != 0)
+                                    <th>Record Type</th>
+                                    <th>Value</th>
+                                    <th>Date</th>
+                                    <th>Normality</th>
+                                    <th>Performed By</th>
+                                @endif
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($groomingRecords as $groomingRecord)
+                            <tr>
+                                <td>{{ $groomingRecord->attribute }}</td>
+                                <td>{{ $groomingRecord->value }}</td>
+                                <td>
+                                    {{ date('M j, Y', strtotime($groomingRecord->created_at)) }}
+                                </td>
+                                <td>
+                                    @if($groomingRecord->normality == 0)
+                                        Abnormal
+                                    @else
+                                        Normal
+                                    @endif
+                                </td>
+                                <td>{{ $groomingRecord->performed_by }}</td>
+                            </tr>
+                            @empty
+                            <tr class="uk-width-1-1 no-border">
+                                <td class="uk-padding-small uk-text-center">
+                                    No Records Found
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         {{ $groomingRecords->links() }}
@@ -57,40 +70,4 @@
 @endsection
 
 @section('scripts')
-    <script>
-        // Initialize the date picker
-        dateSelect('#dob');
-    </script>
-
-    <script type="text/javascript">
-
-        function saveProfile() {
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type:'POST',
-                url:'/save-profile',
-                data: {
-                    'id'     :  $('input[name="dog_id"]').val(),
-                    'name'   :  $('input[name="name"]').val(),
-                    'gender' :  $('select[name="gender"]').val(),
-                    'breed'  :  $('select[name="breed"]').val(),
-                    'color'  :  $('select[name="color"]').val(),
-                    'dob'    :  $('input[name="dob"]').val(),
-                    'food'   :  $('input[name="food"]').val(),
-                    'internal_id'  :  $('input[name="internal_id"]').val(),
-                    'microchip_id'  :  $('input[name="microchip_id"]').val(),
-                },
-                success:function(data){
-                    console.log('success ' + data);
-                },
-                error:function(data){
-                    console.log('error');
-                }
-            });
-        }
-
-
-    </script>
 @endsection

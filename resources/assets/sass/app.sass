@@ -123,6 +123,14 @@ a:hover
 #content
 	min-height: 100%
 
+.spacer
+	height: 45px
+
+.spacer-small
+	height: 20px
+
+
+
 
 
 
@@ -254,6 +262,16 @@ form .label-text
 .individual-dog form.uk-grid
 	padding: 0px 60px
 
+div[required] label:after
+	content: '*'
+	color: $primary-color
+
+div[data-validate] .required-error
+	font-size: 12px
+	color: $primary-color
+
+div[data-validate] label.error
+	color: $primary-color
 
 
 
@@ -468,6 +486,21 @@ ul.uk-pagination li.uk-active a
 .uk-table-hover tbody tr:hover
 	background: $light-color
 
+table .no-border
+	border: none !important
+
+table tr.uk-disabled
+	background: #eee
+	opacity: 0.6
+
+.uk-card table tr th:first-child,
+.uk-card table tr td:first-child
+	padding-left: 25px
+
+.uk-card table tr th:last-child,
+.uk-card table tr td:last-child
+	padding-right: 25px
+
 
 
 
@@ -481,6 +514,9 @@ ul.uk-pagination li.uk-active a
 	box-shadow: none
 	border: $default-border
 	border-radius: 5px
+
+
+#overview .uk-card 
 	padding-bottom: 52px
 
 .uk-card-header,
@@ -528,6 +564,9 @@ ul.uk-pagination li.uk-active a
 
 .uk-card li.no-results
 	border-bottom: $default-border !important
+
+#abnormalities .uk-card
+	padding-bottom: 0px
 
 
 
@@ -675,6 +714,20 @@ div[class*="uk-width"].line-strike
 div[class*="uk-width"].line-strike.first
 	margin-top: 0px
 	margin-bottom: 45px
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

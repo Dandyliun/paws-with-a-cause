@@ -16,37 +16,51 @@
 			</div>
 		</div>
 
+		<div class="spacer-small"></div>
+
 		<div class="content-wrapper">
-			<table class="uk-table uk-table-responsive uk-table-divider">
-			    <thead>
-			        <tr>
-			            <th>Record Type</th>
-			            <th>Value</th>
-			            <th>Date</th>
-			            <th>Normality</th>
-			            <th>Performed By</th>
-			        </tr>
-			    </thead>
-			    <tbody>
-			    	@foreach($healthRecords as $healthRecord)
-			    	<tr>
-			    		<td>{{ $healthRecord->attribute }}</td>
-			    		<td>{{ $healthRecord->value }}</td>
-			            <td>
-							{{ date('M j, Y', strtotime($healthRecord->created_at)) }}
-						</td>
-			            <td>
-			            	@if($healthRecord->normality == 0)
-			            		Abnormal
-			            	@else
-			            		Normal
-			            	@endif
-			            </td>
-			            <td>{{ $healthRecord->performed_by }}</td>
-			        </tr>
-			    	@endforeach
-			    </tbody>
-			</table>
+			<div class="uk-card uk-card-default">
+			    <div class="uk-card-body uk-padding-remove uk-text-small">
+			        <table class="uk-table uk-table-responsive uk-table-divider padded">
+					    <thead>
+					        <tr>
+					        	@if($healthRecords->count() != 0)
+						            <th>Record Type</th>
+						            <th>Value</th>
+						            <th>Date</th>
+						            <th>Normality</th>
+						            <th>Performed By</th>
+						        @endif
+					        </tr>
+					    </thead>
+					    <tbody>
+					    	@forelse($healthRecords as $healthRecord)
+					    	<tr>
+					    		<td>{{ $healthRecord->attribute }}</td>
+					    		<td>{{ $healthRecord->value }}</td>
+					            <td>
+									{{ date('M j, Y', strtotime($healthRecord->created_at)) }}
+								</td>
+					            <td>
+					            	@if($healthRecord->normality == 0)
+					            		Abnormal
+					            	@else
+					            		Normal
+					            	@endif
+					            </td>
+					            <td>{{ $healthRecord->performed_by }}</td>
+					        </tr>
+					        @empty
+				        	<tr class="uk-width-1-1 no-border">
+                                <td class="uk-padding-small uk-text-center">
+                                    No Records Found
+                                </td>
+                            </tr>
+					    	@endforelse
+					    </tbody>
+					</table>
+			    </div>
+			</div>
 		</div>
 
 		{{ $healthRecords->links() }}
