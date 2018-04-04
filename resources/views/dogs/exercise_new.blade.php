@@ -102,54 +102,41 @@
         });
 
         $( "select#record_type" ).change(function() {
-            let value = $( "select#record_type option:selected" ).val();
+            var value = $( "select#record_type option:selected" ).val();
             $( "#value" ).removeAttr("disabled");
             $( "#value" ).val("");
+            $( "#value" ).attr("placeholder", "Enter Notes");
             if(value.toLowerCase() == "run")
             {
                 $( "#value_type" ).html("Run");
-                $( "#value" ).attr("placeholder", "Enter Notes");
             }
             else if(value.toLowerCase() == "walk")
             {
                 $( "#value_type" ).html("Walk");
-                $( "#value" ).attr("placeholder", "Enter Notes");
             }
             else if(value.toLowerCase() == "fetch")
             {
                 $( "#value_type" ).html("Fetch");
-                $( "#value" ).attr("placeholder", "Enter Notes");
-                dateSelect('#value');
             }
             else if(value.toLowerCase() == "outside alone")
             {
                 $( "#value_type" ).html("Outside Alone");
-                $( "#value" ).attr("placeholder", "Enter Notes");
-                dateSelect('#value');
             }
             else if(value.toLowerCase() == "outside pack")
             {
                 $( "#value_type" ).html("Outside Pack");
-                $( "#value" ).attr("placeholder", "Enter Notes");
-                dateSelect('#value');
             }
             else if(value.toLowerCase() == "mental exercise")
             {
                 $( "#value_type" ).html("Mental Exercise");
-                $( "#value" ).attr("placeholder", "Enter Notes");
-                dateSelect('#value');
             }
             else if(value.toLowerCase() == "obedience")
             {
                 $( "#value_type" ).html("Obedience");
-                $( "#value" ).attr("placeholder", "Enter Notes");
-                dateSelect('#value');
             }
             else if(value.toLowerCase() == "other")
             {
                 $( "#value_type" ).html("Other");
-                $( "#value" ).attr("placeholder", "Enter Notes");
-                dateSelect('#value');
             }
         });
 

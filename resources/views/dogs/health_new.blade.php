@@ -32,8 +32,20 @@
 				</select>
 			</div>
 
+			{{-- Tissue Test Value Dropdown --}}
+			<div id="tissue_dropdown" class="uk-width-1-2@m" hidden>
+				<label id="tissue_type" class="uk-form-label">&nbsp;Tissue Test</label>
+				<select id="tissue_value" class="uk-select" name="tissue_value">
+					<option selected disabled>Please select an option...</option>
+						<option>Clear</option>
+						<option>Faint</option>
+						<option>Discharge</option>
+						<option>Red Discharge</option>
+				</select>
+			</div>
+
 			{{-- Value --}}
-			<div class="uk-width-1-2@m">
+			<div id="value_type_input" class="uk-width-1-2@m">
 				<label id="value_type" class="uk-form-label">&nbsp;</label>
 				<input class="uk-input" id="value" name="value" disabled />
 			</div>
@@ -108,8 +120,13 @@
 
   		$( "select#record_type" ).change(function() {
   			var value = $( "select#record_type option:selected" ).val();
+            $("#tissue_dropdown").attr("hidden", true);
+            $('select[name="tissue_value"]').val("");
   			$( "#value" ).removeAttr("disabled");
   			$( "#value" ).val("");
+            $("#value_type_input").attr("hidden", false);
+
+
   			if(value.toLowerCase() == "height")
   			{
   				$( "#value_type" ).html("Dog Height");
@@ -133,6 +150,18 @@
   				$( "#value" ).attr("placeholder", "Please select a date");
   				dateSelect('#value', true);
   			}
+  			else if(value.toLowerCase() == "tissue test")
+			{
+                //$( "#value_type" ).html("Heat End Date");
+                //$( "#value" ).attr("placeholder", "Please select a date");
+                //dropdown('#value', true);
+                $("#tissue_dropdown").removeAttr("hidden");
+				$("#value_type_input").attr("hidden", true);
+			}
+			else {
+                $( "#value_type" ).html("Notes");
+                $( "#value" ).attr("placeholder", "Enter notes...");
+			}
   		});
 
 
@@ -149,6 +178,13 @@
 				normality = 1;
 			}
 
+			var value = $('input[name="value"]').val();
+			var tissueValue = $('select[name="tissue_value"]').val();
+			//This check prevents a null value from being added to the db.
+			if (typeof tissueValue === 'string') {
+			    value = tissueValue;
+			}
+
 			$.ajax({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -158,7 +194,7 @@
 				data: {
 					'id'     :  $('input[name="dog_id"]').val(),
 					'record_type'   :  $('select[name="record_type"]').val(),
-					'value' :  $('input[name="value"]').val(),
+					'value' :  value,
 					'normality'  :  normality,
 				},
 				success:function(data){

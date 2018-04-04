@@ -22,14 +22,13 @@
                     <tr>
                         <th>Date</th>
                         <th>Category</th>
-                        <th>Comments</th>
+                        <th>Notes</th>
 
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($healthAbnormalities as $abnormality)
                         <tr>
-
                             <td>
                                 {{ date('M j, Y', strtotime($abnormality->created_at)) }}
                             </td>

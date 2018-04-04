@@ -350,18 +350,21 @@ class DogsController extends Controller
             ->where('dog_health_records.dog_id', $id)
             ->where('dog_health_records.normality', 0)
             ->select('created_at', 'attribute', 'value')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         $groomingAbnormalities = DB::table('dog_grooming_records')
             ->where('dog_grooming_records.dog_id', $id)
             ->where('dog_grooming_records.normality', 0)
             ->select('created_at', 'attribute', 'value')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         $exerciseAbnormalities = DB::table('dog_exercise_records')
             ->where('dog_exercise_records.dog_id', $id)
             ->where('dog_exercise_records.normality', 0)
             ->select('created_at', 'exercise_name', 'value')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return view('dogs.abnormalities', compact(['dog', 'exerciseAbnormalities', 'healthAbnormalities', 'groomingAbnormalities']));
