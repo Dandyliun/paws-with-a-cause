@@ -19,6 +19,7 @@
             <div class="content-wrapper">
                 <table class="uk-table uk-table-responsive uk-table-divider">
                     <thead>
+                    <tr> <th><h3>Health</h3> </th></tr>
                     <tr>
                         <th>Date</th>
                         <th>Category</th>
@@ -40,6 +41,18 @@
                             </td>
                         </tr>
                     @endforeach
+                    </tbody>
+                </table>
+                <table class="uk-table uk-table-responsive uk-table-divider">
+                    <thead>
+                    <tr>  <tr> <th><h3>Grooming</h3> </th></tr>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Notes</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
                     @foreach($groomingAbnormalities as $abnormality)
                         <tr>
                             <td>
@@ -53,6 +66,18 @@
                             </td>
                         </tr>
                     @endforeach
+                    </tbody>
+                </table>
+                <table class="uk-table uk-table-responsive uk-table-divider">
+                    <thead>
+                    <tr>  <tr> <th><h3>Exercise</h3> </th></tr>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Notes</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
                     @foreach($exerciseAbnormalities as $abnormality)
                         <tr>
                             <td>
