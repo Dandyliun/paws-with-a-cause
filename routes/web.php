@@ -152,6 +152,9 @@ Route::post('/create-new-user', 'UsersController@create');
 // Delete User
 Route::post('/delete-user', 'UsersController@delete');
 
+//Delete Dog
+Route::post('/delete-dog', 'DogsController@delete');
+
 
 
 

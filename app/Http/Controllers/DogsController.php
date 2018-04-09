@@ -71,7 +71,16 @@ class DogsController extends Controller
 
     }
 
+    // Delete Dog
+    protected function delete(Request $request) {
 
+        // Select the Dog from the database
+        $dog = Dog::find($request->dog_id);
+
+        // Delete the selected Dog
+        $dog->delete();
+
+    }
 
 
     /*--------------------------------------------------------------------------
