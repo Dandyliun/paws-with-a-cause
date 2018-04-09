@@ -44,7 +44,7 @@
 					<td class="uk-table-link">
 						<a class="uk-link-reset" href="{{route('dogs.overview', ['id' => $dog->id])}}">{{ $dog->breed }}</a>
 					</td>
-					<td><a class="uk-button" onclick="deleteDog()">Delete Dog</a></td>
+					<td><a class="uk-button" onclick="deleteDog( {{$dog->id}} )">Delete Dog</a></td>
 				</tr>
 			@endforeach
 		</tbody>
@@ -56,8 +56,7 @@
 
 	<script type="text/javascript">
         // Delete the Dog
-        function deleteDog() {
-
+        function deleteDog(id) {
 
             $.ajax({
                 headers: {
@@ -66,14 +65,14 @@
                 type: 'POST',
                 url: '/delete-dog',
                 data: {
-                    'dog_id' : $('input[name="dog_id"]').val(),
+                    'dog_id' : id
                 },
                 success:function(data){
                     console.log('success ');
 
                 },
                 error:function(data){
-                    console.log('error' + data);
+                    console.log('error ' + data);
                 }
             });
 
