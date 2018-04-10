@@ -44,7 +44,7 @@
 					<td class="uk-table-link">
 						<a class="uk-link-reset" href="{{route('dogs.overview', ['id' => $dog->id])}}">{{ $dog->breed }}</a>
 					</td>
-					<td><a class="uk-button" onclick="deleteDog( {{$dog->id}} )">Delete Dog</a></td>
+					<td><a class="uk-button uk-button-primary" onclick="deleteDog( {{$dog->id}} )">Delete Dog</a></td>
 				</tr>
 			@endforeach
 		</tbody>
