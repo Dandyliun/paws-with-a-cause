@@ -169,6 +169,15 @@ Route::post('/update-profile', 'UsersController@update');
 // Breeds
 Route::get('/settings/breeds', 'DogsController@showBreeds');
 Route::post('/create-breed', 'DogsController@createBreed');
+Route::post('/delete-breed', 'DogsController@deleteBreed');
+// Colors
+Route::get('/settings/colors', 'DogsController@showColors');
+Route::post('/create-color', 'DogsController@createColor');
+Route::post('/delete-color', 'DogsController@deleteColor');
+// Vet Emails
+Route::get('/settings/emails', 'DogsController@showVetEmails');
+Route::post('/create-email', 'DogsController@createVetEmails');
+Route::post('/delete-email', 'DogsController@deleteVetEmails');
 
 
 

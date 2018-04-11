@@ -49,14 +49,14 @@
                         </ul>
                     </li>
                     <li class="@if(Request::is('profile')) uk-active uk-open @endif"><a href="{{ URL::to('/profile') }}">Profile</a></li>
-                    <li><a href="#">Email Log</a></li>
+                    {{-- <li><a href="#">Email Log</a></li> --}}
                     @if(Auth::user()->is_admin == 1)
                         <li class="uk-parent @if(Request::is('settings/*') || Request::is('settings')) uk-active uk-open @endif">
                             <a href="#">Settings</a>
                             <ul class="uk-nav-sub">
                                 <li><a href="{{ URL::to('settings/breeds') }}">Manage Breeds</a></li>
-                                <li><a href="{{ URL::to('/users/new') }}">Manage Dog Colors</a></li>
-                                <li><a href="{{ URL::to('/users/new') }}">Email Preferences</a></li>
+                                <li><a href="{{ URL::to('settings/colors') }}">Manage Dog Colors</a></li>
+                                <li><a href="{{ URL::to('settings/emails') }}">Email Preferences</a></li>
                             </ul>
                         </li>
                     @endif
@@ -64,8 +64,17 @@
                 </ul>
 
             </div>
-            <div id="content" class="uk-width-expand uk-padding">
-                @yield('content')
+            <div class="uk-width-expand uk-padding-remove">
+                {{-- <div class="full-page" uk-spinner></div> --}}
+                <div class="uk-overlay-default uk-position-cover element-spinner" style="display: none;">
+                    <div class="uk-position-center">
+                        <div uk-spinner=""></div>
+                    </div>
+                </div>
+                <div id="content" class="uk-padding">    
+                    @yield('content')
+                </div>
+
             </div>
         </div>
 

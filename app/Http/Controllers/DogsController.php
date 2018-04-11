@@ -13,6 +13,7 @@ use App\Models\GroomingAttributes;
 use App\Models\GroomingRecord;
 use App\Models\ExerciseRecord;
 use App\Models\ExerciseAttributes;
+use App\Models\VetEmails;
 use DB;
 use Response;
 use Storage;
@@ -295,12 +296,13 @@ class DogsController extends Controller
             $healthRecord->created_at = $date;
             $healthRecord->save();
         }
-
         if($request->email_abnormality == 1) {
-            Notification::route('mail', 'contact@nexuscreatives.com')
-                ->notify(new AbnormalAlert($request->id, $request->record_type, $request->value, $request->comments));
+            $emails = VetEmails::all();
+            foreach($emails as $email) {
+                Notification::route('mail', $email->email)
+                    ->notify(new AbnormalAlert($request->id, $request->record_type, $request->value, $request->comments));
+            }
         }
-
     }
 
 
@@ -327,14 +329,17 @@ class DogsController extends Controller
         $groomingRecord = new GroomingRecord;
         $groomingRecord->dog_id = $request->id;
         $groomingRecord->attribute = $request->record_type;
-       // $groomingRecord->performed_by = "test user";
+        // $groomingRecord->performed_by = "test user";
         $groomingRecord->normality = $request->normality;
         $groomingRecord->value = $request->value;
         $groomingRecord->comments = $request->comments;
         $groomingRecord->save();
         if($request->email_abnormality == 1) {
-            Notification::route('mail', 'contact@nexuscreatives.com')
-                ->notify(new AbnormalAlert($request->id, $request->record_type, $request->value, $request->comments));
+            $emails = VetEmails::all();
+            foreach($emails as $email) {
+                Notification::route('mail', $email->email)
+                    ->notify(new AbnormalAlert($request->id, $request->record_type, $request->value, $request->comments));
+            }
         }
     }
 
@@ -366,8 +371,11 @@ class DogsController extends Controller
         $exerciseRecord->normality = $request->normality;
         $exerciseRecord->save();
         if($request->email_abnormality == 1) {
-            Notification::route('mail', 'contact@nexuscreatives.com')
-                ->notify(new AbnormalAlert($request->id, $request->exercise_type, $request->value, $request->comments));
+            $emails = VetEmails::all();
+            foreach($emails as $email) {
+                Notification::route('mail', $email->email)
+                    ->notify(new AbnormalAlert($request->id, $request->exercise_type, $request->value, $request->comments));
+            }
         }
     }
 
@@ -434,11 +442,57 @@ class DogsController extends Controller
     |
     |-------------------------------------------------------------------------*/
     public function showBreeds() {
-
         $breeds = Breed::all();
-
         return view('settings.manage_breeds', compact('breeds'));
+    }
+    public function createBreed(Request $request) {
+        $breed = new Breed;
+        $breed->breed = $request->breed;
+        $breed->save();
+        return $breed;
+    }
+    public function deleteBreed(Request $request) {
+        Breed::destroy($request->dog_id);
+    }
 
+
+
+    /*--------------------------------------------------------------------------
+    | Dog Colors
+    |
+    |-------------------------------------------------------------------------*/
+    public function showColors() {
+        $colors = Color::all();
+        return view('settings.manage_colors', compact('colors'));
+    }
+    public function createColor(Request $request) {
+        $color = new Color;
+        $color->color = $request->color;
+        $color->save();
+        return $color;
+    }
+    public function deleteColor(Request $request) {
+        Color::destroy($request->color_id);
+    }
+
+
+
+    /*--------------------------------------------------------------------------
+    | Vet Emails
+    |
+    |-------------------------------------------------------------------------*/
+    public function showVetEmails() {
+        $emails = VetEmails::all();
+        return view('settings.manage_emails', compact('emails'));
+    }
+    public function createVetEmails(Request $request) {
+        $email = new VetEmails;
+        $email->email = $request->email;
+        $email->save();
+        return $email;
+    }
+    public function deleteVetEmails(Request $request) {
+        VetEmails::destroy($request->email_id);
     }
 
 

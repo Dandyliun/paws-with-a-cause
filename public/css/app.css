@@ -15357,17 +15357,17 @@ form .label-text {
   padding: 0px 60px;
 }
 
-div[required] label:after {
+[required] label:after {
   content: '*';
   color: #E85353;
 }
 
-div[data-validate] .required-error {
+[data-validate] .required-error {
   font-size: 12px;
   color: #E85353;
 }
 
-div[data-validate] label.error {
+[data-validate] label.error {
   color: #E85353;
 }
 
@@ -15477,6 +15477,10 @@ ul.uk-pagination li.uk-active {
 
 ul.uk-pagination li.uk-active a {
   color: #fff;
+}
+
+.element-spinner {
+  z-index: 100;
 }
 
 .uk-modal .uk-modal-dialog {
@@ -15669,6 +15673,10 @@ table tr.uk-disabled {
 
 #abnormalities .uk-card {
   padding-bottom: 0px;
+}
+
+.uk-card .uk-card-body.form-padding {
+  padding: 25px;
 }
 
 .checkmark {

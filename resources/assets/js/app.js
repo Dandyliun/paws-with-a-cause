@@ -108,6 +108,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
 
 function showFormErrors(errors) {
     // Loop through errors and display them
+    $('.element-spinner').fadeOut();
     for (var key in errors) {
         $('label[for="'+key+'"]').addClass('error');
         $('input#' + key).addClass('error');
