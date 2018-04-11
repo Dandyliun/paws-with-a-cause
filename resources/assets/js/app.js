@@ -60,81 +60,48 @@ var getUrlParameter = function getUrlParameter(sParam) {
  | @param selector - the element selector(s)
  | @return error object
  |----------------------------------------------------------------------------*/
-function formValidation(selector) {
+ function formValidation(selector) {
     // Hide errors that are already showing, prevents duplicates
     $('.required-error').hide();
-
     var errors = {};
-
-    //console.log( $('*[data-type~="password"]').val() );
-
-
-
     // Get all inputs and selects with the required field
     $( selector ).each(function(index) {
-
         var elementId = $(this).attr('id');
-
-        //console.log($('input[data-type="password"]').val());
-
-        // || $.trim( $(this).val() ) == '' && $(this).data('type') != 'confirm-password' || $('input[data-type="password-optional"]').val() != '' && $.trim( $(this).val() ) == '' && $(this).data('type') == 'confirm-password'
-
         // Validate elements
-        if( $.trim( $(this).val() ) == '' && $(this).data('type') != 'password-optional' && $(this).data('type') != 'confirm-password-optional' ) {
-
+        if( $.trim( $(this).val() ) == '' && $(this).data('type') != 'password-optional' && $(this).data('type') != 'select' && $(this).data('type') != 'confirm-password-optional' ) {
             console.log('length');
             if($(this).data('error')) {
-
-                //$(this).addClass('error');
                 errors[elementId] = $(this).data('error');
-
             } else {
                 errors[elementId] = 'Required';
             }  
-            
-
-        } else if( $(this).data('type') == 'email') {
-            
+        } else if( $(this).data('type') == 'email' ) {
             console.log('email');
             if(! isValidEmailAddress( $(this).val() ) ) {
                 errors[elementId] = 'Invalid email'
-            } 
-            
+            }
+        } else if( $(this).data('type') == 'select' && $(this).val() == null ) {
+            if($(this).data('error')) {
+                errors[elementId] = $(this).data('error');
+            } else {
+                errors[elementId] = 'You must select an option'
+            }
         } else if($(this).data('type') == 'confirm-password-optional' && $('input[data-type="password-optional"]').val() != '' && $('input[data-type="confirm-password-optional"]').val() == '' ) {
-
             errors[elementId] = 'Required';
-
-        } else if( $(this).data('type') == 'password' || $(this).data('type') == 'password-optional' && $(this).val() != '' && $(this).val().length < 6 ) {
-            
+        } else if( $(this).data('type') == 'password' && $(this).val().length < 6 || $(this).data('type') == 'password-optional' && $(this).val() != '' && $(this).val().length < 6 ) {
             console.log('password');
             errors[elementId] = 'Password must be at least 6 characters';
-            
-
-        } else if( $(this).data('type') == 'confirm-password' || $(this).data('type') == 'confirm-password-optional' ) {
-
-            // if(password != confirm_password) {
-            //     errors[elementId] = 'Passwords do not match';
-            // }
-
-            //console.log($('#password').val() + ' ' + $(this).val());
-            console.log('confirm password');
-            
-
+        } else if( $(this).data('type') == 'confirm-password' || $(this).data('type') == 'confirm-password-optional' && $('input[data-type="password-optional"]').val() != '' ) {
             if( $('#password').val() != $(this).val() ) {
                 errors[elementId] = 'Passwords do not match';
             }
-
         }
-
         // Remove the error class if error is corrected
         if( $.trim( $(this).val() ) != '' ) {
             $(this).removeClass('error');
         }
-
     });
-
     return errors;
-
 }
 
 
@@ -146,6 +113,8 @@ function showFormErrors(errors) {
         $('input#' + key).addClass('error');
         $('select#' + key).addClass('error');
         $('input#' + key).after('<span id="' + key + '" class="required-error uk-text-meta">' + errors[key] + '</span>');
+        $('select#' + key).after('<span id="' + key + '" class="required-error uk-text-meta">' + errors[key] + '</span>');
+        $('textarea#' + key).after('<span id="' + key + '" class="required-error uk-text-meta">' + errors[key] + '</span>');
     }
 }
 
@@ -163,7 +132,6 @@ function isValidEmailAddress(emailAddress) {
 
 
 function passwordStrength(selector) {
-
     // strength validation on keyup-event
     $(selector).on("keyup", function() {
         var val = $(this).val(),

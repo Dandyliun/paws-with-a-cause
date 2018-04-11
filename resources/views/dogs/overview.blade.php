@@ -142,7 +142,7 @@
 						    	<li>
 						    		<div class="uk-grid-collapse" uk-grid>
 							    		<div class="uk-width-expand">
-							    			<span class="uk-text-bold">{{ $record->exercise_name }}</span> – {{ $record->comments }}
+							    			<span class="uk-text-bold">{{ $record->exercise_name }}</span> – {{ $record->value }}
 							    		</div>
 							    		<div class="uk-width-auto">
 							    			{{ date('M j, Y', strtotime($record->created_at)) }} at {{ date('g:i A', strtotime($record->created_at)) }}

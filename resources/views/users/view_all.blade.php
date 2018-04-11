@@ -24,7 +24,7 @@
 	    <tbody>
 			@foreach($users as $user)
 
-				<tr @if(Auth::user()->id == $user->id) class="uk-disabled"  @endif uk-tooltip="Hello World">
+				<tr @if(Auth::user()->id == $user->id) class="uk-disabled"  @endif>
 					<td class="uk-table-link">
 						<a class="uk-link-reset" href="{{route('users.edit', ['id' => $user->id])}}">{{ $user->first_name }}&nbsp;{{ $user->last_name }}</a>
 					</td>

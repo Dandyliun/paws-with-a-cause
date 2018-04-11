@@ -21,7 +21,6 @@
 				<li><strong>Dog ID:</strong> {{ $dog->internal_id }}</li>
 				<li><strong>Gender:</strong> {{ $dog->sex }}</li>
 				<li><strong>Breed:</strong> {{ $dog->breed }}</li>
-				<li><strong>Weight:</strong></li>
 			</ul>
 
 		</div>

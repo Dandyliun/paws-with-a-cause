@@ -7,7 +7,9 @@
         <div id="topbar" class="uk-margin-remove uk-flex uk-flex-middle" uk-grid uk-height-match>
             <div class="uk-width-medium logo uk-grid-collapse uk-flex uk-flex-middle" uk-grid>
                 <div class="uk-width-auto">
-                    <img src="{{ URL::to('/storage/logo.png') }}" />
+                    <a href="{{ URL::to('/home') }}">
+                        <img src="{{ URL::to('/storage/logo.png') }}" />
+                    </a>
                 </div>
                 <div class="uk-width-expand">
                     <p class="logo-title">Paws K9 Care</p>
@@ -46,10 +48,17 @@
                             <li><a href="{{ URL::to('/users/new') }}">Add New User</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">Profile</a></li>
+                    <li class="@if(Request::is('profile')) uk-active uk-open @endif"><a href="{{ URL::to('/profile') }}">Profile</a></li>
                     <li><a href="#">Email Log</a></li>
                     @if(Auth::user()->is_admin == 1)
-                        <li><a href="#">Settings</a></li>
+                        <li class="uk-parent @if(Request::is('settings/*') || Request::is('settings')) uk-active uk-open @endif">
+                            <a href="#">Settings</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="{{ URL::to('settings/breeds') }}">Manage Breeds</a></li>
+                                <li><a href="{{ URL::to('/users/new') }}">Manage Dog Colors</a></li>
+                                <li><a href="{{ URL::to('/users/new') }}">Email Preferences</a></li>
+                            </ul>
+                        </li>
                     @endif
                     <li><a href="{{ url('/logout') }}">Logout</a></li>
                 </ul>

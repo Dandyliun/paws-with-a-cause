@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -86,7 +87,9 @@ class UsersController extends Controller
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
-        $user->is_admin = $is_admin;
+        if($request->role != null) {
+            $user->is_admin = $is_admin;
+        }
         if($request->password != null || $request->password != '') {
         	$user->password = bcrypt($request->password);
         }
@@ -108,6 +111,19 @@ class UsersController extends Controller
         $user->delete();
 
     }
+
+
+
+    /*--------------------------------------------------------------------------
+     | User Profile
+     | @param post request
+     |------------------------------------------------------------------------*/
+     public function showProfile() {
+        $user = Auth::user();
+        return view('profile.edit', compact('user'));
+    }
+
+
 
 
 }

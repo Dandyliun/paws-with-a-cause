@@ -38,21 +38,12 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 /*
 |--------------------------------------------------------------------------
-| Email
-|--------------------------------------------------------------------------
-*/
-Route::get('sendbasicemail', 'Auth\MailController@basic_mail');
-
-/*
-|--------------------------------------------------------------------------
 | Dashboard – Home
 |--------------------------------------------------------------------------
 */
 Route::get('/home', function () {
     return view('home');
 });
-
-
 
 
 
@@ -157,6 +148,26 @@ Route::post('/delete-dog', 'DogsController@delete');
 
 
 
+/*
+|--------------------------------------------------------------------------
+| Dashboard – Profile
+|--------------------------------------------------------------------------
+*/
+// Show the user profile
+Route::get('/profile', 'UsersController@showProfile');
+Route::post('/update-profile', 'UsersController@update');
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Dashboard – Settings
+|--------------------------------------------------------------------------
+*/
+// Breeds
+Route::get('/settings/breeds', 'DogsController@showBreeds');
+Route::post('/create-breed', 'DogsController@createBreed');
 
 
 

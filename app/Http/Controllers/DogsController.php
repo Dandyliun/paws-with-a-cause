@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Dog as Dog;
-use App\Models\Breed as Breed;
-use App\Models\Color as Color;
+use App\Models\Dog;
+use App\Models\Breed;
+use App\Models\Color;
 use App\Models\HealthAttributes;
 use App\Models\HealthRecord;
 use App\Models\GroomingAttributes;
@@ -17,6 +17,8 @@ use DB;
 use Response;
 use Storage;
 use Image;
+use App\Notifications\AbnormalAlert;
+use Notification;
 
 
 
@@ -248,10 +250,15 @@ class DogsController extends Controller
             $healthRecord->dog_id = $request->id;
             $healthRecord->attribute = 'Heat End Date';
             $healthRecord->performed_by = "test user";
-            $healthRecord->normality = 1;
+            $healthRecord->normality = $request->normality;
             $healthRecord->value = 'Automatically generated heat end date';
             $healthRecord->created_at = $date;
             $healthRecord->save();
+        }
+
+        if($request->email_abnormality == 1) {
+            Notification::route('mail', 'contact@nexuscreatives.com')
+                ->notify(new AbnormalAlert($request->id, $request->record_type, $request->value, $request->comments));
         }
 
     }
@@ -264,7 +271,9 @@ class DogsController extends Controller
     |-------------------------------------------------------------------------*/
     public function dogGrooming($id) {
         $dog = Dog::find($id);
-        $groomingRecords = GroomingRecord::where('dog_id', $id)->paginate(5);
+        $groomingRecords = GroomingRecord::where('dog_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
         return view('dogs.grooming', compact(['dog', 'groomingRecords']));
     }
 
@@ -283,6 +292,10 @@ class DogsController extends Controller
         $groomingRecord->value = $request->value;
         $groomingRecord->comments = $request->comments;
         $groomingRecord->save();
+        if($request->email_abnormality == 1) {
+            Notification::route('mail', 'contact@nexuscreatives.com')
+                ->notify(new AbnormalAlert($request->id, $request->record_type, $request->value, $request->comments));
+        }
     }
 
 
@@ -312,6 +325,10 @@ class DogsController extends Controller
         $exerciseRecord->comments = $request->comments;
         $exerciseRecord->normality = $request->normality;
         $exerciseRecord->save();
+        if($request->email_abnormality == 1) {
+            Notification::route('mail', 'contact@nexuscreatives.com')
+                ->notify(new AbnormalAlert($request->id, $request->exercise_type, $request->value, $request->comments));
+        }
     }
 
 
@@ -320,18 +337,6 @@ class DogsController extends Controller
     | Dog Abnormalities
     |
     |-------------------------------------------------------------------------*/
-
-   /* public function showDogHealth($id) {
-        $dog = Dog::find($id);
-        // Get dog's health records and paginate the results
-        $healthRecords = HealthRecord::where('dog_id', $id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
-        // Return the view and data
-        return view('dogs.health_records', compact(['dog', 'healthRecords']));
-    }
-   */
-
     public function createExerciseAbnormalityRecord(Request $request){
         $abnormalityRecord = new AbnormalityRecord;
         $abnormalityRecord->dog_id = $request->id;
@@ -355,22 +360,9 @@ class DogsController extends Controller
         $abnormalityRecord->comments = $request->value;
         $abnormalityRecord->save();
     }
-   /* public function dogAbnormalities($id) {
-        $dog = Dog::find($id);
-        $abnormalitiesRecords = AbnormalitiesRecords::where('dog_id', $id)->paginate(5);
-        return view('dogs.abnormalities', compact(['dog', 'abnormalitiesRecords']));
-    }
-*/
+
     public function dogAbnormalities($id) {
         $dog = Dog::find($id);
-//        $exerciseAbnormalities = DB::table('dogs')
-//            ->join('dog_exercise_records', 'dogs.id', '=', 'dog_exercise_records.dog_id')
-//            ->join('dog_health_records', 'dogs.id', '=', 'dog_health_records.dog_id')
-//            ->join('dog_grooming_records', 'dogs.id','=', 'dog_grooming_records.dog_id')
-//            ->where('dogs.id', $id)
-//            ->where('dog_exercise_records.normality', '=', 0)
-//            ->get();
-
         $healthAbnormalities = DB::table('dog_health_records')
             ->where('dog_health_records.dog_id', $id)
             ->where('dog_health_records.normality', 0)
@@ -394,4 +386,21 @@ class DogsController extends Controller
 
         return view('dogs.abnormalities', compact(['dog', 'exerciseAbnormalities', 'healthAbnormalities', 'groomingAbnormalities']));
     }
+
+
+
+    /*--------------------------------------------------------------------------
+    | Dog Breeds
+    |
+    |-------------------------------------------------------------------------*/
+    public function showBreeds() {
+
+        $breeds = Breed::all();
+
+        return view('settings.manage_breeds', compact('breeds'));
+
+    }
+
+
+
 }

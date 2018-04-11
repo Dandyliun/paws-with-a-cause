@@ -24,7 +24,7 @@
 			{{-- Record Type --}}
 			<div class="uk-width-1-2@m" data-validate>
 				<label class="uk-form-label">Select a record type:</label>
-				<select id="record_type" class="uk-select" name="record_type">
+				<select id="record_type" class="uk-select" name="record_type" data-type="select">
 					<option selected disabled>Please select an option...</option>
 					@foreach($healthAttributes as $healthAttribute)
 						<option>{{ $healthAttribute->attribute_name }}</option>
@@ -34,13 +34,13 @@
 
 			{{-- Tissue Test Value Dropdown --}}
 			<div id="tissue_dropdown" class="uk-width-1-2@m" hidden>
-				<label id="tissue_type" class="uk-form-label">&nbsp;Tissue Test</label>
-				<select id="tissue_value" class="uk-select" name="tissue_value">
+				<label id="tissue_type" class="uk-form-label">Tissue Test</label>
+				<select id="tissue_value" class="uk-select" name="tissue_value" data-type="select">
 					<option selected disabled>Please select an option...</option>
-						<option>Clear</option>
-						<option>Faint</option>
-						<option>Discharge</option>
-						<option>Red Discharge</option>
+					<option>Clear</option>
+					<option>Faint</option>
+					<option>Discharge</option>
+					<option>Red Discharge</option>
 				</select>
 			</div>
 
@@ -53,7 +53,7 @@
 			{{-- Normality --}}
 			<div class="uk-width-1-2@m" data-validate>
 				<label class="uk-form-label">Normality:</label>
-				<select id="normality" class="uk-select" name="normality">
+				<select id="normality" class="uk-select" name="normality" data-type="select">
 					<option selected disabled>Please select an option...</option>
 					<option>Normal</option>
 					<option>Abnormal</option>
@@ -67,7 +67,7 @@
 						<label class="uk-form-label">Describe the abnormality:</label>
 					</div>
 					<div class="uk-width-auto">
-						<input class="uk-checkbox" type="checkbox" checked>
+						<input class="uk-checkbox" id="send-note" name="send-note" type="checkbox" checked>
 						<label class="uk-form-label checkbox-label-right">Notify the vet staff via email</label>
 					</div>
 				</div>
@@ -101,84 +101,91 @@
 @endsection
 
 @section('scripts')
-	<script>
-		// Initialize the date picker
-  		dateSelect('#dob');
-
-  		console.log($( "select#normality option:selected" ).val());
-
-  		$( "select#normality" ).change(function() {
-  			var value = $( "select#normality option:selected" ).val();
-  			if(value.toLowerCase() == "abnormal") {
-  				$( "#abnormality-section" ).removeClass("uk-invisible");
-  			} else {
-  				$( "#abnormality-section" ).addClass("uk-invisible");
-  			}
-  		});
-
-  		$( "select#record_type" ).change(function() {
-  			var value = $( "select#record_type option:selected" ).val();
-            $("#tissue_dropdown").attr("hidden", true);
-            $('select[name="tissue_value"]').val("");
-  			$( "#value" ).removeAttr("disabled");
-  			$( "#value" ).val("");
-            $("#value_type_input").attr("hidden", false);
-
-
-  			if(value.toLowerCase() == "height")
-  			{
-  				$( "#value_type" ).html("Dog Height");
-  				$( "#value" ).attr("placeholder", "Enter height in inches");
-  			}
-  			else if(value.toLowerCase() == "weight") 
-  			{
-  				$( "#value_type" ).html("Dog Weight");
-  				dateSelect('#value', false);
-  				$( "#value" ).attr("placeholder", "Enter weight in lbs");
-  			}
-  			else if(value.toLowerCase() == "heat start date") 
-  			{
-  				$( "#value_type" ).html("Heat Start Date");
-  				$( "#value" ).attr("placeholder", "Please select a date");
-  				dateSelect('#value', true);
-  			}
-  			else if(value.toLowerCase() == "heat end date")
-  			{
-  				$( "#value_type" ).html("Heat End Date");
-  				$( "#value" ).attr("placeholder", "Please select a date");
-  				dateSelect('#value', true);
-  			}
-  			else if(value.toLowerCase() == "tissue test")
-			{
-                //$( "#value_type" ).html("Heat End Date");
-                //$( "#value" ).attr("placeholder", "Please select a date");
-                //dropdown('#value', true);
-                $("#tissue_dropdown").removeAttr("hidden");
-				$("#value_type_input").attr("hidden", true);
-			}
-			else {
-                $( "#value_type" ).html("Notes");
-                $( "#value" ).attr("placeholder", "Enter notes...");
-			}
-  		});
-
-
-  	</script>
 
 	<script type="text/javascript">
 
 		$(document).ready(function() {
+			console.log($( "select#normality option:selected" ).val());
 
-			// Initalize the password strength indicator
-			passwordStrength('#password');
+	  		$( "select#normality" ).change(function() {
+	  			var value = $( "select#normality option:selected" ).val();
+	  			if(value.toLowerCase() == "abnormal") {
+	  				$( "#abnormality-section" ).removeClass("uk-invisible");
+	  				$("#abnormality-section").attr("data-validate", true);
+	  			} else {
+	  				$( "#abnormality-section" ).addClass("uk-invisible");
+	  			}
+	  		});
+
+	  		$( "select#record_type" ).change(function() {
+	  			var value = $( "select#record_type option:selected" ).val();
+
+	            $("#tissue_dropdown").attr("hidden", true);
+	            $("#tissue_dropdown").removeAttr("data-validate");
+	            $('select[name="tissue_value"]').val("");
+	  			$( "#value" ).removeAttr("disabled");
+	  			$( "#value" ).val("");
+	            $("#value_type_input").attr("hidden", false);
+	            $("#value_type_input").attr("data-validate", true);
+
+
+	  			if(value.toLowerCase() == "height")
+	  			{
+	  				$( "#value_type" ).html("Dog Height");
+	  				$( "#value" ).attr("placeholder", "Enter height in inches");
+	  			}
+	  			else if(value.toLowerCase() == "weight") 
+	  			{
+	  				$( "#value_type" ).html("Dog Weight");
+	  				dateSelect('#value', false);
+	  				$( "#value" ).attr("placeholder", "Enter weight in lbs");
+	  			}
+	  			else if(value.toLowerCase() == "heat start date") 
+	  			{
+	  				$( "#value_type" ).html("Heat Start Date");
+	  				$( "#value" ).attr("placeholder", "Please select a date");
+	  				dateSelect('#value', true);
+	  			}
+	  			else if(value.toLowerCase() == "tissue test")
+				{
+	                dateSelect('#value', false);
+	                $("#tissue_dropdown").removeAttr("hidden");
+	                $("#value_type_input").removeAttr("data-validate");
+					$("#value_type_input").attr("hidden", true);
+					$("#tissue_dropdown").attr("data-validate", true);
+				}
+				else {
+					//dateSelect('#value', false);
+	                $( "#value_type" ).html("Notes");
+	                $( "#value" ).attr("placeholder", "Enter notes...");
+				}
+	  		});
+
+
 
 			// Save the dog to the database
 			$('#create-health-record').click(function() {
+		        var errors = formValidation('div[data-validate] input, div[data-validate] select, div[data-validate] textarea');
 
-		        var errors = formValidation('div[data-validate] input, div[data-validate] select');
-		        
 		        // Check if errors object is empty
-		        if(Object.keys(errors).length === 0 && errors.constructor === Object) { 
+		        if(Object.keys(errors).length === 0 && errors.constructor === Object) {
+
+		        	email_abnormality = 0;
+		        	var normality = $('select[name="normality"]').val();
+		        	var tissue_value = $('select[name="tissue_value"]').val();
+					if(normality.toLowerCase() == "abnormal") {
+						normality = 0;
+					} else {
+						normality = 1;
+					}
+					if(tissue_value != null) {
+						var value = tissue_value;
+					} else {
+						var value = $('input[name="value"]').val();
+					}
+					if( $('input[name="send-note"]').is(':checked') ) {
+						email_abnormality = 1;
+					}
 
 		            $.ajax({
 						headers: {
@@ -187,73 +194,26 @@
 						type:'POST',
 						url:'/new-health-record',
 						data: {
-							'id'     :  $('input[name="dog_id"]').val(),
-							'record_type'   :  $('select[name="record_type"]').val(),
-							'value' :  value,
+							'id' : $('input[name="dog_id"]').val(),
+							'record_type' : $('select[name="record_type"]').val(),
+							'value' : value,
 							'normality'  :  normality,
 							'comments'  :  $('textarea#comments').val(),
+							'email_abnormality'  :  email_abnormality,
 						},
-						success:function(data){
+						success:function(data) {
 							console.log('success ');
 							UIkit.modal('#success-modal').show();
 							animateCheckmark();
 						},
-						error:function(data){
+						error:function(data) {
 							console.log('error');
-
 						}
 					});
-
 		        } else {
 		            showFormErrors(errors); 
 		        }    
-
 		    });
-
-
 		});
-
-		// function createHealthRecord() {
-
-		// 	var normality = $('select[name="normality"]').val();
-		// 	if(normality.toLowerCase() == "abnormal") {
-		// 		normality = 0;
-		// 	} else {
-		// 		normality = 1;
-		// 	}
-
-		// 	var value = $('input[name="value"]').val();
-		// 	var tissueValue = $('select[name="tissue_value"]').val();
-		// 	//This check prevents a null value from being added to the db.
-		// 	if (typeof tissueValue === 'string') {
-		// 	    value = tissueValue;
-		// 	}
-
-		// 	$.ajax({
-		// 		headers: {
-		// 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		// 		},
-		// 		type:'POST',
-		// 		url:'/new-health-record',
-		// 		data: {
-		// 			'id'     :  $('input[name="dog_id"]').val(),
-		// 			'record_type'   :  $('select[name="record_type"]').val(),
-		// 			'value' :  value,
-		// 			'normality'  :  normality,
-		// 			'comments'  :  $('textarea#comments').val(),
-		// 		},
-		// 		success:function(data){
-		// 			console.log('success ');
-		// 			UIkit.modal('#success-modal').show();
-		// 			animateCheckmark();
-		// 		},
-		// 		error:function(data){
-		// 			console.log('error');
-
-		// 		}
-		// 	});
-		// }
-
-
 	</script>
 @endsection

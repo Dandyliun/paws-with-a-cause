@@ -29,11 +29,11 @@
 
 		<div class="uk-width-1-2@m" data-validate required>
 			<label class="uk-form-label">Email:</label>
-			<input class="uk-input" id="email" name="email" type="text" data-error="Email is required">
+			<input class="uk-input" id="email" name="email" type="text" data-error="Email is required" data-type="email">
 		</div>
 		<div class="uk-width-1-2@m" data-validate required>
 			<label class="uk-form-label">Role:</label>
-			<select class="uk-select" id="role" name="role" data-error="Role is required">
+			<select class="uk-select" id="role" name="role" data-error="Role is required" data-type="select">
 				<option selected disabled>Please select an option...</option>
 				<option>User</option>
 				<option>Admin</option>
@@ -45,9 +45,9 @@
 		</div>
 
 		<div class="uk-width-1-2@m" data-validate required>
-			<label class="uk-form-label">New Password:</label>
+			<label class="uk-form-label">Password:</label>
 			<p class="uk-text-small uk-text-meta label-text">Password must be at least 6 characters</p>
-			<input class="uk-input" id="password" name="password" type="password" autocomplete="off">
+			<input class="uk-input" id="password" name="password" type="password" autocomplete="off" data-type="password">
 			<div class="password-meta" uk-grid>
 				<div class="uk-width-expand">
 					<p class="uk-text-meta text">Password Strength<span class="strength-text"></span></p>
@@ -64,9 +64,9 @@
 			</div>
 		</div>
 		<div class="uk-width-1-2@m" data-validate required>
-			<label class="uk-form-label">Confirm New Password:</label>
+			<label class="uk-form-label">Confirm Password:</label>
 			<p class="uk-text-small uk-text-meta label-text">&nbsp;</p>
-			<input class="uk-input" id="confirmed_password" name="confirmed_password" type="password" autocomplete="off">
+			<input class="uk-input" id="confirmed_password" name="confirmed_password" type="password" autocomplete="off" data-type="confirm-password">
 		</div>
 
 		<div class="uk-width-1-1 uk-text-right">
