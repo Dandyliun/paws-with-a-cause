@@ -43,6 +43,43 @@ class DogsController extends Controller
         return view('dogs.view_all', compact('dogs'));
     }
 
+    /*
+     * Get all the kennels for the dashboard.
+     */
+    public function showKennels() {
+        $cdfKennels = DB::table('kennels')
+            ->where('kennel_type', 'CDF')
+            ->orderBy('kennel_number', 'asc')
+            ->get();
+
+        $cecKennels = DB::table('kennels')
+            ->where('kennel_type', 'CEC')
+            ->orderBy('kennel_number', 'asc')
+            ->get();
+
+        return view('home', compact('cdfKennels', 'cecKennels'));
+    }
+
+    /*
+     * Update the kennel.
+     */
+    public function updateKennels(Request $request) {
+        $cdfKennels = DB::table('kennels')
+            ->where('kennel_type', 'CDF')
+            ->orderBy('kennel_number', 'desc')
+            ->get();
+
+        $cecKennels = DB::table('kennels')
+            ->where('kennel_type', 'CEC')
+            ->orderBy('kennel_number', 'desc')
+            ->get();
+
+        DB::table('kennels')
+            ->where('id',$request->kennel_id)
+            ->update(['dog' => $request->dog, 'start_date' => $request->startDate, 'end_date' => $request->endDate]);
+
+        return view('home', compact('cdfKennels', 'cecKennels'));
+    }
 
 
     /*--------------------------------------------------------------------------
@@ -73,12 +110,15 @@ class DogsController extends Controller
 
     // Delete Dog
     protected function delete(Request $request) {
+        $dogs = Dog::orderBy('created_at', 'desc')->get();
 
         // Select the Dog from the database
         $dog = Dog::find($request->dog_id);
 
         // Delete the selected Dog
         $dog->delete();
+
+        return view('dogs.view_all', compact('dogs'));
 
     }
 

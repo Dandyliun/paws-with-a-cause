@@ -48,10 +48,11 @@ Route::get('sendbasicemail', 'Auth\MailController@basic_mail');
 | Dashboard – Home
 |--------------------------------------------------------------------------
 */
-Route::get('/home', function () {
-    return view('home');
-});
-
+//Route::get('/home', function () {
+//    return view('home');
+//});
+Route::get('/home', 'DogsController@showKennels');
+Route::post('/update-kennel', 'DogsController@updateKennels');
 
 
 

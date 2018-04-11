@@ -50,6 +50,23 @@
 		</tbody>
 	</table>
 
+    {{-- Start Success Modal --}}
+    <div id="success-modal" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body uk-text-center">
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+            <h2 class="uk-modal-title">Success!</h2>
+            @component('components.success_check')
+            @endcomponent
+            <div class="modal-content uk-text-bold">
+                <p>The dog has been removed</p>
+            </div>
+            <p class="uk-text-center">
+                <a class="uk-button uk-button-primary uk-modal-close" href="{{ URL::to('/dogs') }}">Ok</a>
+            </p>
+        </div>
+    </div>
+    {{-- End Success Modal --}}
+
 
 @endsection
 @section('scripts')
@@ -69,7 +86,9 @@
                 },
                 success:function(data){
                     console.log('success ');
-
+                    //location.reload();
+                    UIkit.modal('#success-modal').show();
+                    animateCheckmark();
                 },
                 error:function(data){
                     console.log('error ' + data);
