@@ -41,10 +41,11 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 | Dashboard – Home
 |--------------------------------------------------------------------------
 */
-Route::get('/home', function () {
-    return view('home');
-});
-
+//Route::get('/home', function () {
+//    return view('home');
+//});
+Route::get('/home', 'DogsController@showKennels');
+Route::post('/update-kennel', 'DogsController@updateKennels');
 
 
 /*
