@@ -1,12 +1,23 @@
 @extends('layouts.dashboard')
 
 @section('content')
+
+    <header>
+        <div class="color-section uk-flex uk-flex-middle" uk-grid>
+            <div class="uk-width-expand uk-padding-remove">
+                <h1>Kennels</h1>
+            </div>
+            <div class="uk-width-auto">
+            </div>
+        </div>
+    </header>
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h1 class="title">Kennels</h1>
+                    <h1 class="title"></h1>
                 </div>
                 <div>
                     <form>
@@ -46,7 +57,7 @@
                             </table>
                         </div>
                     </div>
-                        <div class="uk-card uk-card-default">
+                        <div class="uk-card uk-card-default uk-margin-medium-top">
                             <div class="uk-card-header">
                                 <div class="uk-grid-small uk-flex-middle" uk-grid>
                                     <div class="uk-width-expand">
