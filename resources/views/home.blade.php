@@ -49,7 +49,7 @@
                                         <td><input class="uk-input date" name="endDate" value="{{ $kennel->end_date }}"></td>
                                         <td><button class="uk-button uk-button-primary editButton"
                                                     type="button"
-                                                    onclick="updateKennels( {{$kennel->id}} )" >Update</button>
+                                                    onclick="updateKennels( {{$kennel->id}} )" >Save</button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -85,7 +85,7 @@
                                             <td><input class="uk-input date" name="endDate" value="{{ $kennel->end_date }}"></td>
                                             <td><button class="uk-button uk-button-primary editButton"
                                                         type="button"
-                                                        onclick="updateKennels( {{$kennel->id}} )" >Update</button>
+                                                        onclick="updateKennels( {{$kennel->id}} )" >Save</button>
                                             </td>
                                         </tr>
                                     @endforeach
