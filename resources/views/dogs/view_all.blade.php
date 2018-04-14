@@ -86,6 +86,20 @@
 
 	<script type="text/javascript">
 
+        $(document).ready(function() {
+
+            // Display the dog delete success notification if set
+            var status = getUrlParameter('status');
+            if(status == 'delete_success') {
+                UIkit.notification({
+                    message : '<span uk-icon="check"></span> <span class="notification-text">Dog Successfully Deleted</span>',
+                    timeout : 5000,
+                    pos: 'bottom-right'
+                })
+            }
+
+        });
+
 		function confirmDeleteDog(id) {
 		    //Get the success modal for the same dog.
 		    var confirmDeleteModal = $('#' + id);
@@ -94,6 +108,7 @@
 
         // Delete Dog
         function deleteDog(id) {
+
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -104,9 +119,7 @@
                     'dog_id' : id
                 },
                 success:function(data){
-                    console.log('success ');
-                    UIkit.modal('#success-modal').show();
-                    animateCheckmark();
+                    location.href = '{{ URL::to("/dogs?status=delete_success") }}';
                 },
                 error:function(data){
                     console.log('error ' + data);
