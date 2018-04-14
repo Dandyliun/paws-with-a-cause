@@ -44,7 +44,20 @@
 					<td class="uk-table-link">
 						<a class="uk-link-reset" href="{{route('dogs.overview', ['id' => $dog->id])}}">{{ $dog->breed }}</a>
 					</td>
-					<td><a class="uk-button uk-button-primary" onclick="deleteDog( {{$dog->id}} )">Delete Dog</a></td>
+					<td><a class="uk-button uk-button-primary" name="{{$dog->id}}" onclick="confirmDeleteDog({{$dog->id}})" >Delete Dog</a></td>
+					{{--Start Confirm Delete Modal--}}
+					<div id="{{$dog->id}}" uk-modal>
+						<div class="uk-modal-dialog uk-modal-body uk-text-center">
+							<button class="uk-modal-close-default" type="button" uk-close></button>
+							<h2 class="uk-modal-title">Are you sure?</h2>
+							<p>You are about to delete {{$dog->name}}, <span class="uk-text-bold">would you like to continue?</span></p>
+							<p class="uk-text-center">
+								<a class="uk-button uk-button-default uk-modal-close">Cancel</a>
+								<a class="uk-button uk-button-primary" onclick="deleteDog({{$dog->id}})">Delete</a>
+							</p>
+						</div>
+					</div>
+					{{--End Confirm Delete Modal--}}
 				</tr>
 			@endforeach
 		</tbody>
@@ -72,9 +85,15 @@
 @section('scripts')
 
 	<script type="text/javascript">
-        // Delete the Dog
-        function deleteDog(id) {
 
+		function confirmDeleteDog(id) {
+		    //Get the success modal for the same dog.
+		    var confirmDeleteModal = $('#' + id);
+            UIkit.modal(confirmDeleteModal).show();
+		}
+
+        // Delete Dog
+        function deleteDog(id) {
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -86,7 +105,6 @@
                 },
                 success:function(data){
                     console.log('success ');
-                    //location.reload();
                     UIkit.modal('#success-modal').show();
                     animateCheckmark();
                 },
@@ -94,7 +112,6 @@
                     console.log('error ' + data);
                 }
             });
-
         }
 
 

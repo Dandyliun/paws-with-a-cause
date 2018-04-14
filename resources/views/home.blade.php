@@ -57,7 +57,7 @@
                             </table>
                         </div>
                     </div>
-                        <div class="uk-card uk-card-default uk-margin-medium-top">
+                        <div class="uk-card uk-card-default uk-margin-small-top">
                             <div class="uk-card-header">
                                 <div class="uk-grid-small uk-flex-middle" uk-grid>
                                     <div class="uk-width-expand">
